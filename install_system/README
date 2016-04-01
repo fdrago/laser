@@ -1,0 +1,74 @@
+Follow these steps to prepare a Linux machine to develop for the Acqua board:
+
+Run the install script:
+ $ chmod + install.sh
+ $ ./install.sh
+
+Enter the root password when requested.
+The script will install the QT libraries for arm and x86 and QtCreator.
+
+Prepare the sd card, mount it and copy the boot/rootfs with:
+
+ $ tar -xvjpSf boot.tar.bz2 -C /media/$USER/boot 
+ $ sudo tar -xvjpSf rootfs.tar.bz2 -C /media/$USER/rootfs 
+
+Power up the target machine.
+ 
+Go in the qttest directory and compile it:
+ $ cd qttest
+ $ /opt/Qt/Qt-4.8.6/bin/qmake
+ $ make
+  $ ./qttest 
+Hello! from qt
+^C
+
+Enter Ctrl-C to quit 
+Now compile it for arm:
+ $ make distclean
+ $ /opt/Qt/Qt-Arm-4.8.6/bin/qmake
+ $ make
+ $ file qttest
+qttest: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-armhf.so.3, for GNU/Linux 2.6.32, BuildID[sha1]=de46750854cbebbcb8336c1bfc4d5b89b2b2863e, not stripped
+
+Now a the binary generated is for the ARM target.
+Copy it to the target:
+ $ scp qttest root@xxx.xxx.xxx.xxx:/root/
+ $ scp /opt/Qt/arm_qt_libs.tar.gz root@xxx.xxx.xxx.xxx:/root/
+ 
+Login into the target, prepare the executable and run it:
+ $ ssh root@xxx.xxx.xxx.xxx
+ $ tar xzvf arm_qt_libs.tar.gz
+ $ export LD_LIBRARY_PATH=/root/libs
+ $ ./qttest
+ 
+Not yet done:
+QTCreator configuration.
+Run qtcreator.
+
+Go to Options -> Build & Run
+Press again Add(GCC): 
+    Name: GCC arm acqua5
+    Compiler path: /usr/bin/arm-linux-gnueabihf-gcc
+Press Apply
+
+Go to Options -> Qt Version
+Press Add
+Navigate to /opt/Qt/Qt-Arm-4.8.6/bin/qmake
+Press Add again
+Navigate to /opt/Qt/Qt-4.8.6/bin/qmake
+Press Apply
+
+Go to Options -> Kits
+Press Add
+    Name: Qt Desktop 4.8.6 
+    Compiler: Gcc Desktop
+    Qt Version: Qt 4.8.6 
+Press Add again
+    Name: Qt Arm 4.8.6 
+    Compiler: GCC arm acqua5
+    Qt Version: Qt 4.8.6 arm   
+    Debugger: None
+    
+Press Ok
+Open the Qttest project and select all kits
+     
