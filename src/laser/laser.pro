@@ -61,3 +61,8 @@ DISTFILES += \
     qml/laser/Toolbar.qml \
     qml/laser/Utility.qml \
     qml/laser/YesNo.qml
+
+QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/qml $${OUT_PWD})
+QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/data $${OUT_PWD})
+QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/doc $${OUT_PWD})
+QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/images $${OUT_PWD})
