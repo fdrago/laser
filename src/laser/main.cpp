@@ -22,7 +22,10 @@ int main(int argc, char *argv[])
     viewer.setOrientation(QtQuick1ApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/laser/main.qml"));
 
+#ifndef QT_DEBUG
     viewer.showFullScreen();
-
+#else
+    viewer.show();
+#endif
     return app.exec();
 }

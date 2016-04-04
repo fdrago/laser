@@ -16,7 +16,7 @@ UserList::~UserList()
 void UserList::load()
 {
 #ifdef QT_DEBUG
-    QFile file("../data/users.txt");
+    QFile file("data/users.txt");
 #else
     QFile file("/root/laser/data/users.txt");
 #endif
@@ -46,7 +46,7 @@ void UserList::load()
 void UserList::save()
 {
 #ifdef QT_DEBUG
-    QFile file("../data/users.txt");
+    QFile file("/data/users.txt");
 #else
     QFile file("/root/laser/data/users.txt");
 #endif

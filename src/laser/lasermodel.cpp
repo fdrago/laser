@@ -8,7 +8,7 @@
 #include <QtNetwork/QNetworkInterface>
 #include <QFile>
 #include <QProcess>
-#include <unistd.h>
+
 
 
 LaserModel::LaserModel(QObject *parent) :
@@ -57,7 +57,7 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
     connect(_timerAlarm, SIGNAL(timeout()), this, SLOT(showAlarm()));
 
 #ifdef QT_DEBUG
-    mb = modbus_new_rtu("/dev/ttyUSB0",9600,'N',8,1);
+    mb = modbus_new_rtu("/dev/ttyUSB1",9600,'N',8,1);
 #else
     mb = modbus_new_rtu("/dev/ttyS1",9600,'N',8,1);
 #endif
@@ -189,7 +189,7 @@ void LaserModel::shoot()
     _led.setLed(SPIA_MOVIMENTO, OFF);
     _led.setLed(SPIA_LASER, ON);
     emit mbSignalWriteBit(19, 1);
-    sleep(500);
+    QThread::msleep(500);
     emit mbSignalWriteBit(19, 0);
     _led.setLed(SPIA_MOVIMENTO, OFF);
     _led.setLed(SPIA_LASER, OFF);
@@ -314,19 +314,20 @@ void LaserModel::getFilesList()
    qDebug() << "Elenco file - count" << tab_reg[0] << "current" << tab_reg[1];
 
    QString prevTmp="";
-   //corrente = 10;
-   corrente = 1;
+   corrente = 10;
+
    while(corrente > 1) {
        modbus_write_bit(mb,31, 1);
-       sleep(10);
+       QThread::msleep(10);
        modbus_write_bit(mb,31, 0);
-       sleep(10);
+       QThread::msleep(10);
 
        corrente--;
        qDebug() << "rewind" << corrente;
+
    }
 
-   //sleep(500);
+   QThread::msleep(500);
    bool leggoFile = true;
    while(leggoFile) {
        modbus_read_registers(mb,16, 4, tab_reg);
@@ -347,9 +348,9 @@ void LaserModel::getFilesList()
            fileList.append(tmp);
 
            modbus_write_bit(mb,30, 1);
-           sleep(10);
+           QThread::msleep(10);
            modbus_write_bit(mb,30, 0);
-           sleep(10);
+           QThread::msleep(10);
            prevTmp = tmp;
        } else {
            leggoFile = false;
@@ -388,9 +389,9 @@ void LaserModel::getUsbList(int number)
 void LaserModel::deleteFile()
 {
     emit mbSignalWriteBit(29, 1);
-    sleep(1);
+    QThread::msleep(1);
     emit mbSignalWriteBit(29, 0);
-    sleep(1);
+    QThread::msleep(1);
 
     printCurrentFile();
     getFilesList();
@@ -408,15 +409,15 @@ void LaserModel::setFile(int num)
     while(corrente != num) {
         if(corrente > num) {
             modbus_write_bit(mb,31, 1);
-            sleep(10);
+            QThread::msleep(10);
             modbus_write_bit(mb,31, 0);
-            sleep(10);
+            QThread::msleep(10);
         }
         if(corrente < num) {
             modbus_write_bit(mb,30, 1);
-            sleep(10);
+            QThread::msleep(10);
             modbus_write_bit(mb,30, 0);
-            sleep(10);
+            QThread::msleep(10);
         }
         modbus_read_registers(mb,14,2, tab_reg);
         corrente = tab_reg[1];
