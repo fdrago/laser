@@ -88,15 +88,6 @@ Rectangle {
             }
         }
 
-        Image {
-            id: image1
-            x: 350
-            y: 190
-            width: 100
-            height: 100
-            opacity: 0
-            source: "qrc:/qtquickplugin/images/template_image.png"
-        }
 
         Image {
             id: image2
@@ -639,6 +630,7 @@ Rectangle {
                 target: config1
                 x: 50
                 y: 81
+                color: "#00b3b3b3"
             }
 
             PropertyChanges {
@@ -749,6 +741,10 @@ Rectangle {
 
             PropertyChanges {
                 target: mouseArea1
+                anchors.rightMargin: 0
+                anchors.bottomMargin: 0
+                anchors.leftMargin: 0
+                anchors.topMargin: 0
                 visible: false
             }
 
@@ -759,7 +755,18 @@ Rectangle {
 
             PropertyChanges {
                 target: norme1
+                color: "#f5f5f5"
                 visible: false
+            }
+
+            PropertyChanges {
+                target: alarm1
+                color: "#00b3b3b3"
+            }
+
+            PropertyChanges {
+                target: utility1
+                color: "#00b3b3b3"
             }
         },
         State {
@@ -864,7 +871,7 @@ Rectangle {
                 y: 151
                 width: 250
                 height: 178
-                antialiasing: false
+                //antialiasing: false
                 visible: true
                 fillMode: Image.PreserveAspectFit
                 source: "../../../../../../Pictures/path3400.png"
@@ -962,7 +969,7 @@ Rectangle {
                 opacity: 1
                 fillMode: Image.PreserveAspectFit
                 visible: true
-                antialiasing: false
+                //antialiasing: false
             }
 
             PropertyChanges {

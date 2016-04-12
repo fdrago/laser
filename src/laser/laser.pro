@@ -62,7 +62,28 @@ DISTFILES += \
     qml/laser/Utility.qml \
     qml/laser/YesNo.qml
 
-QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/qml $${OUT_PWD})
-QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/data $${OUT_PWD})
-QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/doc $${OUT_PWD})
-QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/images $${OUT_PWD})
+#QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/qml $${OUT_PWD})
+#QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/data $${OUT_PWD})
+#QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/doc $${OUT_PWD})
+#QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/images $${OUT_PWD})
+
+OTHER_FILES += \
+    qml/laser/About.qml \
+    qml/laser/Alarm.qml \
+    qml/laser/Alphabet.qml \
+    qml/laser/Button.qml \
+    qml/laser/Buttonsmall.qml \
+    qml/laser/Config.qml \
+    qml/laser/FileChoose.qml \
+    qml/laser/FileUpload.qml \
+    qml/laser/Gauge.qml \
+    qml/laser/Gauges.qml \
+    qml/laser/Joystick.qml \
+    qml/laser/Login.qml \
+    qml/laser/LoginRFID.qml \
+    qml/laser/main.qml \
+    qml/laser/StartStopTest.qml \
+    qml/laser/StopPauseResume.qml \
+    qml/laser/Toolbar.qml \
+    qml/laser/Utility.qml \
+    qml/laser/YesNo.qml

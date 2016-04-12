@@ -370,6 +370,11 @@ Rectangle {
         radius: 4
         text: "Network"
         icon: "../../images/lan.png"
+        onClicked: {
+            config.state="Network";
+
+        }
+
     }
 
     Text {
@@ -580,7 +585,7 @@ Rectangle {
     }
 
     Button {
-        id: button2
+        id: clockButton
         x: 23
         y: 316
         width: 300
@@ -588,6 +593,11 @@ Rectangle {
         radius: 4
         text: "Clock"
         icon: "../../images/log.png"
+        onClicked: {
+            config.state="Clock";
+
+        }
+
     }
 
     Text {
@@ -1091,7 +1101,7 @@ Rectangle {
             }
         },
         State {
-            name: "Nework"
+            name: "Network"
 
             PropertyChanges {
                 target: button1
@@ -1373,6 +1383,16 @@ Rectangle {
             PropertyChanges {
                 target: button2
                 text: "Clock / Date"
+            }
+
+            PropertyChanges {
+                target: config
+                color: "#00b3b3b3"
+            }
+
+            PropertyChanges {
+                target: rectangle2
+                color: "#80eeeeee"
             }
         },
         State {

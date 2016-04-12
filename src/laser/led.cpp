@@ -10,7 +10,7 @@ Led::Led(QObject *parent) : QObject(parent)
     connect(_serial, SIGNAL(readyRead()), this, SLOT(readData()));
 
 #ifdef QT_DEBUG
-    _serial->setPortName("/dev/ttyUSB1");
+   _serial->setPortName("/dev/ttyUSBx");
 #else
     _serial->setPortName("/dev/ttyS5");
 #endif
@@ -64,7 +64,7 @@ void Led::setLed(QString spia, bool sts)
 
     QByteArray dato= QString(spia+color+"\n").toLatin1();
 
-    qDebug() << __FUNCTION__ << dato;
+//    qDebug() << __FUNCTION__ << dato;
 
     _lastCmd = QString(spia+color+"\n");
 

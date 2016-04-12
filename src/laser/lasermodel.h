@@ -5,6 +5,8 @@
 #include <QObject>
 #include <QTimer>
 #include <QList>
+#include <QThread>
+#include <QDebug>
 
 #include "led.h"
 #include "errorlist.h"
@@ -14,10 +16,18 @@
 #include "user.h"
 
 
-class LaserModel : public QObject
+class LaserModel : public /*QObject*/ QThread
 {
     Q_OBJECT
+
+protected:
+
+    virtual void run();
+
 public:
+
+
+
     explicit LaserModel(QObject *parent = 0);
     void setViewer(QtQuick1ApplicationViewer * viewer);
 

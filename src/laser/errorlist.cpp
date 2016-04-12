@@ -9,7 +9,7 @@
 ErrorList::ErrorList(QObject *parent) : QObject(parent)
 {
 #ifdef QT_DEBUG
-    QFile file("../data/it/error.txt");
+    QFile file("data/it/error.txt");
 #else
     QFile file("/root/laser/data/it/error.txt");
 #endif
@@ -48,24 +48,27 @@ ErrorList::ErrorList(QObject *parent) : QObject(parent)
     _serial = new QextSerialPort("COM1");
     connect(_serial, SIGNAL(readyRead()), this, SLOT(readData()));
 
-    _pressure_required = 1;
-    QByteArray dato= QString("P%1\n").arg(_pressure_required).toLatin1();
-    _serial->write(dato);
-    emit setPres(_pressure_required * 0.7);
-
-
 #ifdef QT_DEBUG
-    _serial->setPortName("/dev/ttyUSB1");
+    _serial->setPortName("/dev/ttyUSB0");
 #else
     _serial->setPortName("/dev/ttyS2");
 #endif
-
     if (_serial->open(QIODevice::ReadWrite)) {
         qDebug() << "Serial io ok";
     } else {
         qDebug() << "Serial io FAIL" << _serial->lastError() <<  _serial->errorString();;
     }
     _serial->setBaudRate(BAUD19200); //19200
+
+    _pressure_required = 1;
+    QByteArray dato= QString("P%1\n").arg(_pressure_required).toLatin1();
+    _serial->write(dato);
+    emit setPres(_pressure_required * 0.7);
+
+
+
+
+
 
     _req = false;
 }
