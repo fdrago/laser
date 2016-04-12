@@ -1070,13 +1070,13 @@ Rectangle {
         }
     ]
 
-    transitions: [
+    /*transitions: [
         Transition {
             from: "*"; to: "*"
             NumberAnimation { properties: "y"; easing.type: Easing.InOutQuad; duration: 500 }
             NumberAnimation { properties: "x"; easing.type: Easing.InOutQuad; duration: 500 }
         }
 
-    ]
+    ]*/
 
 }
