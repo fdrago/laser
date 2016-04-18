@@ -35,7 +35,7 @@ Rectangle {
             y: 62
             width: 53
             height: 246
-            rotation: -112.5+setPointP*225/5
+            rotation: if(setPointP<=5 && setPointP>0){-112.5+setPointP*225/5} else if (setPointP<0){-112.5} else {112.5}
             fillMode: Image.PreserveAspectFit
             source: "../../images/lancetta.png"
         }

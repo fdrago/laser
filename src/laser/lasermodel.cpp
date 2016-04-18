@@ -37,8 +37,8 @@ LaserModel::LaserModel(QObject *parent) :
     connect(_error, SIGNAL(setRealPres(double)), this, SLOT(setRealPres(double)));
     connect(_error, SIGNAL(alarm(QString)), this, SLOT(alarm(QString)));
     connect(_error, SIGNAL(noalarm(QString)), this, SLOT(noalarm(QString)));
-    connect(_error, SIGNAL(setLed(QString)), this, SLOT(setLed(QString)));
-    connect(_error, SIGNAL(resetLed(QString)), this, SLOT(resetLed(QString)));
+//    connect(_error, SIGNAL(setLed(QString)), this, SLOT(setLed(QString)));
+//    connect(_error, SIGNAL(resetLed(QString)), this, SLOT(resetLed(QString)));
 
 
 }
@@ -63,17 +63,19 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
     mb = modbus_new_rtu("/dev/ttyS1",9600,'N',8,1);
 #endif
     if(mb==NULL) {
-        qDebug("Errore modbus");
+        qDebug() << "Errore modbus";
         return;
     }
+
+    qDebug() << "mb = " << mb;
 
     modbus_connect(mb);
     modbus_set_slave(mb, 1);
 
-    _led.setLed("TZ", OFF);
+/*    _led.setLed("TZ", OFF);
 
     _led.setLed(SPIA_ON, ON);
-    _led.setLed(SPIA_ON, ON);
+    _led.setLed(SPIA_ON, ON);*/
 
     QStringList fileList;
     _viewer->rootContext()->setContextProperty("usbFileModel", QVariant::fromValue(fileList));
@@ -204,13 +206,13 @@ void LaserModel::resume()
 void LaserModel::shoot()
 {
     qDebug() << __FUNCTION__;
-    _led.setLed(SPIA_MOVIMENTO, OFF);
-    _led.setLed(SPIA_LASER, ON);
+//    _led.setLed(SPIA_MOVIMENTO, OFF);
+//    _led.setLed(SPIA_LASER, ON);
     emit mbSignalWriteBit(19, 1);
     QThread::msleep(500);
     emit mbSignalWriteBit(19, 0);
-    _led.setLed(SPIA_MOVIMENTO, OFF);
-    _led.setLed(SPIA_LASER, OFF);
+//    _led.setLed(SPIA_MOVIMENTO, OFF);
+//    _led.setLed(SPIA_LASER, OFF);
 }
 
 void LaserModel::test()
@@ -231,10 +233,10 @@ void LaserModel::setFan(int sts)
     _viewer->rootContext()->setContextProperty("uFanSts", sts);
     sts = (sts) ? 0: 1;
     _error->setFan(sts);
-    if(sts==1)
-        _led.setLed(SPIA_VENTOLE, ON);
-    else
-        _led.setLed(SPIA_VENTOLE, OFF);
+//    if(sts==1)
+//        _led.setLed(SPIA_VENTOLE, ON);
+//    else
+//        _led.setLed(SPIA_VENTOLE, OFF);
 }
 
 void LaserModel::setLight(int sts)
@@ -278,9 +280,9 @@ void LaserModel::login(QString codice)
 //        qDebug() << _currentUser->level();
         _viewer->rootContext()->setContextProperty("userlevel", _currentUser->level());
         if(_currentUser->level() == 10) {
-            _led.setLed(SPIA_ROOT, ON);
+//            _led.setLed(SPIA_ROOT, ON);
         } else {
-            _led.setLed(SPIA_ROOT, OFF);
+//            _led.setLed(SPIA_ROOT, OFF);
         }
 
         emit stateChanged("File");
@@ -454,25 +456,25 @@ void LaserModel::setPwd(int idx, QString pwd)
 
 void LaserModel::setClearWater()
 {
-    _led.setLed(SPIA_ACQUA, OFF);
+//    _led.setLed(SPIA_ACQUA, OFF);
 }
 
 void LaserModel::setClearGuide()
 {
-    _led.setLed(SPIA_PULIRE_GUIDE, OFF);
+//    _led.setLed(SPIA_PULIRE_GUIDE, OFF);
 }
 
 void LaserModel::setClearFilter()
 {
-    _led.setLed(SPIA_FILTRO, OFF);
+//    _led.setLed(SPIA_FILTRO, OFF);
 }
 
 void LaserModel::setAlarmOff(int sts)
 {
-    if(sts)
-        _led.setLed(SPIA_SICUREZZE_OFF, ON);
-    else
-        _led.setLed(SPIA_SICUREZZE_OFF, OFF);
+//    if(sts)
+//        _led.setLed(SPIA_SICUREZZE_OFF, ON);
+//    else
+//        _led.setLed(SPIA_SICUREZZE_OFF, OFF);
     _alarmUnsafe = sts;
 }
 
@@ -562,9 +564,9 @@ void LaserModel::doComplete()
                     guiState("FileUpload");
                 }
                 if(_lamp_usb) {
-                    _led.setLed(LAMP_USB, ON);
+//                    _led.setLed(LAMP_USB, ON);
                 } else {
-                    _led.setLed(SPIA_USB, ON);
+//                    _led.setLed(SPIA_USB, ON);
                 }
             } else {
                 _countUsb++;
@@ -576,7 +578,7 @@ void LaserModel::doComplete()
                 // gui in file
                 guiState("File");
             }
-            _led.setLed(SPIA_USB, OFF);
+//            _led.setLed(SPIA_USB, OFF);
             _lamp_usb = false;
             _countUsb=0;
         }
@@ -587,12 +589,12 @@ void LaserModel::doComplete()
         if((tab_reg[0] & 0x80) == 0x80) {
             // lampeggio
             if(lamp_usb) {
-                _led.setLed(LAMP_USB, ON);
+//                _led.setLed(LAMP_USB, ON);
                 lamp_usb = false;
             }
         } else if((tab_reg[0] & 0x80) == 0x00) {
             // usb da togliere
-            _led.setLed(SPIA_USB, ON);
+//            _led.setLed(SPIA_USB, ON);
 
         }
     */
@@ -690,7 +692,7 @@ void LaserModel::setRealPres(double p)
 void LaserModel::alarm(QString led)
 {
     qDebug() << "Alarm";
-    _led.setLed(led,ON);
+//    _led.setLed(led,ON);
 
     showAlarm();
 
@@ -700,18 +702,18 @@ void LaserModel::alarm(QString led)
 void LaserModel::noalarm(QString led)
 {
     qDebug() << "no" << _status;
-    _led.setLed(led,OFF);
+//    _led.setLed(led,OFF);
     showAlarm();
 }
 
 void LaserModel::setLed(QString led)
 {
-    _led.setLed(led,ON);
+//    _led.setLed(led,ON);
 }
 
 void LaserModel::resetLed(QString led)
 {
-    _led.setLed(led,OFF);
+//    _led.setLed(led,OFF);
 }
 
 void LaserModel::ackAlarm()
@@ -740,15 +742,15 @@ void LaserModel::updateLan()
 
     }
 
-    if(!ipEthAddr.isEmpty())
-        _led.setLed(SPIA_ETHERNET, ON);
-    else
-        _led.setLed(SPIA_ETHERNET, OFF);
+//    if(!ipEthAddr.isEmpty())
+//        _led.setLed(SPIA_ETHERNET, ON);
+//    else
+//        _led.setLed(SPIA_ETHERNET, OFF);
 
-    if(!ipWlanAddr.isEmpty())
-        _led.setLed(SPIA_WIFI, ON);
-    else
-        _led.setLed(SPIA_WIFI, OFF);
+//    if(!ipWlanAddr.isEmpty())
+//        _led.setLed(SPIA_WIFI, ON);
+//    else
+//        _led.setLed(SPIA_WIFI, OFF);
 
     _viewer->rootContext()->setContextProperty("ipAddress", "Eth:" + ipEthAddr + "\n Wlan:" + ipWlanAddr);
 

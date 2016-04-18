@@ -87,3 +87,6 @@ OTHER_FILES += \
     qml/laser/Toolbar.qml \
     qml/laser/Utility.qml \
     qml/laser/YesNo.qml
+
+QT += declarative
+QT += qml quick

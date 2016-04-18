@@ -4,7 +4,7 @@
 #include <QThread>
 #include <QDebug>
 
-Led::Led(QObject *parent) : QObject(parent)
+/*Led::Led(QObject *parent) : QObject(parent)
 {
     _serial = new QextSerialPort("COM1");
     connect(_serial, SIGNAL(readyRead()), this, SLOT(readData()));
@@ -82,7 +82,7 @@ void Led::readData()
     int numBytes = _serial->bytesAvailable();
     _serial->readAll();
 
-/*
+
     if(numBytes==0) return;
 
     bool loop = true;
@@ -107,7 +107,7 @@ void Led::readData()
             cmdComplete=false;
         }
     }
-*/
 
-}
+
+}*/
 

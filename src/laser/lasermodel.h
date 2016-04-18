@@ -109,7 +109,7 @@ private:
     QString _status;
     QString _prevStatus;
 
-    Led _led;
+//    Led _led;
     ErrorList *_error;
     bool _lamp_usb;
     bool _menu_usb;

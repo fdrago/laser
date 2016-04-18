@@ -9,9 +9,9 @@
 ErrorList::ErrorList(QObject *parent) : QObject(parent)
 {
 #ifdef QT_DEBUG
-    QFile file("data/it/error.txt");
+    QFile file("data/error.txt");
 #else
-    QFile file("/root/laser/data/it/error.txt");
+    QFile file("/root/laser/data/error.txt");
 #endif
 
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -61,14 +61,9 @@ ErrorList::ErrorList(QObject *parent) : QObject(parent)
     _serial->setBaudRate(BAUD19200); //19200
 
     _pressure_required = 1;
-    QByteArray dato= QString("P%1\n").arg(_pressure_required).toLatin1();
+    QByteArray dato= QString("P%1\n").arg(((_pressure_required)*255/7/2),3,10,QChar('0')).toLatin1();
     _serial->write(dato);
     emit setPres(_pressure_required * 0.7);
-
-
-
-
-
 
     _req = false;
 }
@@ -104,10 +99,19 @@ void ErrorList::readData()
         QByteArray data = _serial->read(1);
 
         numBytes--;
+
         if(data.at(0) == 0x0d)
+        {
             cmdComplete = true;
+            qDebug() << "0d";
+        }
+
         else if(data.at(0) == 0x0a)
+        {
             cmdComplete = true;
+            qDebug() << "0a";
+        }
+
         else
             _cmd.append(data);
 
@@ -119,7 +123,7 @@ void ErrorList::readData()
 
                 if(_cmd.startsWith("ko")) {
                   qDebug() << "Errore";
-                } else if(_cmd.startsWith("A")) {
+                } /*else if(_cmd.startsWith("A")) {
                     qDebug() << _cmd;
                     _cmd = _cmd.mid(1);
                     bool ok;
@@ -140,10 +144,11 @@ void ErrorList::readData()
                     }
 
 
-                } else if(_cmd.startsWith("I")) {
+                }*/ else if(_cmd.startsWith("ok")) {
                     if(_cmd.length() > 3) {
+                        _cmd = _cmd.mid(4);
                         qDebug() << _cmd;
-                        _cmd = _cmd.mid(1);
+
                         QStringList sl = _cmd.split(",");
                         if(sl.count() == 4) {
 
@@ -185,7 +190,34 @@ void ErrorList::readData()
                             emit setHum(sl[3].toDouble());
 
 
-                        } else {
+                        }
+
+
+                        else if(sl.count() == 1) {
+                            //_cmd = _cmd.mid(3);
+
+                            bool ok;
+                            int p = _cmd.toInt(&ok, 16);
+
+                            qDebug() << "cmd.mid" << p;
+
+                            double rp = (p-102.5)*10/(512-102);
+
+                            qDebug() << "CALCOLO PRESSIONE---------" << p << " -> " << rp;
+
+                            emit setRealPres(rp);
+
+                            double sp = _pressure_required * 0.7;
+
+                            if((sp==0) || (rp < (sp * 0.9) ) || (rp > (sp * 1.1))) {
+                                emit setLed(SPIA_ARIA);
+                            } else {
+                                emit resetLed(SPIA_ARIA);
+                            }
+                        }
+
+
+                        else {
                             qDebug() << "Errore numero elementi";
                         }
                     }
@@ -222,7 +254,8 @@ void ErrorList::setLight(int sts)
 void ErrorList::incPres()
 {
     if(_pressure_required < 7) _pressure_required++;
-    QByteArray dato= QString("P%1\n").arg(_pressure_required).toLatin1();
+    QByteArray dato= QString("P%1\n").arg(((_pressure_required)*255/7/2),3,10,QChar('0')).toLatin1();
+    qDebug()<<dato;
     _serial->write(dato);
 
     emit setPres(_pressure_required * 0.7);
@@ -231,7 +264,8 @@ void ErrorList::incPres()
 void ErrorList::decPres()
 {
     if(_pressure_required > 0) _pressure_required--;
-    QByteArray dato= QString("P%1\n").arg(_pressure_required).toLatin1();
+    QByteArray dato= QString("P%1\n").arg(((_pressure_required)*255/7/2),3,10,QChar('0')).toLatin1();
+    qDebug()<<dato;
     _serial->write(dato);
 
     emit setPres(_pressure_required * 0.7);
