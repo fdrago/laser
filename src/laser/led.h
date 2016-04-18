@@ -14,7 +14,7 @@
 
 class Led : public QObject
 {
-    Q_OBJECT
+/*    Q_OBJECT
 public:
     explicit Led(QObject *parent = 0);
     ~Led();
@@ -37,7 +37,7 @@ private:
     QString _cmd;
     QString _lastCmd;
     QMutex _mutex;
-    bool _serok;
+    bool _serok;*/
 
 };
 
