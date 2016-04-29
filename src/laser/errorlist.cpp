@@ -51,7 +51,7 @@ ErrorList::ErrorList(QObject *parent) : QObject(parent)
 #ifdef QT_DEBUG
     _serial->setPortName("/dev/ttyUSB0");
 #else
-    _serial->setPortName("/dev/ttyS2");
+    _serial->setPortName("/dev/ttyS1");
 #endif
     if (_serial->open(QIODevice::ReadWrite)) {
         qDebug() << "Serial io ok";

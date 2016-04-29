@@ -60,7 +60,7 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
 #ifdef QT_DEBUG
     mb = modbus_new_rtu("/dev/ttyUSB1",9600,'N',8,1);
 #else
-    mb = modbus_new_rtu("/dev/ttyS1",9600,'N',8,1);
+    mb = modbus_new_rtu("/dev/ttyS2",9600,'N',8,1);
 #endif
     if(mb==NULL) {
         qDebug() << "Errore modbus";
@@ -100,7 +100,7 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
 
     _timerLaserFlag = false;
     _timer->start(1000);
-    _timerLaser->start(500);
+    _timerLaser->start(5000);
     //QThread::start();
     _timerAlarm->start(3000);
 
