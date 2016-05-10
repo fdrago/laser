@@ -119,5 +119,11 @@ void UserList::setPwd(int idx, QString pwd)
     u->password(pwd);
 }
 
+void UserList::setLevel(int idx, int level)
+{
+    User* u = (User*)dataList.at(idx);
+    u->level(level);
+}
+
 
 

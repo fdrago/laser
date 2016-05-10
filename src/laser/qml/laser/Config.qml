@@ -159,6 +159,7 @@ Rectangle {
                     showpassword.text = password
                     showname.text = name
                     showlevel.text = level
+                    editlevel.levelVal = level
                     //userItem.state = "Details"
                 }
             }
@@ -429,12 +430,17 @@ Rectangle {
     }
 
     Button {
+        property int levelVal: -1;
+
         id: editlevel
         x: -117
         y: -254
         text: "Manage Level"
         onClicked: {
-            level = (level==10) ? 1 : 10;
+            var l = (levelVal==10) ? 1 : 10;
+            laserModel.setLevel(  alphabet1.idx, l );
+            showlevel.text = l
+            levelVal = l
         }
     }
 

@@ -457,7 +457,7 @@ void LaserModel::setPwd(int idx, QString pwd)
 
 void LaserModel::setLevel(int idx, int level)
 {
-
+    _userlist->setLevel(idx, level);
 }
 
 void LaserModel::setClearWater()

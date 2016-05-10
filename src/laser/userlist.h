@@ -23,6 +23,7 @@ public:
 
     void setName(int idx, QString name);
     void setPwd(int idx, QString pwd);
+    void setLevel(int idx, int level);
 
     QList<QObject*> userlist() { return dataList; }
 
