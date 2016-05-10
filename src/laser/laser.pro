@@ -48,6 +48,7 @@ DISTFILES += \
     qml/laser/Button.qml \
     qml/laser/Buttonsmall.qml \
     qml/laser/Config.qml \
+    qml/laser/ConfigSimple.qml \
     qml/laser/FileChoose.qml \
     qml/laser/FileUpload.qml \
     qml/laser/Gauge.qml \
@@ -73,7 +74,6 @@ OTHER_FILES += \
     qml/laser/Alphabet.qml \
     qml/laser/Button.qml \
     qml/laser/Buttonsmall.qml \
-    qml/laser/Config.qml \
     qml/laser/FileChoose.qml \
     qml/laser/FileUpload.qml \
     qml/laser/Gauge.qml \
@@ -86,7 +86,9 @@ OTHER_FILES += \
     qml/laser/StopPauseResume.qml \
     qml/laser/Toolbar.qml \
     qml/laser/Utility.qml \
-    qml/laser/YesNo.qml
+    qml/laser/YesNo.qml \
+    qml/laser/Config_complete.qml \
+    qml/laser/Config.qml
 
 QT += declarative
 QT += qml quick

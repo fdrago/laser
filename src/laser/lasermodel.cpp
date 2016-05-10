@@ -6,6 +6,7 @@
 #include <QStringList>
 #include <QStringListModel>
 #include <QtNetwork/QNetworkInterface>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QProcess>
 
@@ -454,6 +455,11 @@ void LaserModel::setPwd(int idx, QString pwd)
     _userlist->setPwd(idx, pwd);
 }
 
+void LaserModel::setLevel(int idx, int level)
+{
+
+}
+
 void LaserModel::setClearWater()
 {
 //    _led.setLed(SPIA_ACQUA, OFF);
@@ -522,25 +528,21 @@ void LaserModel::doComplete()
     if(_timerLaserFlag) {
         uint16_t tab_reg[25];
 
-//        qDebug() << "Millis: " << QDateTime::currentMSecsSinceEpoch() << "timerlaserflag open";
 
-        // leggo il tempo
+
         modbus_read_registers(mb,28,3, tab_reg);
 
-//        qDebug() << "Millis: " << QDateTime::currentMSecsSinceEpoch() << "read 28,3 end";
 
-//        qDebug() << QDateTime::currentDateTime();
 
         QString tempo = QString("%1:%2:%3").arg(tab_reg[0]).arg(tab_reg[1], 2, 10, QChar('0')).arg(tab_reg[2], 2, 10, QChar('0'));
          _viewer->rootContext()->setContextProperty("txtTime", tempo);
 
         modbus_read_registers(mb, 31, 2, tab_reg);
 
-//        qDebug() << "Millis: " << QDateTime::currentMSecsSinceEpoch() << "read 31,2 end";
 
-        qDebug() << "-------------------------------------doComplete" << tab_reg[0] << tab_reg[1];
 
-//        qDebug() << QDateTime::currentDateTime();
+       // qDebug() << "-------------------------------------doComplete" << tab_reg[0] << tab_reg[1];
+
 
         if((tab_reg[0] & 0x40) == 0x40) {
             // usb in
@@ -563,11 +565,6 @@ void LaserModel::doComplete()
                     // gui in file upload
                     guiState("FileUpload");
                 }
-                if(_lamp_usb) {
-//                    _led.setLed(LAMP_USB, ON);
-                } else {
-//                    _led.setLed(SPIA_USB, ON);
-                }
             } else {
                 _countUsb++;
             }
@@ -578,66 +575,24 @@ void LaserModel::doComplete()
                 // gui in file
                 guiState("File");
             }
-//            _led.setLed(SPIA_USB, OFF);
-            _lamp_usb = false;
+             _lamp_usb = false;
             _countUsb=0;
         }
 
- //       qDebug() << "Millis: " << QDateTime::currentMSecsSinceEpoch() << "fine";
-
-    /*
-        if((tab_reg[0] & 0x80) == 0x80) {
-            // lampeggio
-            if(lamp_usb) {
-//                _led.setLed(LAMP_USB, ON);
-                lamp_usb = false;
-            }
-        } else if((tab_reg[0] & 0x80) == 0x00) {
-            // usb da togliere
-//            _led.setLed(SPIA_USB, ON);
-
-        }
-    */
-       if((tab_reg[0] & 0x100) == 0x100) {
-            //_led.setLed(SPIA_MOVIMENTO, ON);
-            //_led.setLed(SPIA_LASER, OFF);
-
-        } else if((tab_reg[0] & 0x10) == 0x10) {
-            //_led.setLed(SPIA_MOVIMENTO, ON);
-            //_led.setLed(SPIA_LASER, OFF);
-
-        } else if((tab_reg[0] & 0x08) == 0x08) {
-            //_led.setLed(SPIA_MOVIMENTO, ON);
-            //_led.setLed(SPIA_LASER, ON);
-
-        } else if((tab_reg[0] & 0x04) == 0x04) {
-            //_led.setLed(SPIA_MOVIMENTO, ON);
-            //_led.setLed(SPIA_LASER, OFF);
-
-        } else if((tab_reg[0] & 0x01) == 0x01) {
-            //_led.setLed(SPIA_MOVIMENTO, OFF);
-            //_led.setLed(SPIA_LASER, OFF);
-
-        } else if((tab_reg[0] & 0x02) == 0x02) {
-            //_led.setLed(SPIA_MOVIMENTO, ON);
-            //_led.setLed(SPIA_LASER, ON);
+       if((tab_reg[0] & 0x02) == 0x02) {
             guiState("StopResume");
             isStarted = true;
 
         } else if((tab_reg[0] & 0x02) == 0x00) {
-            //_led.setLed(SPIA_MOVIMENTO, OFF);
-            //_led.setLed(SPIA_LASER, OFF);
             if(isStarted) {
                 isStarted=false;
                 guiState("File");
             }
 
-        } else {
-            //_led.setLed(SPIA_MOVIMENTO, OFF);
-            //_led.setLed(SPIA_LASER, OFF);
         }
 
     }
+
 }
 
 void LaserModel::showAlarm()

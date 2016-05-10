@@ -67,6 +67,7 @@ public:
 
     Q_INVOKABLE void setName(int idx, QString name);
     Q_INVOKABLE void setPwd(int idx, QString pwd);
+    Q_INVOKABLE void setLevel(int idx, int level);
 
     Q_INVOKABLE void setClearWater();
     Q_INVOKABLE void setClearGuide();

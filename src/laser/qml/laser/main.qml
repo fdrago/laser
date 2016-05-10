@@ -4,7 +4,7 @@ Rectangle {
     id: main
     width: 800
     height: 480
-    color: "#59b5d8"
+    color: "#5ab2d9"
 
     property int enableButton:1;
     property bool enablePassword: true;

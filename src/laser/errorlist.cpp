@@ -3,6 +3,7 @@
 #include "ledtype.h"
 
 #include <QDebug>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QStringList>
 
@@ -89,6 +90,12 @@ void ErrorList::request()
 
 void ErrorList::readData()
 {
+
+    // leggo il tempo
+    //QElapsedTimer timer;
+    //timer.start();
+//qDebug() << "The slow operation took" << timer.elapsed() << "milliseconds";
+
     int numBytes = _serial->bytesAvailable();
 
     if(numBytes==0) return;
@@ -226,6 +233,8 @@ void ErrorList::readData()
             _cmd = "";
         }
     }
+
+
 
 }
 

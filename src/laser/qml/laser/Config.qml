@@ -7,7 +7,7 @@ Rectangle {
 
     radius:10
 
-    color: "#00b2b2b2"
+    color: "#00b3b3b3"
 
     Component {
         id: logDelegate
@@ -59,7 +59,7 @@ Rectangle {
                     }
                 }
             }
-            Text {
+            /*Text {
                 id: userDelegateTime
                 x: 208
                 y: 11
@@ -80,7 +80,7 @@ Rectangle {
                 id: userDelegateLevel
                 x: 16
                 y: 66
-                text: level
+                text: name
                 visible: false
                 font.pixelSize: 20
                 font.bold: true
@@ -89,7 +89,7 @@ Rectangle {
                     anchors.fill: parent;
                     onClicked: {
                         console.log("delLevel");
-                        level = (level==10) ? 1 : 10;
+                        editname = (editname==10) ? 1 : 10;
                     }
                 }
             }
@@ -111,7 +111,7 @@ Rectangle {
                         main.state = "Login";
                     }
                 }
-            }
+            }*/
             Image {
                 id: imageAdd
                 x: 308
@@ -127,7 +127,7 @@ Rectangle {
                     }
                 }
             }
-            Image {
+            /*Image {
                 id: imageDelete
                 x: 362
                 y: 66
@@ -141,7 +141,7 @@ Rectangle {
                         userList.remove(index);
                     }
                 }
-            }
+            }*/
 
             MouseArea {
                 id: mouseArea2
@@ -151,7 +151,15 @@ Rectangle {
                 height: 60
                 onClicked: {
                     console.log("ma2");
-                    userItem.state = "Details"
+                    config.state = "UserSet";
+
+                    alphabet1.idx = index;
+                    alphabet1.name = name;
+                    username.text = name;
+                    showpassword.text = password
+                    showname.text = name
+                    showlevel.text = level
+                    //userItem.state = "Details"
                 }
             }
             states: [
@@ -207,8 +215,8 @@ Rectangle {
 
     Button {
         id: btnUsers
-        x: 23
-        y: 14
+        x: 1
+        y: 60
         width: 300
         height: 70
         radius: 4
@@ -223,8 +231,8 @@ Rectangle {
 
     Button {
         id: btnMaintenance
-        x: 23
-        y: 90
+        x: 1
+        y: 164
         width: 300
         height: 70
         radius: 4
@@ -239,8 +247,8 @@ Rectangle {
 
     Button {
         id: btnLogs
-        x: 23
-        y: 166
+        x: 1
+        y: 270
         width: 300
         height: 70
         radius: 4
@@ -263,6 +271,7 @@ Rectangle {
         clip: true
         delegate: userDelegate
         model: usersModel
+
     }
 
     Button {
@@ -361,601 +370,6 @@ Rectangle {
         }
     }
 
-    Button {
-        id: button1
-        x: 23
-        y: 242
-        width: 300
-        height: 70
-        radius: 4
-        text: "Network"
-        icon: "../../images/lan.png"
-        onClicked: {
-            config.state="Network";
-
-        }
-
-    }
-
-    Text {
-        id: text1
-        x: 342
-        y: 609
-        width: 75
-        height: 50
-        text: qsTr("255")
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: 35
-    }
-
-    Buttonsmall {
-        id: su1
-        x: 350
-        y: 543
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: su2
-        x: 440
-        y: 543
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: su3
-        x: 531
-        y: 543
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: su4
-        x: 621
-        y: 543
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: su10_1
-        x: 350
-        y: 472
-        icon: "../../images/su10.png"
-    }
-
-    Buttonsmall {
-        id: su10_2
-        x: 440
-        y: 472
-        icon: "../../images/su10.png"
-    }
-
-    Buttonsmall {
-        id: su10_3
-        x: 531
-        y: 472
-        icon: "../../images/su10.png"
-    }
-
-    Buttonsmall {
-        id: su10_4
-        x: 621
-        y: 472
-        icon: "../../images/su10.png"
-    }
-
-    Buttonsmall {
-        id: giu1
-        x: 350
-        y: 665
-        icon: "../../images/giu.png"
-    }
-
-    Buttonsmall {
-        id: giu2
-        x: 440
-        y: 665
-        icon: "../../images/giu.png"
-    }
-
-    Buttonsmall {
-        id: giu3
-        x: 531
-        y: 665
-        icon: "../../images/giu.png"
-    }
-
-    Buttonsmall {
-        id: giu4
-        x: 621
-        y: 665
-        icon: "../../images/giu.png"
-    }
-
-    Buttonsmall {
-        id: giu10_1
-        x: 350
-        y: 736
-        icon: "../../images/giu10.png"
-    }
-
-    Buttonsmall {
-        id: giu10_4
-        x: 621
-        y: 736
-        icon: "../../images/giu10.png"
-    }
-
-    Buttonsmall {
-        id: giu10_3
-        x: 531
-        y: 736
-        icon: "../../images/giu10.png"
-    }
-
-    Buttonsmall {
-        id: giu10_2
-        x: 440
-        y: 736
-        icon: "../../images/giu10.png"
-    }
-
-    Text {
-        id: text2
-        x: 418
-        y: 609
-        width: 15
-        height: 50
-        text: qsTr(".")
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-    }
-
-    Text {
-        id: text3
-        x: 432
-        y: 609
-        width: 75
-        height: 50
-        text: qsTr("255")
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: 35
-    }
-
-    Text {
-        id: text4
-        x: 507
-        y: 609
-        width: 15
-        height: 50
-        text: qsTr(".")
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: 35
-    }
-
-    Text {
-        id: text5
-        x: 523
-        y: 609
-        width: 75
-        height: 50
-        text: qsTr("255")
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: 35
-    }
-
-    Text {
-        id: text6
-        x: 598
-        y: 609
-        width: 15
-        height: 50
-        text: qsTr(".")
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: 35
-    }
-
-    Text {
-        id: text7
-        x: 613
-        y: 609
-        width: 75
-        height: 50
-        text: qsTr("255")
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: 35
-    }
-
-    Text {
-        id: text8
-        x: 350
-        y: 414
-        width: 331
-        height: 50
-        text: qsTr("Ip settings")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 30
-    }
-
-    Button {
-        id: clockButton
-        x: 23
-        y: 316
-        width: 300
-        height: 70
-        radius: 4
-        text: "Clock"
-        icon: "../../images/log.png"
-        onClicked: {
-            config.state="Clock";
-
-        }
-
-    }
-
-    Text {
-        id: text9
-        x: 56
-        y: 498
-        width: 50
-        height: 50
-        text: qsTr("99")
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: 35
-    }
-
-    Text {
-        id: text10
-        x: 146
-        y: 498
-        width: 50
-        height: 50
-        text: qsTr("99")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-    }
-
-    Text {
-        id: text11
-        x: 237
-        y: 498
-        width: 50
-        height: 50
-        text: qsTr("99")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-    }
-
-    Text {
-        id: text12
-        x: 119
-        y: 498
-        width: 15
-        height: 50
-        text: qsTr("/")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-    }
-
-    Text {
-        id: text13
-        x: 208
-        y: 498
-        width: 15
-        height: 50
-        text: qsTr("/")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-    }
-
-    Text {
-        id: text14
-        x: 102
-        y: 697
-        width: 50
-        height: 50
-        text: qsTr("99")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-    }
-
-    Text {
-        id: text15
-        x: 192
-        y: 697
-        width: 50
-        height: 50
-        text: qsTr("99")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-    }
-
-    Text {
-        id: text16
-        x: 165
-        y: 697
-        width: 15
-        height: 50
-        text: qsTr(":")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-    }
-
-    Buttonsmall {
-        id: su5
-        x: 51
-        y: 432
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: giu5
-        x: 51
-        y: 554
-        icon: "../../images/giu.png"
-    }
-
-    Buttonsmall {
-        id: su6
-        x: 143
-        y: 432
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: giu6
-        x: 143
-        y: 554
-        icon: "../../images/giu.png"
-    }
-
-    Buttonsmall {
-        id: su7
-        x: 232
-        y: 432
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: giu7
-        x: 232
-        y: 554
-        icon: "../../images/giu.png"
-    }
-
-    Buttonsmall {
-        id: su8
-        x: 97
-        y: 631
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: giu8
-        x: 97
-        y: 753
-        icon: "../../images/giu.png"
-    }
-
-    Buttonsmall {
-        id: su9
-        x: 186
-        y: 631
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: giu9
-        x: 186
-        y: 753
-        icon: "../../images/giu.png"
-    }
-
-    Text {
-        id: monthnum
-        x: -151
-        y: 520
-        width: 50
-        height: 50
-        text: qsTr("99")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-    }
-
-    Text {
-        id: hournum
-        x: -151
-        y: 672
-        width: 50
-        height: 50
-        text: qsTr("99")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-    }
-
-    Text {
-        id: daynum
-        x: -151
-        y: 444
-        width: 50
-        height: 50
-        text: qsTr("99")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-    }
-
-    Text {
-        id: minnum
-        x: -151
-        y: 746
-        width: 50
-        height: 50
-        text: qsTr("99")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-    }
-
-    Text {
-        id: yearnum
-        x: -151
-        y: 596
-        width: 50
-        height: 50
-        text: qsTr("99")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-    }
-
-    Buttonsmall {
-        id: su10
-        x: -225
-        y: 439
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: giu10
-        x: -87
-        y: 439
-        icon: "../../images/giu.png"
-    }
-
-    Buttonsmall {
-        id: su15
-        x: -225
-        y: 515
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: giu15
-        x: -87
-        y: 515
-        icon: "../../images/giu.png"
-    }
-
-    Buttonsmall {
-        id: su16
-        x: -225
-        y: 591
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: giu16
-        x: -87
-        y: 591
-        icon: "../../images/giu.png"
-    }
-
-    Buttonsmall {
-        id: su17
-        x: -225
-        y: 667
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: giu17
-        x: -87
-        y: 667
-        icon: "../../images/giu.png"
-    }
-
-    Buttonsmall {
-        id: su18
-        x: -225
-        y: 741
-        icon: "../../images/su.png"
-    }
-
-    Buttonsmall {
-        id: giu18
-        x: -87
-        y: 741
-        icon: "../../images/giu.png"
-    }
-
-    Text {
-        id: day
-        x: -338
-        y: 444
-        width: 100
-        height: 50
-        text: qsTr("Day")
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignLeft
-        font.pixelSize: 35
-    }
-
-    Text {
-        id: month
-        x: -338
-        y: 515
-        width: 100
-        height: 50
-        text: qsTr("Month")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignLeft
-    }
-
-    Text {
-        id: year
-        x: -338
-        y: 596
-        width: 100
-        height: 50
-        text: qsTr("Year")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignLeft
-    }
-
-    Text {
-        id: hour
-        x: -338
-        y: 672
-        width: 100
-        height: 50
-        text: qsTr("Hour")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignLeft
-    }
-
-    Text {
-        id: min
-        x: -338
-        y: 746
-        width: 100
-        height: 50
-        text: qsTr("Min")
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignLeft
-    }
-
     Text {
         id: user
         x: 11
@@ -980,31 +394,94 @@ Rectangle {
     }
 
     Button {
-        id: level
+        id: editname
         x: -115
         y: -246
-        text: "Manage Level"
+        text: "Edit"
+        onClicked: {
+            main.state = "Username";
+            config.state = "Users"
+        }
     }
 
     Button {
-        id: button4
+        id: editpassword
         x: 102
         y: -246
-        text: "Back"
+        text: "Edit"
+        onClicked: {
+            login.idx = alphabet1.idx;
+            main.state = "Login";
+            config.state = "Users"
+        }
     }
 
     Button {
-        id: regtag
-        x: -115
-        y: -346
-        text: "Register Tag"
-    }
-
-    Button {
-        id: dlt
+        id: deleteuser
         x: 102
         y: -346
         text: "Delete User"
+        onClicked: {
+            console.log("delete");
+            userList.remove( alphabet1.idx );
+            config.state = "Users"
+        }
+    }
+
+    Button {
+        id: editlevel
+        x: -117
+        y: -254
+        text: "Manage Level"
+        onClicked: {
+            level = (level==10) ? 1 : 10;
+        }
+    }
+
+    Button {
+        id: backtolist
+        x: 103
+        y: -245
+        text: "Back"
+        onClicked: {
+            config.state = "Users"
+        }
+    }
+
+    Text {
+        id: showpassword
+        x: 407
+        y: -237
+        width: 400
+        height: 50
+        text: qsTr("Utente")
+        horizontalAlignment: Text.AlignLeft
+        verticalAlignment: Text.AlignVCenter
+        font.pixelSize: 35
+    }
+
+    Text {
+        id: showname
+        x: 420
+        y: -226
+        width: 400
+        height: 50
+        text: qsTr("Utente")
+        horizontalAlignment: Text.AlignLeft
+        verticalAlignment: Text.AlignVCenter
+        font.pixelSize: 35
+    }
+
+    Text {
+        id: showlevel
+        x: 420
+        y: -231
+        width: 400
+        height: 50
+        text: qsTr("Utente")
+        horizontalAlignment: Text.AlignLeft
+        verticalAlignment: Text.AlignVCenter
+        font.pixelSize: 35
     }
     states: [
         State {
@@ -1101,424 +578,6 @@ Rectangle {
             }
         },
         State {
-            name: "Network"
-
-            PropertyChanges {
-                target: button1
-                scale: 1
-            }
-
-            PropertyChanges {
-                target: rectangle2
-                visible: true
-            }
-
-            PropertyChanges {
-                target: text1
-                x: 342
-                y: 196
-            }
-
-            PropertyChanges {
-                target: su1
-                x: 350
-                y: 130
-            }
-
-            PropertyChanges {
-                target: su2
-                x: 440
-                y: 130
-            }
-
-            PropertyChanges {
-                target: su3
-                x: 531
-                y: 130
-            }
-
-            PropertyChanges {
-                target: su4
-                x: 621
-                y: 130
-            }
-
-            PropertyChanges {
-                target: su10_1
-                x: 350
-                y: 59
-                icon: "../../images/su10.png"
-            }
-
-            PropertyChanges {
-                target: su10_2
-                x: 440
-                y: 59
-            }
-
-            PropertyChanges {
-                target: su10_3
-                x: 531
-                y: 59
-            }
-
-            PropertyChanges {
-                target: su10_4
-                x: 621
-                y: 59
-            }
-
-            PropertyChanges {
-                target: giu1
-                x: 350
-                y: 252
-            }
-
-            PropertyChanges {
-                target: giu2
-                x: 440
-                y: 252
-            }
-
-            PropertyChanges {
-                target: giu3
-                x: 531
-                y: 252
-            }
-
-            PropertyChanges {
-                target: giu4
-                x: 621
-                y: 252
-            }
-
-            PropertyChanges {
-                target: giu10_1
-                x: 350
-                y: 323
-            }
-
-            PropertyChanges {
-                target: giu10_4
-                x: 621
-                y: 324
-            }
-
-            PropertyChanges {
-                target: giu10_3
-                x: 531
-                y: 324
-            }
-
-            PropertyChanges {
-                target: giu10_2
-                x: 440
-                y: 324
-            }
-
-            PropertyChanges {
-                target: text2
-                x: 418
-                y: 197
-            }
-
-            PropertyChanges {
-                target: text3
-                x: 432
-                y: 197
-            }
-
-            PropertyChanges {
-                target: text4
-                x: 507
-                y: 197
-            }
-
-            PropertyChanges {
-                target: text5
-                x: 523
-                y: 197
-            }
-
-            PropertyChanges {
-                target: text6
-                x: 598
-                y: 197
-            }
-
-            PropertyChanges {
-                target: text7
-                x: 613
-                y: 197
-            }
-
-            PropertyChanges {
-                target: text8
-                x: 350
-                y: 2
-            }
-        },
-        State {
-            name: "Clock"
-            PropertyChanges {
-                target: listView1
-                x: 790
-                y: 18
-                width: 360
-                height: 374
-            }
-
-            PropertyChanges {
-                target: button1
-            }
-
-            PropertyChanges {
-                target: text9
-                x: 397
-                y: 80
-            }
-
-            PropertyChanges {
-                target: text14
-                x: 443
-                y: 272
-            }
-
-            PropertyChanges {
-                target: text10
-                x: 487
-                y: 80
-            }
-
-            PropertyChanges {
-                target: text12
-                x: 460
-                y: 80
-            }
-
-            PropertyChanges {
-                target: text15
-                x: 533
-                y: 272
-            }
-
-            PropertyChanges {
-                target: text11
-                x: 578
-                y: 80
-            }
-
-            PropertyChanges {
-                target: text13
-                x: 549
-                y: 80
-            }
-
-            PropertyChanges {
-                target: text16
-                x: 506
-                y: 272
-            }
-
-            PropertyChanges {
-                target: su5
-                x: 392
-                y: 14
-            }
-
-            PropertyChanges {
-                target: giu5
-                x: 392
-                y: 136
-            }
-
-            PropertyChanges {
-                target: su6
-                x: 484
-                y: 14
-            }
-
-            PropertyChanges {
-                target: giu6
-                x: 484
-                y: 136
-            }
-
-            PropertyChanges {
-                target: su7
-                x: 573
-                y: 14
-            }
-
-            PropertyChanges {
-                target: giu7
-                x: 573
-                y: 136
-            }
-
-            PropertyChanges {
-                target: su8
-                x: 438
-                y: 206
-            }
-
-            PropertyChanges {
-                target: giu8
-                x: 438
-                y: 328
-            }
-
-            PropertyChanges {
-                target: su9
-                x: 527
-                y: 206
-            }
-
-            PropertyChanges {
-                target: giu9
-                x: 527
-                y: 328
-            }
-
-            PropertyChanges {
-                target: button2
-                text: "Clock / Date"
-            }
-
-            PropertyChanges {
-                target: config
-                color: "#00b3b3b3"
-            }
-
-            PropertyChanges {
-                target: rectangle2
-                color: "#80eeeeee"
-            }
-        },
-        State {
-            name: "Clock2"
-
-            PropertyChanges {
-                target: monthnum
-                x: 544
-                y: 100
-            }
-
-            PropertyChanges {
-                target: hournum
-                x: 544
-                y: 252
-            }
-
-            PropertyChanges {
-                target: daynum
-                x: 544
-                y: 24
-            }
-
-            PropertyChanges {
-                target: minnum
-                x: 544
-                y: 326
-            }
-
-            PropertyChanges {
-                target: yearnum
-                x: 544
-                y: 176
-            }
-
-            PropertyChanges {
-                target: su10
-                x: 470
-                y: 19
-            }
-
-            PropertyChanges {
-                target: giu10
-                x: 608
-                y: 19
-            }
-
-            PropertyChanges {
-                target: su15
-                x: 470
-                y: 95
-            }
-
-            PropertyChanges {
-                target: giu15
-                x: 608
-                y: 95
-            }
-
-            PropertyChanges {
-                target: su16
-                x: 470
-                y: 171
-            }
-
-            PropertyChanges {
-                target: giu16
-                x: 608
-                y: 171
-            }
-
-            PropertyChanges {
-                target: su17
-                x: 470
-                y: 247
-            }
-
-            PropertyChanges {
-                target: giu17
-                x: 608
-                y: 247
-            }
-
-            PropertyChanges {
-                target: su18
-                x: 470
-                y: 321
-            }
-
-            PropertyChanges {
-                target: giu18
-                x: 608
-                y: 321
-            }
-
-            PropertyChanges {
-                target: day
-                x: 357
-                y: 24
-            }
-
-            PropertyChanges {
-                target: month
-                x: 357
-                y: 95
-            }
-
-            PropertyChanges {
-                target: year
-                x: 357
-                y: 176
-            }
-
-            PropertyChanges {
-                target: hour
-                x: 357
-                y: 252
-            }
-
-            PropertyChanges {
-                target: min
-                x: 357
-                y: 326
-            }
-        },
-        State {
             name: "UserSet"
 
             PropertyChanges {
@@ -1574,18 +633,25 @@ Rectangle {
                 y: 14
                 width: 353
                 height: 50
+                verticalAlignment: "AlignTop"
             }
 
             PropertyChanges {
-                target: level
-                x: 123
-                y: 240
+                target: editname
+                x: 536
+                y: 80
+                width: 123
+                height: 80
+                text: "Edit"
             }
 
             PropertyChanges {
-                target: button4
-                x: 360
-                y: 240
+                target: editpassword
+                x: 536
+                y: 190
+                width: 123
+                height: 80
+                text: "Edit"
             }
 
             PropertyChanges {
@@ -1595,9 +661,63 @@ Rectangle {
             }
 
             PropertyChanges {
-                target: dlt
-                x: 360
-                y: 130
+                target: deleteuser
+                x: 28
+                y: 190
+                width: 314
+                height: 80
+                text: "Delete"
+            }
+
+            PropertyChanges {
+                target: editlevel
+                x: 220
+                y: 80
+                width: 122
+                height: 80
+                text: "Edit"
+            }
+
+            PropertyChanges {
+                target: backtolist
+                x: 250
+                y: 299
+            }
+
+            PropertyChanges {
+                target: showpassword
+                x: 348
+                y: 205
+                width: 182
+                height: 50
+                text: qsTr("Password")
+            }
+
+            PropertyChanges {
+                target: showlevel
+                x: 28
+                y: 95
+                width: 186
+                height: 50
+                text: qsTr("Level")
+            }
+
+            PropertyChanges {
+                target: showname
+                x: 348
+                y: 95
+                width: 186
+                height: 50
+                text: qsTr("Name")
+            }
+
+            PropertyChanges {
+                target: showuser
+                x: 348
+                y: 95
+                width: 182
+                height: 50
+                text: qsTr("Name")
             }
         }
     ]
