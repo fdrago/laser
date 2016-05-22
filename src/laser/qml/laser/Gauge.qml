@@ -18,7 +18,7 @@ Image {
         height: 246
         rotation: -112.5+setPoint*0.35*225/2.5
         fillMode: Image.PreserveAspectFit
-        source: "../../images/lancetta.png"
+        source: "../../images/lancetta2.png"
     }
 }
 

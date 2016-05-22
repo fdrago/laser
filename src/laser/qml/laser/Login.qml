@@ -5,7 +5,7 @@ Rectangle {
     width: 800
     height: 480
     color: "#00ffffff"
-    radius: 2
+    //radius: 2
 
     signal clicked
 
@@ -15,8 +15,8 @@ Rectangle {
 
     TextEdit {
         id: codeUser
-        x: 350
-        y: 35
+        x: 360
+        y: 50
         width: 280
         height: 69
         color: "#f9f9f9"
@@ -31,8 +31,8 @@ Rectangle {
 
     Button {
         id: button1
-        x: 33
-        y: 237
+        x: 43
+        y: 252
         width: 80
         height: 80
         text: "7"
@@ -42,8 +42,8 @@ Rectangle {
 
     Button {
         id: button2
-        x: 135
-        y: 237
+        x: 145
+        y: 252
         width: 80
         height: 80
         text: "8"
@@ -53,8 +53,8 @@ Rectangle {
 
     Button {
         id: button3
-        x: 237
-        y: 237
+        x: 247
+        y: 252
         width: 80
         height: 80
         text: "9"
@@ -64,8 +64,8 @@ Rectangle {
 
     Button {
         id: button4
-        x: 33
-        y: 128
+        x: 43
+        y: 143
         width: 80
         height: 80
         text: "4"
@@ -75,8 +75,8 @@ Rectangle {
 
     Button {
         id: button5
-        x: 135
-        y: 128
+        x: 145
+        y: 143
         width: 80
         height: 80
         text: "5"
@@ -86,8 +86,8 @@ Rectangle {
 
     Button {
         id: button6
-        x: 237
-        y: 128
+        x: 247
+        y: 143
         width: 80
         height: 80
         text: "6"
@@ -95,13 +95,14 @@ Rectangle {
         onClicked: codice += text
     }
 
+
+
     Button {
         id: button7
-        x: 33
-        y: 30
+        x: 43
+        y: 45
         width: 80
         height: 80
-        radius: 8
         text: "1"
         z: 1
         onClicked: codice += text
@@ -109,8 +110,8 @@ Rectangle {
 
     Button {
         id: button8
-        x: 135
-        y: 30
+        x: 145
+        y: 45
         width: 80
         height: 80
         text: "2"
@@ -120,8 +121,8 @@ Rectangle {
 
     Button {
         id: button9
-        x: 237
-        y: 30
+        x: 247
+        y: 45
         width: 80
         height: 80
         text: "3"
@@ -132,8 +133,8 @@ Rectangle {
 
     Button {
         id: button10
-        x: 33
-        y: 340
+        x: 43
+        y: 355
         width: 80
         height: 80
         text: "0"
@@ -143,8 +144,8 @@ Rectangle {
 
     Button {
         id: button11
-        x: 666
-        y: 29
+        x: 676
+        y: 44
         width: 80
         height: 80
         text: ""
@@ -166,8 +167,8 @@ Rectangle {
 
     Button {
         id: btnEnter
-        x: 135
-        y: 340
+        x: 145
+        y: 355
         width: 182
         height: 80
         text: "Enter"
@@ -195,13 +196,15 @@ Rectangle {
 
     Rectangle {
         id: rectangle1
-        x: 341
-        y: 30
+        x: 351
+        y: 45
         width: 297
         height: 80
         color: "#cc000000"
-        radius: 8
+        //radius: 8
         z: 1
     }
+
+
 
 }

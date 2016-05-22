@@ -4,7 +4,7 @@ Rectangle {
     width: 400
     height: 400
     color: "#00757575"
-    radius: 10
+    //radius: 10
 
     Button {
         id: btnZsu

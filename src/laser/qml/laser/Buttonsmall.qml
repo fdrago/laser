@@ -19,7 +19,7 @@ Rectangle  {
 
     border  { width: 1; color: "Black" }
     smooth: true
-    radius: 3
+    //radius: 0
     gradient: Gradient {
         GradientStop {
             position: 0

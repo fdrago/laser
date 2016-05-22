@@ -5,7 +5,7 @@ Rectangle {
     width: 400
     height: 400
     color: "#00757575"
-    radius: 10
+    //radius: 10
 
     Component {
         id: fileDelegate
@@ -37,10 +37,10 @@ Rectangle {
 
     ListView {
         id: listFile
-        x: 24
-        y: 24
+        x: 25
+        y: 25
         width: 350
-        height: 286
+        height: 220
         clip: true
         delegate: fileDelegate
         model: cutModel
@@ -49,16 +49,16 @@ Rectangle {
             x: 3
             width: 350
             color:"#ffffff"
-            radius: 5
+            //radius: 5
             opacity: 0.8
         }
     }
 
     Button {
         id: btnDelete
-        x: 51
-        y: 316
-        width: 299
+        x: 50
+        y: 270
+        width: 300
         height: 80
         icon: "../../images/delete.png"
         text: "Delete"

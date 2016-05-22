@@ -14,7 +14,7 @@ Rectangle {
         y: 8
         width: 100
         height: 59
-        radius: 8
+        //radius: 8
         text: "Exit"
         state: ((main.state=="Login") || (main.state=="StopResume") || (!main.enablePassword)) ? "Disable" : "";
         onClicked: {
@@ -30,9 +30,9 @@ Rectangle {
         y: 8
         width: 100
         height: 59
-        radius: 8
+        //radius: 8
         text: "File"
-        state: ((main.state=="File") || (main.state=="Choose") || (main.state=="StopResume")) ? "Disable" : "";
+        state: ((main.state=="File") || (main.state=="WaitList") || (main.state=="Choose") || (main.state=="StopResume")) ? "Disable" : "";
         onClicked: {
             main.state = "File";
         }

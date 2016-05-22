@@ -59,7 +59,7 @@ Rectangle  {
 
     border  { width: 1; color: "Black" }
     smooth: true
-    radius: 8
+    //radius: 0
     gradient: Gradient {
         GradientStop {
             position: 0
@@ -131,7 +131,7 @@ Rectangle  {
 
             PropertyChanges {
                 target: buttonLabel
-                color: "#a0a0a0"
+                color: "#6e6e6e"
             }
         }
     ]

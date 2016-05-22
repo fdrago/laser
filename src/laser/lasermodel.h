@@ -20,9 +20,9 @@ class LaserModel : public /*QObject*/ QThread
 {
     Q_OBJECT
 
-protected:
+/*protected:
 
-    virtual void run();
+    virtual void run();*/
 
 public:
 
@@ -60,6 +60,7 @@ public:
 
 
     Q_INVOKABLE void printCurrentFile();
+    Q_INVOKABLE void callGetFilesList();
     Q_INVOKABLE void getFilesList();
     Q_INVOKABLE void getUsbList(int number);
     Q_INVOKABLE void deleteFile();

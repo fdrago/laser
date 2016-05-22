@@ -15,7 +15,6 @@
 LaserModel::LaserModel(QObject *parent) :
     QThread(parent)
 {
-    start();
     _userlist = new UserList;
     _userlist->load();
 
@@ -59,7 +58,7 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
     connect(_timerAlarm, SIGNAL(timeout()), this, SLOT(showAlarm()));
 
 #ifdef QT_DEBUG
-    mb = modbus_new_rtu("/dev/ttyUSB1",9600,'N',8,1);
+    mb = modbus_new_rtu("/dev/ttyUSB0",9600,'N',8,1);
 #else
     mb = modbus_new_rtu("/dev/ttyS2",9600,'N',8,1);
 #endif
@@ -101,14 +100,14 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
 
     _timerLaserFlag = false;
     _timer->start(1000);
-    _timerLaser->start(5000);
+    _timerLaser->start(500);
     //QThread::start();
     _timerAlarm->start(3000);
 
 }
 
 
-void LaserModel::run()
+/*void LaserModel::run()
 {
     while(1)
     {
@@ -117,13 +116,14 @@ void LaserModel::run()
         qDebug() << "sonoqua";
     }
 
-}
+}*/
 
 
 void LaserModel::guiState(const QString &newState)
 {
 
-    qDebug() << "++++++++++++++++++++++++++++++++++++++++++Cpp" << newState;
+    qDebug() << "Cambio stato" << newState;
+
     emit stateChanged(newState);
 }
 
@@ -311,6 +311,14 @@ void LaserModel::printCurrentFile()
 
 }
 
+void LaserModel::callGetFilesList()
+{
+    QStringList fileList;
+     _viewer->rootContext()->setContextProperty("cutModel", QVariant::fromValue(fileList));
+    QTimer::singleShot(10, this, SLOT(getFilesList()));
+}
+
+
 void LaserModel::getFilesList()
 {
    int fileCount;
@@ -380,6 +388,7 @@ void LaserModel::getFilesList()
 #endif
    qDebug() << "File list" << fileList;
    _viewer->rootContext()->setContextProperty("cutModel", QVariant::fromValue(fileList));
+   guiState("Choose");
 
 }
 
@@ -486,7 +495,7 @@ void LaserModel::setAlarmOff(int sts)
 
 void LaserModel::setStatus(QString sts)
 {
-    qDebug() << "save" << sts;
+    qDebug() << "setStatus()" << sts;
 
     _status = sts;
 }
@@ -516,7 +525,14 @@ void LaserModel::doRefreshUser()
 
 void LaserModel::doComplete()
 {
+    qDebug()<<"doComplete"<<isStarted;
+   /* if ( !isStarted )
+    {
+        return;
+    }*/
 
+
+    qDebug()<<"doComplete";
     if(_error->testAlarm(_alarmUnsafe) > 0){
          emit enableButton(0);
 
@@ -546,6 +562,8 @@ void LaserModel::doComplete()
 
         if((tab_reg[0] & 0x40) == 0x40) {
             // usb in
+            #ifdef QT_DEBUG
+            #else
             if(_countUsb > 2) {
                 qDebug() << "---------------------------------------Ho visto una USB";
 
@@ -568,6 +586,7 @@ void LaserModel::doComplete()
             } else {
                 _countUsb++;
             }
+            #endif
         } else if((tab_reg[0] & 0x40) == 0x00) {
             // usb non presente
             if(_menu_usb) {

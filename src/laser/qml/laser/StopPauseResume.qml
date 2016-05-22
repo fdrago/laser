@@ -4,7 +4,7 @@ Rectangle {
     width: 800
     height: 400
     color: "#00757575"
-    radius: 10
+    //radius: 10
 
 
     property int txtCount:0;
@@ -16,16 +16,16 @@ Rectangle {
         width: 784
         height: 72
         color: "#80ededed"
-        radius: 8
+        //radius: 8
     }
 
     Button {
         id: btnStop
-        x: 38
-        y: 88
-        width: 299
-        height: 209
-        radius: 5
+        x: 50
+        y: 90
+        width: 325
+        height: 150
+        //radius: 5
         icon: "../../images/stop.png"
         text: "Stop"
         imgstatus: 0
@@ -53,18 +53,18 @@ Rectangle {
 
     Button {
         id: btnPause
-        x: 458
-        y: 88
-        width: 299
-        height: 209
-        radius: 5
+        x: 425
+        y: 90
+        width: 325
+        height: 150
+        //radius: 5
         icon: "../../images/pause.png"
         text: "Pause"
         imgstatus: 0
         gradient: Gradient {
             GradientStop {
                 position: 0
-                color: "#aaffdd00"
+                color: "#ffffff"
             }
 
             GradientStop {
@@ -90,11 +90,11 @@ Rectangle {
 
     Button {
         id: btnLight
-        x: 38
-        y: 312
+        x: 50
+        y: 270
         width: 200
         height: 80
-        radius: 8
+        //radius: 8
         text: "Light"
         icon: "../../images/luciOff.png"
         iconOff: "../../images/luciOn.png"
@@ -107,8 +107,8 @@ Rectangle {
 
     Button {
         id: btnFan
-        x: 306
-        y: 312
+        x: 300
+        y: 270
         width: 200
         height: 80
         text: "Fan"
@@ -123,8 +123,8 @@ Rectangle {
 
     Button {
         id: btnPointer
-        x: 557
-        y: 312
+        x: 550
+        y: 270
         width: 200
         height: 80
         text: "Pointer"

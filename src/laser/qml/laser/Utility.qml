@@ -1,17 +1,17 @@
 import QtQuick 1.0
 
 Rectangle {
-    width: 700
+    width: 800
     height: 400
 
-    radius:10
+    //radius:10
 
-    color: "#00b2b2b2"
+    color: "#00b3b3b3"
 
     Button {
         id: btnTest
-        x: 34
-        y: 32
+        x: 50
+        y: 60
         width: 300
         height: 80
         visible: (toolbar.fromPause) ? false : true;
@@ -24,8 +24,8 @@ Rectangle {
 
     Button {
         id: btnShoot
-        x: 34
-        y: 141
+        x: 50
+        y: 165
         width: 300
         height: 80
         visible: (toolbar.fromPause) ? false : true;
@@ -39,8 +39,8 @@ Rectangle {
 
     Button {
         id: btnCut
-        x: 34
-        y: 249
+        x: 50
+        y: 270
         width: 300
         height: 80
         visible: (toolbar.fromPause) ? false : true;
@@ -70,8 +70,8 @@ Rectangle {
 
     Button {
         id: btnLight
-        x: 371
-        y: 32
+        x: 450
+        y: 60
         width: 300
         height: 80
         icon: "../../images/luciOff.png"
@@ -86,8 +86,8 @@ Rectangle {
 
     Button {
         id: ubtnFan
-        x: 371
-        y: 141
+        x: 450
+        y: 165
         width: 300
         height: 80
         icon: "../../images/fanOff.png"
@@ -102,8 +102,8 @@ Rectangle {
 
     Button {
         id: ubtnPointer
-        x: 371
-        y: 249
+        x: 450
+        y: 270
         width: 300
         height: 80
         text: "Pointer"

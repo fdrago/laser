@@ -4,7 +4,7 @@ Rectangle {
     id: main
     width: 800
     height: 480
-    color: "#5ab2d9"
+    color: "#4caee6"
 
     property int enableButton:1;
     property bool enablePassword: true;
@@ -24,13 +24,15 @@ Rectangle {
                 laserModel.setStatus(ts);
             else if (ts != "Alarm")
                 laserModel.setStatus("");
-            console.log("sc", newState);
+            console.log("new qml state", newState);
         }
 
         onEnableButton: {
             enableButton = eb;
         }
     }
+
+
 
     /*Timer {
            interval: 2000;
@@ -79,7 +81,8 @@ Rectangle {
             id: mouseArea1
             anchors.fill: parent
             onClicked: {
-                if(enablePassword) {
+                if(main.state=="waitList"){}
+                else if(enablePassword) {
                     main.state = "Login"
                 } else {
                     main.state = "File"
@@ -193,8 +196,8 @@ Rectangle {
 
     Gauges {
         id: gauges1
-        x: 0
-        y: -567
+        x: 836
+        y: -555
     }
 
     Text {
@@ -310,6 +313,27 @@ Rectangle {
         text: "Back"
     }
 
+    Rectangle {
+        id: rectangle1
+        x: 301
+        y: 140
+        width: 200
+        height: 200
+        color: "#ffffff"
+        opacity: 0
+
+        Text {
+            id: text4
+            x: 0
+            y: 0
+            text: qsTr("Text")
+            opacity: 0
+            font.pixelSize: 12
+        }
+    }
+
+
+
 
 
 
@@ -354,6 +378,8 @@ Rectangle {
             name: "File"
             PropertyChanges {
                 target: startStopTest
+                x: 0
+                y: 80
                 btnListText: "List"
             }
             PropertyChanges {
@@ -365,7 +391,7 @@ Rectangle {
             PropertyChanges {
                 target: startStopTest
                 x: 0
-                y: 81
+                y: 80
             }
 
             PropertyChanges {
@@ -377,7 +403,7 @@ Rectangle {
             PropertyChanges {
                 target: joystick
                 x: 400
-                y: 81
+                y: 80
 
             }
 
@@ -390,7 +416,7 @@ Rectangle {
             PropertyChanges {
                 target: about
                 x: -359
-                y: 81
+                y: 80
             }
 
             PropertyChanges {
@@ -417,6 +443,41 @@ Rectangle {
             PropertyChanges {
                 target: mouseArea1
                 visible: false
+            }
+
+            PropertyChanges {
+                target: main
+                color: "#55b2de"
+            }
+
+            PropertyChanges {
+                target: item1
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: rectangle1
+                x: 200
+                y: 140
+                width: 400
+                color: "#32ff9d"
+                z: -1
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: text4
+                x: 73
+                y: 62
+                width: 254
+                height: 76
+                text: qsTr("Loading")
+                z: 102
+                wrapMode: "NoWrap"
+                horizontalAlignment: "AlignHCenter"
+                verticalAlignment: "AlignVCenter"
+                font.pixelSize: 30
+                opacity: 1
             }
         },
         State {
@@ -461,6 +522,8 @@ Rectangle {
 
             PropertyChanges {
                 target: startStopTest
+                x: 0
+                y: 75
                 btnListText: "Joypad"
             }
             PropertyChanges {
@@ -472,19 +535,19 @@ Rectangle {
             PropertyChanges {
                 target: startStopTest
                 x: 0
-                y: 81
+                y: 80
             }
 
             PropertyChanges {
                 target: fileChoose
                 x: 400
-                y: 81
+                y: 80
             }
 
             PropertyChanges {
                 target: areaToAbout
                 x: 700
-                y: 481
+                y: 480
             }
 
             PropertyChanges {
@@ -506,6 +569,11 @@ Rectangle {
                 target: mouseArea1
                 visible: false
             }
+
+            PropertyChanges {
+                target: main
+                color: "#55b5de"
+            }
         },
         State {
             name: "Utility"
@@ -523,8 +591,8 @@ Rectangle {
 
             PropertyChanges {
                 target: utility1
-                x: 50
-                y: 81
+                x: 0
+                y: 80
             }
 
             PropertyChanges {
@@ -628,8 +696,8 @@ Rectangle {
 
             PropertyChanges {
                 target: config1
-                x: 50
-                y: 81
+                x: 0
+                y: 80
                 color: "#00b3b3b3"
             }
 
@@ -651,6 +719,10 @@ Rectangle {
 
             PropertyChanges {
                 target: mouseArea1
+                anchors.rightMargin: 0
+                anchors.bottomMargin: 0
+                anchors.leftMargin: 0
+                anchors.topMargin: 0
                 visible: false
             }
 
@@ -662,6 +734,11 @@ Rectangle {
             PropertyChanges {
                 target: norme1
                 visible: false
+            }
+
+            PropertyChanges {
+                target: main
+                color: "#59b2da"
             }
         },
         State {
@@ -684,7 +761,8 @@ Rectangle {
 
             PropertyChanges {
                 target: stopPauseResume1
-                y: 81
+                x: 0
+                y: 80
             }
 
             PropertyChanges {
@@ -715,13 +793,24 @@ Rectangle {
                 target: text1
                 opacity: 1
             }
+
+            PropertyChanges {
+                target: fileUpload1
+                x: -160
+                y: -613
+            }
+
+            PropertyChanges {
+                target: main
+                color: "#55b2de"
+            }
         },
         State {
             name: "FileUpload"
             PropertyChanges {
                 target: toolbar
                 x: 0
-                y: -76
+                y: 0
             }
             PropertyChanges {
                 target: areaToAbout
@@ -732,7 +821,7 @@ Rectangle {
             PropertyChanges {
                 target: fileUpload1
                 x: 0
-                y: 40
+                y: 80
             }
             PropertyChanges {
                 target: sfondo
@@ -767,6 +856,11 @@ Rectangle {
             PropertyChanges {
                 target: utility1
                 color: "#00b3b3b3"
+            }
+
+            PropertyChanges {
+                target: main
+                color: "#55b3de"
             }
         },
         State {
@@ -1001,7 +1095,7 @@ Rectangle {
             PropertyChanges {
                 target: config1
                 x: 50
-                y: 81
+                y: 80
                 visible: false
             }
 
@@ -1066,6 +1160,114 @@ Rectangle {
                 target: button3
                 x: 300
                 y: 310
+            }
+
+            PropertyChanges {
+                target: main
+                color: "#55b2de"
+            }
+        },
+        State {
+            name: "WaitList"
+            PropertyChanges {
+                target: startStopTest
+                x: 0
+                y: 80
+                btnListText: "List"
+            }
+
+            PropertyChanges {
+                target: toolbar
+                x: 0
+                y: 0
+            }
+
+            PropertyChanges {
+                target: startStopTest
+                x: 0
+                y: 80
+            }
+
+
+
+            PropertyChanges {
+                target: fileChoose
+                x: 400
+                y: 80
+            }
+
+            PropertyChanges {
+                target: light
+                x: "-406"
+                y: 80
+            }
+
+            PropertyChanges {
+                target: about
+                x: "-359"
+                y: 80
+            }
+
+            PropertyChanges {
+                target: areaToAbout
+                x: 700
+                y: 480
+            }
+
+            PropertyChanges {
+                target: sfondo
+                source: "../../images/sfondoFile.png"
+            }
+
+            PropertyChanges {
+                target: norme1
+                visible: false
+            }
+
+            PropertyChanges {
+                target: norme2
+                visible: false
+            }
+
+            PropertyChanges {
+                target: mouseArea1
+                z: 1
+                visible: false
+            }
+
+            PropertyChanges {
+                target: main
+                color: "#4cb5e6"
+            }
+
+            PropertyChanges {
+                target: item1
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: rectangle1
+                x: 200
+                y: 140
+                width: 400
+                color: "#32ff9d"
+                opacity: 1
+                z: "+1"
+            }
+
+            PropertyChanges {
+                target: text4
+                x: 73
+                y: 62
+                width: 254
+                height: 76
+                text: qsTr("Loading")
+                opacity: 1
+                wrapMode: "NoWrap"
+                z: 102
+                font.pixelSize: 30
+                verticalAlignment: "AlignVCenter"
+                horizontalAlignment: "AlignHCenter"
             }
         }
     ]

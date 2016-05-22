@@ -4,7 +4,7 @@ Rectangle {
     width: 800
     height: 400
     color: "transparent"
-    radius: 10
+    //radius: 10
     Image {
         id: image
         x: 48
@@ -44,7 +44,7 @@ Rectangle {
             y: 8
             width: 91
             height: 66
-            radius: 3
+            //radius: 3
             text: ""
             icon: "../../images/clear.png"
             visible: closeAlarm;

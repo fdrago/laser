@@ -8,7 +8,7 @@ Rectangle {
     signal clicked
 
     color: "#F0b2b2b2"
-    radius:10
+    //radius:10
 
     Rectangle {
         width: parent.width

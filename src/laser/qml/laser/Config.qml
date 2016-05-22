@@ -2,10 +2,10 @@ import QtQuick 1.0
 
 Rectangle {
     id: config
-    width: 700
+    width: 800
     height: 400
 
-    radius:10
+    //radius:10
 
     color: "#00b3b3b3"
 
@@ -39,7 +39,7 @@ Rectangle {
                 height: parent.height
                 width: parent.width
                 color: "ivory"
-                radius: 5
+                //radius: 5
 
 
             }
@@ -206,21 +206,21 @@ Rectangle {
 
     Rectangle {
         id: rectangle2
-        x: 335
-        y: 8
-        width: 360
-        height: 384
-        color: "#80ededed"
-        radius: 2
+        x: 400
+        y: 10
+        width: 390
+        height: 380
+        color: "#80eeeeee"
+        //radius: 2
     }
 
     Button {
         id: btnUsers
-        x: 1
+        x: 50
         y: 60
         width: 300
-        height: 70
-        radius: 4
+        height: 80
+        //radius: 4
         text: "Users"
         icon: "../../images/users.png"
         state: (config.state=="Users") ? "Disable" : "";
@@ -232,11 +232,11 @@ Rectangle {
 
     Button {
         id: btnMaintenance
-        x: 1
-        y: 164
+        x: 50
+        y: 165
         width: 300
-        height: 70
-        radius: 4
+        height: 80
+        //radius: 4
         text: "Maintenance"
         icon: "../../images/maintenance.png"
         state: (config.state=="Maintenance") ? "Disable" : "";
@@ -248,11 +248,11 @@ Rectangle {
 
     Button {
         id: btnLogs
-        x: 1
+        x: 50
         y: 270
         width: 300
-        height: 70
-        radius: 4
+        height: 80
+        //radius: 4
         text: "Logs"
         icon: "../../images/list.png"
         state: (config.state=="Logs") ? "Disable" : "";
@@ -384,11 +384,11 @@ Rectangle {
 
     Text {
         id: username
-        x: 411
+        x: 417
         y: -236
         width: 400
         height: 50
-        text: qsTr("Utente")
+        text: qsTr("Name")
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignLeft
         font.pixelSize: 35
@@ -424,8 +424,10 @@ Rectangle {
         text: "Delete User"
         onClicked: {
             console.log("delete");
-            userList.remove( alphabet1.idx );
-            config.state = "Users"
+            yesNo1.cmd = "deleteuser";
+            config1.state = "Confirm";
+            //userList.remove( alphabet1.idx );
+            //config.state = "Users"
         }
     }
 
@@ -433,9 +435,9 @@ Rectangle {
         property int levelVal: -1;
 
         id: editlevel
-        x: -117
-        y: -254
-        text: "Manage Level"
+        x: -115
+        y: -346
+        text: "Edit"
         onClicked: {
             var l = (levelVal==10) ? 1 : 10;
             laserModel.setLevel(  alphabet1.idx, l );
@@ -446,8 +448,8 @@ Rectangle {
 
     Button {
         id: backtolist
-        x: 103
-        y: -245
+        x: -9
+        y: -160
         text: "Back"
         onClicked: {
             config.state = "Users"
@@ -456,11 +458,11 @@ Rectangle {
 
     Text {
         id: showpassword
-        x: 407
-        y: -237
+        x: 402
+        y: -402
         width: 400
         height: 50
-        text: qsTr("Utente")
+        text: qsTr("Password")
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         font.pixelSize: 35
@@ -468,11 +470,11 @@ Rectangle {
 
     Text {
         id: showname
-        x: 420
-        y: -226
+        x: 402
+        y: -458
         width: 400
         height: 50
-        text: qsTr("Utente")
+        text: qsTr("Name")
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         font.pixelSize: 35
@@ -480,11 +482,11 @@ Rectangle {
 
     Text {
         id: showlevel
-        x: 420
-        y: -231
+        x: 402
+        y: -346
         width: 400
         height: 50
-        text: qsTr("Utente")
+        text: qsTr("Level")
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         font.pixelSize: 35
@@ -497,7 +499,34 @@ Rectangle {
                 target: yesNo1
                 x: 228
                 y: 120
+                //color: "#2ecc24"
                 z: 1
+            }
+
+            PropertyChanges {
+                target: btnUsers
+                x: -443
+                y: 0
+                visible: true
+            }
+
+            PropertyChanges {
+                target: btnMaintenance
+                x: -482
+                y: 182
+            }
+
+            PropertyChanges {
+                target: btnLogs
+                x: -453
+                y: 369
+            }
+
+            PropertyChanges {
+                target: rectangle2
+                x: 833
+                y: 99
+                color: "#80eeeeee"
             }
         },
         State {
@@ -505,10 +534,10 @@ Rectangle {
 
             PropertyChanges {
                 target: listView1
-                x: 335
-                y: 14
-                width: 360
-                height: 374
+                x: 400
+                y: 10
+                width: 390
+                height: 380
             }
 
             PropertyChanges {
@@ -526,26 +555,31 @@ Rectangle {
 
             PropertyChanges {
                 target: btnWater
-                x: 376
-                y: 13
+                x: 410
+                y: 25
+                width: 370
             }
 
             PropertyChanges {
                 target: btnGuide
-                x: 376
-                y: 112
+                x: 410
+                y: 115
+                width: 370
             }
 
             PropertyChanges {
                 target: btnFilter
-                x: 376
-                y: 212
+                x: 410
+                y: 205
+                width: 370
+                height: 79
             }
 
             PropertyChanges {
                 target: btnNoAlarm
-                x: 376
-                y: 312
+                x: 410
+                y: 295
+                width: 370
             }
 
         },
@@ -562,8 +596,8 @@ Rectangle {
 
             PropertyChanges {
                 target: listLogs
-                x: 335
-                y: 14
+                x: 390
+                y: 11
                 width: 360
                 height: 374
             }
@@ -575,12 +609,12 @@ Rectangle {
 
             PropertyChanges {
                 target: button1
-                radius: 8
+                //radius: 8
             }
 
             PropertyChanges {
                 target: btnUsers
-                radius: 4
+                //radius: 4
             }
         },
         State {
@@ -618,46 +652,47 @@ Rectangle {
 
             PropertyChanges {
                 target: rectangle2
-                x: 5
-                y: 8
-                width: 690
-                height: 384
+                x: 1
+                y: 1
+                width: 800
+                height: 400
                 z: -1
             }
 
             PropertyChanges {
                 target: user
-                x: 5
-                y: 14
-                width: 337
+                x: 50
+                y: 17
+                width: 350
                 height: 50
             }
 
             PropertyChanges {
                 target: username
-                x: 342
-                y: 14
-                width: 353
+                x: 400
+                y: 17
+                width: 350
                 height: 50
                 verticalAlignment: "AlignTop"
             }
 
             PropertyChanges {
                 target: editname
-                x: 536
-                y: 80
+                x: 627
+                y: 82
                 width: 123
                 height: 80
-                text: "Edit"
+                anchors.rightMargin: 50
+                //text: "Edit"
             }
 
             PropertyChanges {
                 target: editpassword
-                x: 536
-                y: 190
+                x: 627
+                y: 192
                 width: 123
                 height: 80
-                text: "Edit"
+                //text: "Edit"
             }
 
             PropertyChanges {
@@ -668,53 +703,54 @@ Rectangle {
 
             PropertyChanges {
                 target: deleteuser
-                x: 28
-                y: 190
-                width: 314
+                x: 50
+                y: 192
+                width: 350
                 height: 80
-                text: "Delete"
+                imgstatus: 0
+                //text: "Delete"
             }
 
             PropertyChanges {
                 target: editlevel
-                x: 220
-                y: 80
-                width: 122
+                x: 280
+                y: 82
+                width: 120
                 height: 80
-                text: "Edit"
+                //text: "Edit"
             }
 
             PropertyChanges {
                 target: backtolist
-                x: 250
-                y: 299
+                x: 300
+                y: 302
             }
 
             PropertyChanges {
                 target: showpassword
-                x: 348
-                y: 205
-                width: 182
+                x: 421
+                y: 207
+                width: 200
                 height: 50
-                text: qsTr("Password")
+                //text: qsTr("Password")
             }
 
             PropertyChanges {
                 target: showlevel
-                x: 28
-                y: 95
-                width: 186
+                x: 74
+                y: 97
+                width: 200
                 height: 50
-                text: qsTr("Level")
+                //text: qsTr("Level")
             }
 
             PropertyChanges {
                 target: showname
-                x: 348
-                y: 95
-                width: 186
+                x: 421
+                y: 97
+                width: 200
                 height: 50
-                text: qsTr("Name")
+                //text: qsTr("Name")
             }
 
             PropertyChanges {
@@ -723,7 +759,7 @@ Rectangle {
                 y: 95
                 width: 182
                 height: 50
-                text: qsTr("Name")
+                //text: qsTr("Name")
             }
         }
     ]

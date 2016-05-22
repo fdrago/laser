@@ -5,7 +5,7 @@ Rectangle {
     width: 700
     height: 400
 
-    radius:10
+    //radius:10
 
     color: "#00b2b2b2"
 
@@ -39,7 +39,7 @@ Rectangle {
                 height: parent.height
                 width: parent.width
                 color: "ivory"
-                radius: 5
+                //radius: 5
 
 
             }
@@ -202,7 +202,7 @@ Rectangle {
         width: 360
         height: 384
         color: "#80ededed"
-        radius: 2
+        //radius: 2
     }
 
     Button {
@@ -211,7 +211,7 @@ Rectangle {
         y: 14
         width: 300
         height: 70
-        radius: 4
+        //radius: 4
         text: "Users"
         icon: "../../images/users.png"
         state: (config.state=="Users") ? "Disable" : "";
@@ -227,7 +227,7 @@ Rectangle {
         y: 90
         width: 300
         height: 70
-        radius: 4
+        //radius: 4
         text: "Maintenance"
         icon: "../../images/maintenance.png"
         state: (config.state=="Maintenance") ? "Disable" : "";
@@ -243,7 +243,7 @@ Rectangle {
         y: 166
         width: 300
         height: 70
-        radius: 4
+        //radius: 4
         text: "Logs"
         icon: "../../images/list.png"
         state: (config.state=="Logs") ? "Disable" : "";
@@ -367,7 +367,7 @@ Rectangle {
         y: 242
         width: 300
         height: 70
-        radius: 4
+        //radius: 4
         text: "Network"
         icon: "../../images/lan.png"
         onClicked: {
@@ -590,7 +590,7 @@ Rectangle {
         y: 316
         width: 300
         height: 70
-        radius: 4
+        //radius: 4
         text: "Clock"
         icon: "../../images/log.png"
         onClicked: {
@@ -1092,12 +1092,12 @@ Rectangle {
 
             PropertyChanges {
                 target: button1
-                radius: 8
+                //radius: 8
             }
 
             PropertyChanges {
                 target: btnUsers
-                radius: 4
+                //radius: 4
             }
         },
         State {

@@ -4,12 +4,13 @@ Rectangle {
     width: 800
     height: 400
     color: "transparent"
-    radius: 10
+    //radius: 10
 
     Text {
         id: text1
-        x: 424
-        y: 5
+        x: 450
+        y: 25
+        width: 200
         text: qsTr("USB files")
         font.pixelSize: 35
         font.family: myCustomFont.name
@@ -44,17 +45,17 @@ Rectangle {
 
     ListView {
         id: usbFileList
-        x: 424
-        y: 51
+        x: 425
+        y: 75
         width: 350
-        height: 324
+        height: 300
         clip: true
         highlight: Rectangle
         {
             x: 3
             width: 350
             color:"#ffffff"
-            radius: 5
+            //radius: 5
             opacity: 0.8
         }
         delegate: usbFileItem
@@ -63,9 +64,9 @@ Rectangle {
 
     Button {
         id: button1
-        x: 41
-        y: 51
-        width: 347
+        x: 50
+        y: 60
+        width: 300
         height: 80
         text: "Download all files"
         icon: "../../images/download.png"
@@ -76,19 +77,20 @@ Rectangle {
 
     Rectangle {
         id: info
-        x: 41
-        y: 159
-        width: 347
-        height: 216
-        color: "#80b2b2b2"
-        radius: 10
+        x: 50
+        y: 140
+        width: 300
+        height: 130
+        color: "#80b3b3b3"
+        //radius: 10
         visible: true
 
         Text {
                 id: text2
-                x: 25
-                y: 39
+                x: 31
+                y: 15
                 text: qsTr("Usb detected")
+                anchors.horizontalCenterOffset: 1
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: 40
                 font.family: myCustomFont.name
@@ -97,24 +99,32 @@ Rectangle {
         Rectangle {
             id: progress
             x: 8
-            y: 143
-            width: 311
+            y: 72
+            width: 284
             height: 36
-            color: "#a0b2b2b2"
+            color: "#a0b3b3b3"
             visible: false
-            anchors.horizontalCenterOffset: 0
-            anchors.horizontalCenter: parent.horizontalCenter
             Rectangle {
                 id: bar
-                x: 8
+                x: 0
                 y: 8
-                width: 300
+                width: 284
                 height: 20
-                color: "#25c82e"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
+                color: "#24c72d"
             }
         }
+
+
     }
+Button {
+    id: back
+    x: 50
+    y: 270
+    width: 300
+    height: 80
+    text: "Back"
+    icon: ""
+    onClicked: main.state = "File";
+}
 }
 
