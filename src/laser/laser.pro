@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     libmodbus/src/modbus.c \
     libmodbus/src/modbus-data.c \
     libmodbus/src/modbus-rtu.c \
-    libmodbus/src/modbus-tcp.c
+    libmodbus/src/modbus-tcp.c \
+    logger.cpp
 
 INCLUDEPATH += libmodbus/src
 
@@ -39,7 +40,8 @@ HEADERS += \
     libmodbus/src/modbus-rtu-private.h \
     libmodbus/src/modbus-tcp.h \
     libmodbus/src/modbus-tcp-private.h \
-    libmodbus/src/modbus-version.h
+    libmodbus/src/modbus-version.h \
+    logger.h
 
 DISTFILES += \
     qml/laser/About.qml \
@@ -91,4 +93,4 @@ OTHER_FILES += \
     qml/laser/Config.qml
 
 QT += declarative
-QT += qml quick
+QT += qml quick network

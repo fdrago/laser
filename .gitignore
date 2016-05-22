@@ -3,3 +3,4 @@
 moc_*
 Makefile
 src/laser/laser
+*logfile.txt*

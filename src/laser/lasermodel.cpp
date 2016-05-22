@@ -18,6 +18,9 @@ LaserModel::LaserModel(QObject *parent) :
     _userlist = new UserList;
     _userlist->load();
 
+    _logger = new Logger(this);
+    _logger->load();
+
     _error = new ErrorList;
 
     _menu_usb = false;
@@ -509,6 +512,12 @@ void LaserModel::uploadFile(int idFile)
 void LaserModel::stopTimerLaser()
 {
     _timerLaserFlag = false;
+}
+
+void LaserModel::log(QString s)
+{
+    _logger->log(s);
+    _viewer->rootContext()->setContextProperty("modelLogs", QVariant::fromValue( _logger->logs()) );
 }
 
 void LaserModel::mbSlotWriteBit(int reg, int sts)

@@ -14,6 +14,7 @@
 #include "modbus.h"
 #include "userlist.h"
 #include "user.h"
+#include "logger.h"
 
 
 class LaserModel : public /*QObject*/ QThread
@@ -80,6 +81,8 @@ public:
     Q_INVOKABLE void uploadFile(int idFile);
     Q_INVOKABLE void stopTimerLaser();
 
+    Q_INVOKABLE void log(QString s);
+
 signals:
     void stateChanged(const QString &newState);
     void enableButton(const int &eb);
@@ -111,7 +114,7 @@ private:
     QString _status;
     QString _prevStatus;
 
-//    Led _led;
+    Logger *_logger;
     ErrorList *_error;
     bool _lamp_usb;
     bool _menu_usb;
