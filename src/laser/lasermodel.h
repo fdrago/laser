@@ -32,6 +32,8 @@ public:
     explicit LaserModel(QObject *parent = 0);
     void setViewer(QtQuick1ApplicationViewer * viewer);
 
+    Q_INVOKABLE void setDate(const QDateTime &newdate);
+
     Q_INVOKABLE void guiState(const QString &newState);
 
     Q_INVOKABLE void moveStop();

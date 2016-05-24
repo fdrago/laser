@@ -80,12 +80,13 @@ Rectangle {
         MouseArea {
             id: mouseArea1
             anchors.fill: parent
-            onClicked: {
-                if(main.state=="waitList"){}
-                else if(enablePassword) {
-                    main.state = "Login"
-                } else {
-                    main.state = "File"
+            onPressed: {
+                if(main.state!="waitList"){
+                    if(enablePassword) {
+                        main.state = "Login"
+                    } else {
+                        main.state = "File"
+                    }
                 }
 
             }
@@ -126,7 +127,8 @@ Rectangle {
         x: -337
         y: 140
         onClicked: {
-            main.state = "Login"
+            if (main.state == "WaitList"){}
+            else main.state = "Login"
         }
     }
 
@@ -155,7 +157,11 @@ Rectangle {
         y: 209
         anchors.horizontalCenter: parent.horizontalCenter
         opacity: 0
-        onClicked: main.state = "File"
+        onClicked: {
+            if (main.state != "WaitList"){
+                main.state = "File"
+            }
+        }
     }
 
     Utility {

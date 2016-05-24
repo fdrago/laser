@@ -80,7 +80,7 @@ Rectangle {
         gradient: Gradient {
             GradientStop {
                 position: 0
-                color: "#aa00ff55"
+                color: "#ffffff"
             }
 
             GradientStop {

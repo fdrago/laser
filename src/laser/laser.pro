@@ -89,8 +89,9 @@ OTHER_FILES += \
     qml/laser/Toolbar.qml \
     qml/laser/Utility.qml \
     qml/laser/YesNo.qml \
-    qml/laser/Config_complete.qml \
+    qml/laser/Config_old.qml \
     qml/laser/Config.qml
 
 QT += declarative
 QT += qml quick network
+QT += core

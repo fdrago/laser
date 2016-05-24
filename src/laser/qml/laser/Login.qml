@@ -186,9 +186,13 @@ Rectangle {
         z: 1
         onClicked:{
             if(idx==-1)
-                laserModel.login(codice);
-            else {
-                laserModel.setPwd(idx,codice);
+            {
+                laserModel.login( codice );
+
+            }
+            else
+            {
+                laserModel.setPwd( idx,codice );
                 main.state = "Config";
             }
         }

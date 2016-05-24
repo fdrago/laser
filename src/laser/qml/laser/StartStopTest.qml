@@ -24,7 +24,7 @@ Rectangle {
         gradient: Gradient {
             GradientStop {
                 position: 0
-                color: "#aa00ff55"
+                color: "#ffffff"
             }
 
             GradientStop {
@@ -34,10 +34,13 @@ Rectangle {
         }
 
         onClicked:{
-            laserModel.start();
-            main.state = "StopResume";
-            btnLogin.state="Disable";
-            stopPauseResume1.txtCount++;
+            if(main.state!="WaitList"){
+                laserModel.start();
+                main.state = "StopResume";
+                btnLogin.state="Disable";
+                stopPauseResume1.txtCount++;
+                laserModel.log("Start cut " + fileName)
+            }
         }
     }
 
@@ -52,7 +55,11 @@ Rectangle {
         icon: "../../images/test.png"
 
         onClicked:{
-            laserModel.test();
+            if(main.state!="WaitList"){
+                laserModel.test();
+            }
+
+
 
         }
     }
@@ -64,18 +71,19 @@ Rectangle {
         width: 300
         height: 80
         icon: (main.state=="File" || main.state=="WaitList") ? "../../images/list.png" : "../../images/joy.png";
-        text: (main.state=="File" || main.state=="WaitList") ? "List" : "Joypad";
+        text: (main.state=="File" /*|| main.state=="WaitList"*/) ? "List" : "Joypad";
 
         onClicked: {
 
             //main.state = "WaitList"
-
-            if(text=="List") {
-                main.state = "WaitList"
-                laserModel.callGetFilesList()
-                //main.state = "Choose"
-            } else {
-                main.state = "File"
+            if(main.state!="WaitList"){
+                if(text=="List") {
+                    main.state = "WaitList"
+                    laserModel.callGetFilesList()
+                    //main.state = "Choose"
+                } else {
+                    main.state = "File"
+                }
             }
 
         }

@@ -5,6 +5,7 @@
 #include <QTextStream>
 #include <QString>
 #include <QList>
+#include <QDebug>
 
 #ifdef QT_DEBUG
 #define LOG_FILE "data/logfile.txt"
@@ -12,6 +13,7 @@
 #define LOG_FILE "/root/laser/data/logfile.txt"
 #endif
 
+#define NORTC 0
 
 #define MAX_SIZE 100
 #define SEPARATOR '|'
@@ -25,13 +27,13 @@ Logger::Logger(QObject *parent) : QObject(parent)
 void Logger::load()
 {
     QFile data( LOG_FILE );
-    if ( !data.open(QFile::ReadOnly | QFile::Append))
+    if ( !data.open(QFile::ReadOnly | QFile::Text))
     {
         return;
     }
 
     QByteArray line;
-    do
+    while(!data.atEnd())
     {
         line = data.readLine();
         if (line.size()<=0)
@@ -42,16 +44,18 @@ void Logger::load()
             continue;
 
         uint ts = l.at(0).toInt();
-        mm_LogMap[ ts ] = l.at(1);
+        mm_LogMap[ ts ] = l.at(1).simplified();
 
     }
-    while ( line.size()>0 );
 }
 
 void Logger::log(const QString &str)
 {
     uint ts = QDateTime::currentDateTime().toTime_t();
-    mm_LogMap[ts] = str;
+/*#ifdef NORTC
+    ts = mm_LogMap.size();
+#endif*/
+    mm_LogMap[ts] = str.simplified();
     save();
 }
 
@@ -61,8 +65,16 @@ QStringList Logger::logs()
     QMap<uint, QString>::iterator it;
     for ( it = mm_LogMap.begin(); it!= mm_LogMap.end() ; it++ )
     {
-        QString s = QString("%1 : %2").arg( it.key() ).arg( it.value() );
-        res.append(res);
+        QString ts ;
+//#ifndef NORTC
+        ts  = QDateTime::fromTime_t( it.key()).toString(Qt::SystemLocaleShortDate);
+/*#else
+        ts =  QString::number( it.key() ) ;
+#endif*/
+
+        QString s = QString("%1 : %3").arg( ts ).arg( it.value() );
+        qDebug() << s;
+        res.append(s);
     }
     return res;
 }
@@ -70,7 +82,7 @@ QStringList Logger::logs()
 void Logger::save()
 {
     QFile data( LOG_FILE );
-    if ( !data.open(QFile::WriteOnly | QFile::Append))
+    if ( !data.open(QFile::WriteOnly | QFile::Truncate))
     {
         return;
     }
@@ -89,7 +101,7 @@ void Logger::save()
 
     for ( ; it!= mm_LogMap.end() ; it++ )
     {
-        QString s = QString("%1|%2").arg( it.key() ).arg( it.value() );
+        QString s = QString("%1|%2\n").arg( it.key() ).arg( it.value() );
         out << s;
     }
 }

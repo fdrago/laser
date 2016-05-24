@@ -1,6 +1,18 @@
 import QtQuick 1.0
 
 Rectangle {
+
+    property date saveDate
+
+
+    onSaveDateChanged: {
+        day.text=saveDate.getDate()
+        month.text=saveDate.getMonth()
+        year.text=saveDate.getFullYear()-2000
+        hours.text=saveDate.getHours()
+        minutes.text=saveDate.getMinutes()
+    }
+
     id: config
     width: 800
     height: 400
@@ -9,7 +21,7 @@ Rectangle {
 
     color: "#00b3b3b3"
 
-    Component {
+    /*Component {
         id: logDelegate
         Rectangle {
             id: fileDelegateRectangle
@@ -26,7 +38,7 @@ Rectangle {
                 text: modelData
             }
         }
-    }
+    }*/
     Component {
         id: userDelegate
         Item {
@@ -217,7 +229,7 @@ Rectangle {
     Button {
         id: btnUsers
         x: 50
-        y: 60
+        y: 10
         width: 300
         height: 80
         //radius: 4
@@ -233,7 +245,7 @@ Rectangle {
     Button {
         id: btnMaintenance
         x: 50
-        y: 165
+        y: 110
         width: 300
         height: 80
         //radius: 4
@@ -249,7 +261,7 @@ Rectangle {
     Button {
         id: btnLogs
         x: 50
-        y: 270
+        y: 210
         width: 300
         height: 80
         //radius: 4
@@ -351,20 +363,22 @@ Rectangle {
         delegate: Item {
             x: 5
             width: 80
-            height: 40
+            height: 15
             Row {
                 id: row1
                 Rectangle {
-                    width: 40
-                    height: 40
-                    color: colorCode
-                }
+                    width: 350
+                    height: 15
+                    color: "#00000000";
 
-                Text {
-                    text: name
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.bold: true
-                    font.family: myCustomFont.name
+                    Text {
+                        color: "#000000"
+                        text: modelData
+                        anchors.fill: parent
+                        font.bold: false
+                        font.pixelSize: 12
+
+                    }
                 }
                 spacing: 10
             }
@@ -491,6 +505,257 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         font.pixelSize: 35
     }
+
+    Text {
+        id: day
+        x: 56
+        y: 498
+        width: 50
+        height: 50
+        text: qsTr("99")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 35
+    }
+
+    Text {
+        id: month
+        x: 146
+        y: 498
+        width: 50
+        height: 50
+        text: qsTr("99")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 35
+    }
+
+    Text {
+        id: year
+        x: 237
+        y: 498
+        width: 50
+        height: 50
+        text: qsTr("99")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 35
+    }
+
+    Text {
+        id: text12
+        x: 119
+        y: 498
+        width: 15
+        height: 50
+        text: qsTr("/")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 35
+    }
+
+    Text {
+        id: text13
+        x: 208
+        y: 498
+        width: 15
+        height: 50
+        text: qsTr("/")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 35
+    }
+
+    Text {
+        id: hours
+        x: 102
+        y: 697
+        width: 50
+        height: 50
+        text: qsTr("99")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 35
+    }
+
+    Text {
+        id: minutes
+        x: 192
+        y: 697
+        width: 50
+        height: 50
+        text: qsTr("99")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 35
+    }
+
+    Text {
+        id: text16
+        x: 165
+        y: 697
+        width: 15
+        height: 50
+        text: qsTr(":")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 35
+    }
+
+    Buttonsmall {
+        id: suday
+        x: 51
+        y: 432
+        icon: "../../images/su.png"
+        onClicked: {
+            saveDate = new Date( new Date(saveDate).setDate(saveDate.getDate()+1));
+        }
+    }
+
+    Buttonsmall {
+        id: giuday
+        x: 51
+        y: 554
+        icon: "../../images/giu.png"
+        onClicked: {
+            saveDate = new Date( new Date(saveDate).setDate(saveDate.getDate()-1));
+        }
+
+    }
+
+    Buttonsmall {
+        id: sumonth
+        x: 143
+        y: 432
+        icon: "../../images/su.png"
+        onClicked: {
+            saveDate = new Date( new Date(saveDate).setMonth(saveDate.getMonth()+1));
+        }
+    }
+
+    Buttonsmall {
+        id: giumonth
+        x: 143
+        y: 554
+        icon: "../../images/giu.png"
+        onClicked: {
+            saveDate = new Date( new Date(saveDate).setMonth(saveDate.getMonth()-1));
+        }
+    }
+
+    Buttonsmall {
+        id: suyear
+        x: 232
+        y: 432
+        icon: "../../images/su.png"
+        onClicked: {
+            saveDate = new Date( new Date(saveDate).setYear(saveDate.getFullYear()+1));
+        }
+    }
+
+    Buttonsmall {
+        id: giuyear
+        x: 232
+        y: 554
+        icon: "../../images/giu.png"
+        onClicked: {
+            saveDate = new Date( new Date(saveDate).setYear(saveDate.getFullYear()-1));
+        }
+    }
+
+    Buttonsmall {
+        id: suhours
+        x: 97
+        y: 631
+        icon: "../../images/su.png"
+        onClicked: {
+            saveDate = new Date(saveDate.getTime() + 60*60000);
+        }
+    }
+
+    Buttonsmall {
+        id: giuhours
+        x: 97
+        y: 753
+        icon: "../../images/giu.png"
+        onClicked: {
+            saveDate = new Date(saveDate.getTime() - 60*60000);
+        }
+    }
+
+    Buttonsmall {
+        id: suminutes
+        x: 186
+        y: 631
+        icon: "../../images/su.png"
+        onClicked: {
+            saveDate = new Date(saveDate.getTime() + 60000);
+        }
+    }
+
+    Buttonsmall {
+        id: giuminutes
+        x: 186
+        y: 753
+        icon: "../../images/giu.png"
+        onClicked: {
+            saveDate = new Date(saveDate.getTime() - 60000);
+        }
+    }
+
+    Button {
+        id: clockButton
+        x: 50
+        y: 310
+        width: 300
+        height: 80
+        text: "Clock"
+        icon: "../../images/log.png"
+        state: (config.state=="SetTime") ? "Disable" : "";
+        onClicked: {
+            config.state="SetTime"
+            saveDate = new Date()
+            /*day.text=saveDate.getDate()
+            month.text=saveDate.getMonth()
+            year.text=saveDate.getFullYear()-2000
+            hours.text=saveDate.getHours()
+            minutes.text=saveDate.getMinutes()*/
+        }
+    }
+
+    Button {
+        id: buttonsetdatetime
+        x: 295
+        y: 733
+        text: "Set"
+        onClicked: {
+            laserModel.setDate(saveDate);
+        }
+    }
+
+    Text {
+        id: text1
+        x: 295
+        y: 498
+        width: 178
+        height: 50
+        text: qsTr("dd/mm/yy")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignLeft
+        font.pixelSize: 20
+    }
+
+    Text {
+        id: text2
+        x: 295
+        y: 697
+        width: 178
+        height: 50
+        text: qsTr("hh/mm")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignLeft
+        font.pixelSize: 20
+    }
     states: [
         State {
             name: "Confirm"
@@ -541,7 +806,7 @@ Rectangle {
             }
 
             PropertyChanges {
-                target: button1
+                target: buttonsetdatetime
             }
         },
         State {
@@ -596,10 +861,11 @@ Rectangle {
 
             PropertyChanges {
                 target: listLogs
-                x: 390
-                y: 11
-                width: 360
-                height: 374
+                x: 410
+                y: 20
+                width: 370
+                height: 360
+                clip: true
             }
 
             PropertyChanges {
@@ -608,13 +874,19 @@ Rectangle {
             }
 
             PropertyChanges {
-                target: button1
+                target: buttonsetdatetime
                 //radius: 8
             }
 
             PropertyChanges {
                 target: btnUsers
                 //radius: 4
+            }
+
+            PropertyChanges {
+                target: rectangle2
+                x: 400
+                y: 10
             }
         },
         State {
@@ -639,7 +911,7 @@ Rectangle {
             }
 
             PropertyChanges {
-                target: button1
+                target: buttonsetdatetime
                 x: -125
                 y: 700
             }
@@ -760,6 +1032,154 @@ Rectangle {
                 width: 182
                 height: 50
                 //text: qsTr("Name")
+            }
+        },
+        State {
+            name: "SetTime"
+            PropertyChanges {
+                target: listView1
+                x: 400
+                y: 433
+                width: 390
+                height: 380
+            }
+
+            PropertyChanges {
+                target: buttonsetdatetime
+                x: 656
+                y: 320
+                width: 122
+                height: 60
+                text: "Set"
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: day
+                x: 417
+                y: 80
+            }
+
+            PropertyChanges {
+                target: month
+                x: 507
+                y: 80
+            }
+
+            PropertyChanges {
+                target: year
+                x: 598
+                y: 80
+            }
+
+            PropertyChanges {
+                target: text12
+                x: 480
+                y: 80
+            }
+
+            PropertyChanges {
+                target: text13
+                x: 569
+                y: 80
+            }
+
+            PropertyChanges {
+                target: hours
+                x: 417
+                y: 270
+            }
+
+            PropertyChanges {
+                target: minutes
+                x: 507
+                y: 270
+            }
+
+            PropertyChanges {
+                target: text16
+                x: 480
+                y: 270
+            }
+
+            PropertyChanges {
+                target: suday
+                x: 412
+                y: 20
+            }
+
+            PropertyChanges {
+                target: giuday
+                x: 412
+                y: 130
+            }
+
+            PropertyChanges {
+                target: sumonth
+                x: 504
+                y: 20
+            }
+
+            PropertyChanges {
+                target: giumonth
+                x: 504
+                y: 130
+            }
+
+            PropertyChanges {
+                target: suyear
+                x: 593
+                y: 20
+            }
+
+            PropertyChanges {
+                target: giuyear
+                x: 593
+                y: 130
+            }
+
+            PropertyChanges {
+                target: suhours
+                x: 412
+                y: 210
+            }
+
+            PropertyChanges {
+                target: giuhours
+                x: 412
+                y: 320
+            }
+
+            PropertyChanges {
+                target: suminutes
+                x: 501
+                y: 210
+            }
+
+            PropertyChanges {
+                target: giuminutes
+                x: 501
+                y: 320
+            }
+
+            PropertyChanges {
+                target: rectangle2
+                x: 400
+                y: 10
+            }
+
+            PropertyChanges {
+                target: text1
+                x: 658
+                y: 80
+                width: 119
+                height: 50
+            }
+
+            PropertyChanges {
+                target: text2
+                x: 567
+                y: 270
             }
         }
     ]

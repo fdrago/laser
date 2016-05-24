@@ -86,7 +86,7 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
 
     _viewer->rootContext()->setContextProperty("userList", _userlist);
     _viewer->rootContext()->setContextProperty("usersModel", QVariant::fromValue(_userlist->userlist()));
-
+    log("Startup");
 
     setFan(1);
     setLight(1);
@@ -107,6 +107,15 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
     //QThread::start();
     _timerAlarm->start(3000);
 
+}
+
+void LaserModel::setDate(const QDateTime &newdate)
+{
+     QStringList l;
+     l.append("-s");
+     l.append( QString("@%1").arg(newdate.toMSecsSinceEpoch()));
+     QProcess::execute("date", l);
+     log("Date changed to: "+newdate.toString());
 }
 
 
@@ -291,6 +300,9 @@ void LaserModel::login(QString codice)
 
         emit stateChanged("File");
         _timerLaserFlag = true;
+
+        log( "Login "+  _currentUser->name());
+
 
     } else {
         emit stateChanged("");
@@ -516,8 +528,9 @@ void LaserModel::stopTimerLaser()
 
 void LaserModel::log(QString s)
 {
-    _logger->log(s);
-    _viewer->rootContext()->setContextProperty("modelLogs", QVariant::fromValue( _logger->logs()) );
+    _logger->log(s) ;
+    QStringList logs = _logger->logs();
+    _viewer->rootContext()->setContextProperty("modelLogs", QVariant::fromValue( logs ) );
 }
 
 void LaserModel::mbSlotWriteBit(int reg, int sts)
@@ -534,14 +547,14 @@ void LaserModel::doRefreshUser()
 
 void LaserModel::doComplete()
 {
-    qDebug()<<"doComplete"<<isStarted;
+    //qDebug()<<"doComplete"<<isStarted;
    /* if ( !isStarted )
     {
         return;
     }*/
 
 
-    qDebug()<<"doComplete";
+    //qDebug()<<"doComplete";
     if(_error->testAlarm(_alarmUnsafe) > 0){
          emit enableButton(0);
 
@@ -662,7 +675,9 @@ void LaserModel::setHum(double t)
 
 void LaserModel::setPres(double p)
 {
-    qDebug() << "---------------Pres" << p;
+    //qDebug() << "---------------Pres" << p;
+
+    log( QString("Pressure set: %1").arg(p));
     _viewer->rootContext()->setContextProperty("setPointPset", p);
 }
 
