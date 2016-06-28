@@ -2,14 +2,14 @@ import QtQuick 1.0
 
 Rectangle {
     width: 800
-    height: 400
+    height: 320
     color: "transparent"
     //radius: 10
 
     Text {
         id: text1
         x: 450
-        y: 25
+        y: 8
         width: 200
         text: qsTr("USB files")
         font.pixelSize: 35
@@ -46,9 +46,9 @@ Rectangle {
     ListView {
         id: usbFileList
         x: 425
-        y: 75
+        y: 54
         width: 350
-        height: 300
+        height: 258
         clip: true
         highlight: Rectangle
         {
@@ -65,10 +65,10 @@ Rectangle {
     Button {
         id: button1
         x: 50
-        y: 60
+        y: 8
         width: 300
         height: 80
-        text: "Download all files"
+        text: "Download"
         icon: "../../images/download.png"
         onClicked: {
             laserModel.uploadFile(255)
@@ -78,7 +78,7 @@ Rectangle {
     Rectangle {
         id: info
         x: 50
-        y: 140
+        y: 95
         width: 300
         height: 130
         color: "#80b3b3b3"
@@ -110,7 +110,7 @@ Rectangle {
                 y: 8
                 width: 284
                 height: 20
-                color: "#24c72d"
+                color: "#24c72b"
             }
         }
 
@@ -119,7 +119,7 @@ Rectangle {
 Button {
     id: back
     x: 50
-    y: 270
+    y: 232
     width: 300
     height: 80
     text: "Back"

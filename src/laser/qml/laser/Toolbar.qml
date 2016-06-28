@@ -14,14 +14,31 @@ Rectangle {
         y: 8
         width: 100
         height: 59
-        //radius: 8
-        text: "Exit"
+        text: "Login";
         state: ((main.state=="Login") || (main.state=="StopResume") || (!main.enablePassword)) ? "Disable" : "";
         onClicked: {
             login.idx = -1;
             laserModel.stopTimerLaser();
             main.state = "Login"
         }
+        visible: (userlevel < 9) ? true : false;
+
+    }
+
+    Button {
+        id: btnLogout
+        x: 8
+        y: 8
+        width: 100
+        height: 59
+        text: "Logout"
+        state: ((main.state=="Login") || (main.state=="StopResume") || (!main.enablePassword)) ? "Disable" : "";
+        onClicked: {
+            laserModel.stopTimerLaser();
+            laserModel.login("0000")
+            main.state = "File"
+        }
+        visible: (userlevel > 9) ? true : false;
     }
 
     Button {

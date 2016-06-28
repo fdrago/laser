@@ -3,7 +3,7 @@ import QtQuick 1.0
 Rectangle {
     id: container
     width: 400
-    height: 400
+    height: 320
     color: "#00757575"
     //radius: 10
 
@@ -37,10 +37,10 @@ Rectangle {
 
     ListView {
         id: listFile
-        x: 25
-        y: 25
-        width: 350
-        height: 220
+        x: 8
+        y: 8
+        width: 384
+        height: 211
         clip: true
         delegate: fileDelegate
         model: cutModel
@@ -57,7 +57,7 @@ Rectangle {
     Button {
         id: btnDelete
         x: 50
-        y: 270
+        y: 232
         width: 300
         height: 80
         icon: "../../images/delete.png"
@@ -65,7 +65,7 @@ Rectangle {
         gradient: Gradient {
             GradientStop {
                 position: 0
-                color: "#aaffdd00"
+                color: "#ffffff"
             }
 
             GradientStop {

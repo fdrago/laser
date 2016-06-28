@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
 
     viewer.rootContext()->setContextProperty("laserModel", laserModel);
 
+
+
     viewer.addImportPath(QLatin1String("modules"));
     viewer.setOrientation(QtQuick1ApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/laser/main.qml"));

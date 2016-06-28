@@ -42,7 +42,7 @@ Rectangle {
         id: txtVer
         x: 39
         y: 136
-        text: "Ver 1.3"
+        text: "Ver 1.4"
         font.pixelSize: 16
     }
 

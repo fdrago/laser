@@ -31,7 +31,7 @@ Rectangle {
         height: 51
         text: "Yes"
         onClicked: {
-            config1.state = "";
+            utility1.state = "";
             if(cmd=="water"){
                 laserModel.setClearWater();
                 ynmain.color= "#2ecc24";
@@ -62,10 +62,11 @@ Rectangle {
         text: "No"
         onClicked: {
             config1.state = "";
+            utility1.state = "";
+
 
             if(cmd=="deleteuser")
             {
-
                 config.state = "Users"
             }
         }

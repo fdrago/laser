@@ -152,7 +152,7 @@ Rectangle {
         gradient: Gradient {
             GradientStop {
                 position: 0
-                color: "#aaffdd00"
+                color: "#ffffff"
             }
 
             GradientStop {
@@ -175,7 +175,7 @@ Rectangle {
         gradient: Gradient {
             GradientStop {
                 position: 0
-                color: "#aa00ff55"
+                color: "#ffffff"
             }
 
             GradientStop {
@@ -188,7 +188,6 @@ Rectangle {
             if(idx==-1)
             {
                 laserModel.login( codice );
-
             }
             else
             {
@@ -207,6 +206,30 @@ Rectangle {
         color: "#cc000000"
         //radius: 8
         z: 1
+    }
+
+    Button {
+        id: btnBack
+        x: 574
+        y: 355
+        width: 182
+        height: 80
+        text: "Back"
+        gradient: Gradient {
+            GradientStop {
+                position: 0
+                color: "#ffffff"
+            }
+
+            GradientStop {
+                position: 1
+                color: "#aa000000"
+            }
+        }
+        z: 1
+        onClicked:{
+               main.state = "File"
+        }
     }
 
 

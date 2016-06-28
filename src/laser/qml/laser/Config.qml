@@ -6,16 +6,16 @@ Rectangle {
 
 
     onSaveDateChanged: {
-        day.text=saveDate.getDate()
-        month.text=saveDate.getMonth()
-        year.text=saveDate.getFullYear()-2000
-        hours.text=saveDate.getHours()
-        minutes.text=saveDate.getMinutes()
+        day.text= (saveDate.getDate() <10) ? "0"+saveDate.getDate() : saveDate.getDate();
+        month.text=(saveDate.getMonth() <10) ? "0"+(saveDate.getMonth()+1) : saveDate.getMonth()+1;
+        year.text=((saveDate.getFullYear()-2000) <10) ? "0"+(saveDate.getFullYear()-2000) : (saveDate.getFullYear()-2000);
+        hours.text=(saveDate.getHours()<10) ? "0"+saveDate.getHours() : saveDate.getHours();
+        minutes.text=(saveDate.getMinutes()<10) ? "0"+saveDate.getMinutes() : saveDate.getMinutes();
     }
 
     id: config
     width: 800
-    height: 400
+    height: 320
 
     //radius:10
 
@@ -218,19 +218,19 @@ Rectangle {
 
     Rectangle {
         id: rectangle2
-        x: 400
+        x: 264
         y: 10
-        width: 390
-        height: 380
+        width: 528
+        height: 302
         color: "#80eeeeee"
         //radius: 2
     }
 
     Button {
         id: btnUsers
-        x: 50
-        y: 10
-        width: 300
+        x: 8
+        y: 20
+        width: 250
         height: 80
         //radius: 4
         text: "Users"
@@ -243,26 +243,10 @@ Rectangle {
     }
 
     Button {
-        id: btnMaintenance
-        x: 50
-        y: 110
-        width: 300
-        height: 80
-        //radius: 4
-        text: "Maintenance"
-        icon: "../../images/maintenance.png"
-        state: (config.state=="Maintenance") ? "Disable" : "";
-        onClicked: {
-            config.state="Maintenance";
-
-        }
-    }
-
-    Button {
         id: btnLogs
-        x: 50
-        y: 210
-        width: 300
+        x: 8
+        y: 120
+        width: 250
         height: 80
         //radius: 4
         text: "Logs"
@@ -704,32 +688,12 @@ Rectangle {
     }
 
     Button {
-        id: clockButton
-        x: 50
-        y: 310
-        width: 300
-        height: 80
-        text: "Clock"
-        icon: "../../images/log.png"
-        state: (config.state=="SetTime") ? "Disable" : "";
-        onClicked: {
-            config.state="SetTime"
-            saveDate = new Date()
-            /*day.text=saveDate.getDate()
-            month.text=saveDate.getMonth()
-            year.text=saveDate.getFullYear()-2000
-            hours.text=saveDate.getHours()
-            minutes.text=saveDate.getMinutes()*/
-        }
-    }
-
-    Button {
         id: buttonsetdatetime
         x: 295
         y: 733
         text: "Set"
         onClicked: {
-            laserModel.setDate(saveDate);
+            laserModel.setDate(saveDate.getFullYear()-2000,saveDate.getMonth()+1,saveDate.getDate(),saveDate.getHours(),saveDate.getMinutes());
         }
     }
 
@@ -755,6 +719,16 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignLeft
         font.pixelSize: 20
+    }
+
+    Button {
+        id: btnLogs1
+        x: 8
+        y: 220
+        width: 250
+        height: 80
+        text: "Parameters"
+        state: (config.state=="Setup") ? "Disable" : ""
     }
     states: [
         State {
@@ -787,11 +761,24 @@ Rectangle {
                 y: 369
             }
 
+
+
+            PropertyChanges {
+                target: clockButton
+                x: -438
+                y: 483
+            }
+
+            PropertyChanges {
+                target: btnLogs1
+                x: -165
+                y: 498
+            }
+
             PropertyChanges {
                 target: rectangle2
-                x: 833
-                y: 99
-                color: "#80eeeeee"
+                x: 232
+                y: 382
             }
         },
         State {
@@ -799,54 +786,15 @@ Rectangle {
 
             PropertyChanges {
                 target: listView1
-                x: 400
+                x: 264
                 y: 10
-                width: 390
-                height: 380
+                width: 528
+                height: 302
             }
 
             PropertyChanges {
                 target: buttonsetdatetime
             }
-        },
-        State {
-            name: "Maintenance"
-
-            PropertyChanges {
-                target: listView1
-                x: 807
-                y: 21
-            }
-
-            PropertyChanges {
-                target: btnWater
-                x: 410
-                y: 25
-                width: 370
-            }
-
-            PropertyChanges {
-                target: btnGuide
-                x: 410
-                y: 115
-                width: 370
-            }
-
-            PropertyChanges {
-                target: btnFilter
-                x: 410
-                y: 205
-                width: 370
-                height: 79
-            }
-
-            PropertyChanges {
-                target: btnNoAlarm
-                x: 410
-                y: 295
-                width: 370
-            }
-
         },
         State {
             name: "Logs"
@@ -861,10 +809,10 @@ Rectangle {
 
             PropertyChanges {
                 target: listLogs
-                x: 410
-                y: 20
-                width: 370
-                height: 360
+                x: 264
+                y: 10
+                width: 528
+                height: 302
                 clip: true
             }
 
@@ -883,11 +831,7 @@ Rectangle {
                 //radius: 4
             }
 
-            PropertyChanges {
-                target: rectangle2
-                x: 400
-                y: 10
-            }
+
         },
         State {
             name: "UserSet"
@@ -927,14 +871,14 @@ Rectangle {
                 x: 1
                 y: 1
                 width: 800
-                height: 400
+                height: 319
                 z: -1
             }
 
             PropertyChanges {
                 target: user
                 x: 50
-                y: 17
+                y: 8
                 width: 350
                 height: 50
             }
@@ -942,7 +886,7 @@ Rectangle {
             PropertyChanges {
                 target: username
                 x: 400
-                y: 17
+                y: 8
                 width: 350
                 height: 50
                 verticalAlignment: "AlignTop"
@@ -951,7 +895,7 @@ Rectangle {
             PropertyChanges {
                 target: editname
                 x: 627
-                y: 82
+                y: 64
                 width: 123
                 height: 80
                 anchors.rightMargin: 50
@@ -961,7 +905,7 @@ Rectangle {
             PropertyChanges {
                 target: editpassword
                 x: 627
-                y: 192
+                y: 150
                 width: 123
                 height: 80
                 //text: "Edit"
@@ -976,7 +920,7 @@ Rectangle {
             PropertyChanges {
                 target: deleteuser
                 x: 50
-                y: 192
+                y: 150
                 width: 350
                 height: 80
                 imgstatus: 0
@@ -986,7 +930,7 @@ Rectangle {
             PropertyChanges {
                 target: editlevel
                 x: 280
-                y: 82
+                y: 64
                 width: 120
                 height: 80
                 //text: "Edit"
@@ -994,14 +938,14 @@ Rectangle {
 
             PropertyChanges {
                 target: backtolist
-                x: 300
-                y: 302
+                x: 320
+                y: 236
             }
 
             PropertyChanges {
                 target: showpassword
                 x: 421
-                y: 207
+                y: 165
                 width: 200
                 height: 50
                 //text: qsTr("Password")
@@ -1010,7 +954,7 @@ Rectangle {
             PropertyChanges {
                 target: showlevel
                 x: 74
-                y: 97
+                y: 79
                 width: 200
                 height: 50
                 //text: qsTr("Level")
@@ -1019,7 +963,7 @@ Rectangle {
             PropertyChanges {
                 target: showname
                 x: 421
-                y: 97
+                y: 79
                 width: 200
                 height: 50
                 //text: qsTr("Name")
@@ -1033,154 +977,21 @@ Rectangle {
                 height: 50
                 //text: qsTr("Name")
             }
+
+            PropertyChanges {
+                target: clockButton
+                x: -125
+                y: 780
+            }
+
+            PropertyChanges {
+                target: btnLogs1
+                x: -125
+                y: 371
+            }
         },
         State {
-            name: "SetTime"
-            PropertyChanges {
-                target: listView1
-                x: 400
-                y: 433
-                width: 390
-                height: 380
-            }
-
-            PropertyChanges {
-                target: buttonsetdatetime
-                x: 656
-                y: 320
-                width: 122
-                height: 60
-                text: "Set"
-                opacity: 1
-            }
-
-            PropertyChanges {
-                target: day
-                x: 417
-                y: 80
-            }
-
-            PropertyChanges {
-                target: month
-                x: 507
-                y: 80
-            }
-
-            PropertyChanges {
-                target: year
-                x: 598
-                y: 80
-            }
-
-            PropertyChanges {
-                target: text12
-                x: 480
-                y: 80
-            }
-
-            PropertyChanges {
-                target: text13
-                x: 569
-                y: 80
-            }
-
-            PropertyChanges {
-                target: hours
-                x: 417
-                y: 270
-            }
-
-            PropertyChanges {
-                target: minutes
-                x: 507
-                y: 270
-            }
-
-            PropertyChanges {
-                target: text16
-                x: 480
-                y: 270
-            }
-
-            PropertyChanges {
-                target: suday
-                x: 412
-                y: 20
-            }
-
-            PropertyChanges {
-                target: giuday
-                x: 412
-                y: 130
-            }
-
-            PropertyChanges {
-                target: sumonth
-                x: 504
-                y: 20
-            }
-
-            PropertyChanges {
-                target: giumonth
-                x: 504
-                y: 130
-            }
-
-            PropertyChanges {
-                target: suyear
-                x: 593
-                y: 20
-            }
-
-            PropertyChanges {
-                target: giuyear
-                x: 593
-                y: 130
-            }
-
-            PropertyChanges {
-                target: suhours
-                x: 412
-                y: 210
-            }
-
-            PropertyChanges {
-                target: giuhours
-                x: 412
-                y: 320
-            }
-
-            PropertyChanges {
-                target: suminutes
-                x: 501
-                y: 210
-            }
-
-            PropertyChanges {
-                target: giuminutes
-                x: 501
-                y: 320
-            }
-
-            PropertyChanges {
-                target: rectangle2
-                x: 400
-                y: 10
-            }
-
-            PropertyChanges {
-                target: text1
-                x: 658
-                y: 80
-                width: 119
-                height: 50
-            }
-
-            PropertyChanges {
-                target: text2
-                x: 567
-                y: 270
-            }
+            name: "State1"
         }
     ]
 }

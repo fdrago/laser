@@ -1,15 +1,15 @@
 import QtQuick 1.0
 
 Rectangle {
-    width: 400
-    height: 400
+    width: 500
+    height: 320
     color: "#00757575"
     //radius: 10
 
     Button {
         id: btnZsu
-        x: 8
-        y: 110
+        x: 60
+        y: 90
         width: 80
         height: 80
         text: ""
@@ -20,7 +20,7 @@ Rectangle {
 
     Button {
         id: btnZgiu
-        x: 8
+        x: 60
         y: 210
         width: 80
         height: 80
@@ -32,20 +32,28 @@ Rectangle {
 
     Button {
         id: btnSu
-        x: 210
-        y: 70
+        x: 280
+        y: 60
         width: 80
         height: 80
         text: ""
         backGround: "../../images/su.png"
-        onPressed: laserModel.moveXplus()
-        onRelased: laserModel.moveStop()
+        onPressed: {
+            laserModel.moveXplus();
+            console.log("pressed");
+        }
+        onRelased:{
+            laserModel.moveStop();
+            console.log("released");
+        }
+
+
     }
 
     Button {
         id: btnDx
-        x: 300
-        y: 160
+        x: 370
+        y: 150
         width: 80
         height: 80
         text: ""
@@ -56,8 +64,8 @@ Rectangle {
 
     Button {
         id: btnGiu
-        x: 210
-        y: 250
+        x: 280
+        y: 240
         width: 80
         height: 80
         text: ""
@@ -68,8 +76,8 @@ Rectangle {
 
     Button {
         id: btnSx
-        x: 120
-        y: 160
+        x: 190
+        y: 150
         width: 80
         height: 80
         text: ""
@@ -80,12 +88,35 @@ Rectangle {
 
     Text {
         id: text1
-        x: 40
-        y: 63
+        x: 92
+        y: 176
         text: qsTr("Z")
+        verticalAlignment: Text.AlignVCenter
         font.bold: true
         font.pixelSize: 24
         font.family: myCustomFont.name
+    }
+
+    Text {
+        id: text2
+        x: 8
+        y: 8
+        width: 84
+        height: 40
+        text: qsTr("File:")
+        font.family: myCustomFont.name
+        font.pixelSize: 40
+    }
+
+    Text {
+        id: text3
+        x: 98
+        y: 3
+        width: 394
+        height: 45
+        text: fileName
+        font.family: myCustomFont.name
+        font.pixelSize: 40
     }
 
 }

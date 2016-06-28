@@ -2,7 +2,7 @@ import QtQuick 1.0
 
 Rectangle {
     width: 800
-    height: 400
+    height: 320
     color: "#00757575"
     //radius: 10
 
@@ -14,17 +14,17 @@ Rectangle {
         x: 8
         y: 0
         width: 784
-        height: 72
-        color: "#80ededed"
+        height: 158
+        color: "#80eeeeee"
         //radius: 8
     }
 
     Button {
         id: btnStop
-        x: 50
-        y: 90
-        width: 325
-        height: 150
+        x: 38
+        y: 164
+        width: 200
+        height: 148
         //radius: 5
         icon: "../../images/stop.png"
         text: "Stop"
@@ -53,10 +53,10 @@ Rectangle {
 
     Button {
         id: btnPause
-        x: 425
-        y: 90
-        width: 325
-        height: 150
+        x: 300
+        y: 164
+        width: 200
+        height: 148
         //radius: 5
         icon: "../../images/pause.png"
         text: "Pause"
@@ -88,59 +88,11 @@ Rectangle {
         }
     }
 
-    Button {
-        id: btnLight
-        x: 50
-        y: 270
-        width: 200
-        height: 80
-        //radius: 8
-        text: "Light"
-        icon: "../../images/luciOff.png"
-        iconOff: "../../images/luciOn.png"
-        imgstatus: LightSts;
-        onClicked: {
-            var sts = (imgstatus) ? 0 : 1;
-            laserModel.setLight(sts);
-        }
-    }
-
-    Button {
-        id: btnFan
-        x: 300
-        y: 270
-        width: 200
-        height: 80
-        text: "Fan"
-        icon: "../../images/fanOff.png"
-        imgstatus: FanSts
-        iconOff: "../../images/fanOn.png"
-        onClicked: {
-            var sts = (imgstatus) ? 0 : 1;
-            laserModel.setFan(sts);
-        }
-    }
-
-    Button {
-        id: btnPointer
-        x: 550
-        y: 270
-        width: 200
-        height: 80
-        text: "Pointer"
-        icon: "../../images/puntatoriOff.png"
-        imgstatus: LaserSts
-        iconOff: "../../images/puntatoriOn.png"
-        onClicked: {
-            var sts = (imgstatus) ? 0 : 1;
-            laserModel.setLaser(sts);
-        }
-    }
-
     Text {
-        x: 114
-        y: 12
-        width: 223
+        x: 144
+        y: 91
+        width: 256
+        height: 46
         text: txtTime
         horizontalAlignment: Text.AlignRight
         font.bold: false
@@ -149,9 +101,10 @@ Rectangle {
     }
 
     Text {
-        x: 515
-        y: 12
-        width: 242
+        x: 531
+        y: 91
+        width: 251
+        height: 46
         text: txtCount
         font.bold: false
         horizontalAlignment: Text.AlignRight
@@ -160,19 +113,84 @@ Rectangle {
     }
 
     Text {
-        x: 458
-        y: 17
-        text: qsTr("Count")
-        font.pixelSize: 30
+        x: 406
+        y: 91
+        text: qsTr("Count:")
+        font.pixelSize: 40
         font.family: myCustomFont.name
     }
 
     Text {
         x: 38
-        y: 17
-        text: qsTr("Time")
-        font.pixelSize: 30
+        y: 91
+        text: qsTr("Time:")
+        font.pixelSize: 40
         font.family: myCustomFont.name
+    }
+
+    Text {
+        id: text4
+        x: 554
+        y: 164
+        width: 145
+        height: 70
+        color: "#000000"
+        text: setPointP.toFixed(1)
+        verticalAlignment: Text.AlignVCenter
+        font.family: myCustomFont.name
+        font.pixelSize: 40
+    }
+
+    Button {
+        id: button1
+        x: 554
+        y: 237
+        width: 100
+        height: 75
+        text: "-"
+    }
+
+    Button {
+        id: button2
+        x: 654
+        y: 237
+        width: 100
+        height: 75
+        text: "+"
+    }
+
+    Text {
+        id: text2
+        x: 38
+        y: 22
+        width: 84
+        height: 40
+        text: qsTr("File:")
+        font.family: myCustomFont.name
+        font.pixelSize: 40
+    }
+
+    Text {
+        id: text3
+        x: 144
+        y: 17
+        width: 638
+        height: 45
+        text: fileName
+        font.bold: false
+        font.family: myCustomFont.name
+        font.pixelSize: 40
+    }
+
+    Text {
+        x: 705
+        y: 164
+        width: 49
+        height: 70
+        text: qsTr("b")
+        verticalAlignment: Text.AlignVCenter
+        font.family: myCustomFont.name
+        font.pixelSize: 40
     }
 
 }

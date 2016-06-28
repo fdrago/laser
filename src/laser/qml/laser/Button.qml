@@ -43,7 +43,7 @@ import QtQuick 1.0
 Rectangle  {
     id: container
 
-    property string text: "Button"
+    property string text: ""
     property string backGround: ""
     property string icon:""
     property string iconOff:""
@@ -54,7 +54,7 @@ Rectangle  {
     signal relased
     signal clicked
 
-    width: 200
+    //width: 80
     height: 80
 
     border  { width: 1; color: "Black" }
@@ -62,11 +62,13 @@ Rectangle  {
     //radius: 0
     gradient: Gradient {
         GradientStop {
+            id: gradientStop1
             position: 0
-            color: "#aaffffff"
+            color: "#ffffff"
         }
 
         GradientStop {
+            id: gradientStop2
             position: 1
             color: "#aa000000"
         }
@@ -79,27 +81,31 @@ Rectangle  {
         anchors.fill: parent
         source: backGround
     }
+
     Image {
         id: imgIcon
-        x: 15
+        anchors.leftMargin: 0
+        x: (buttonLabel.text != "") ? 15 : ((container.width-imgIcon.width)/2)
         y: 0
-        width: (parent.width > 200) ? 80 : 60;
+        //width: (parent.width > 200) ? 80 : 60;
         height: (parent.width > 200) ? 80 : 60;
         anchors.verticalCenter: parent.verticalCenter
         source: (imgstatus) ? iconOff : icon;
         fillMode: Image.PreserveAspectFit
-        anchors.leftMargin: 15
-        anchors.topMargin: 10
     }
+
     Text  {
         id: buttonLabel
-        anchors.fill: container
         color: "white"
         text: container.text
-        anchors.rightMargin: (icon!="") ? 48 : 0;
+        x: (imgIcon.width==0) ? 0 : (imgIcon.width + 2*imgIcon.x)
+        y: 0
+        width: (imgIcon.width==0) ? parent.width : (parent.width - 2*imgIcon.x -imgIcon.width)
+        height: parent.height
+        clip: true
+        horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: (icon!="") ? Text.AlignRight : Text.AlignHCenter;
-        font.pointSize: 18
+        font.pointSize: 24
         font.family: myCustomFont.name
     }
     // color the button with a gradient
@@ -107,16 +113,19 @@ Rectangle  {
     MouseArea  {
         id: mouseArea
         anchors.fill: parent
+        //width: 184
         onClicked: {
             container.clicked();
         }
 
         onPressed: {
             container.pressed();
+            //container.state= "Pressed";
         }
 
         onReleased: {
             container.relased();
+            //container.state= "";
         }
 
     }
@@ -132,6 +141,32 @@ Rectangle  {
             PropertyChanges {
                 target: buttonLabel
                 color: "#6e6e6e"
+            }
+        },
+        State {
+            name: "Pressed"
+            PropertyChanges {
+                target: mouseArea
+                enabled: false
+            }
+
+            PropertyChanges {
+                target: buttonLabel
+                color: "#6e6e6e"
+            }
+
+            PropertyChanges {
+                target: gradientStop1
+                color: "#aaffffff"
+            }
+
+            PropertyChanges {
+                target: gradientStop2
+                color: "#ff0000"
+            }
+
+            PropertyChanges {
+                target: container
             }
         }
     ]

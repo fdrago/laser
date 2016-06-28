@@ -12,7 +12,7 @@ ErrorList::ErrorList(QObject *parent) : QObject(parent)
 #ifdef QT_DEBUG
     QFile file("data/error.txt");
 #else
-    QFile file("/root/laser/data/error.txt");
+    QFile file("/root/qtapp/data/error.txt");
 #endif
 
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -30,7 +30,7 @@ ErrorList::ErrorList(QObject *parent) : QObject(parent)
                 error->limit(sl[4].toFloat());
                 error->verso(sl[5].trimmed());
                 error->color(sl[6].toInt());
-                error->led(sl[7].trimmed());
+                //error->led(sl[7].trimmed());
 
                 _list.append(error);
 
@@ -110,13 +110,13 @@ void ErrorList::readData()
         if(data.at(0) == 0x0d)
         {
             cmdComplete = true;
-            qDebug() << "0d";
+            //qDebug() << "0d";
         }
 
         else if(data.at(0) == 0x0a)
         {
             cmdComplete = true;
-            qDebug() << "0a";
+            //qDebug() << "0a";
         }
 
         else
@@ -175,12 +175,12 @@ void ErrorList::readData()
                             // 4 - valvola
                             test(QString(sl[0].at(4)).toFloat(), 4);
 
-                            // ciller
+                            // 5
 
-                            //
+                            // 6
 
-                            // 5 - fiamma
-                            test(QString(sl[0].at(5)).toFloat(), 5);
+                            // 8 - fiamma
+                            test(QString(sl[0].at(8)).toFloat(), 5);
 
 
 
@@ -206,11 +206,11 @@ void ErrorList::readData()
                             bool ok;
                             int p = _cmd.toInt(&ok, 16);
 
-                            qDebug() << "cmd.mid" << p;
+                            //qDebug() << "cmd.mid" << p;
 
                             double rp = (p-102.5)*10/(512-102);
 
-                            qDebug() << "CALCOLO PRESSIONE---------" << p << " -> " << rp;
+                            //qDebug() << "CALCOLO PRESSIONE---------" << p << " -> " << rp;
 
                             emit setRealPres(rp);
 
@@ -264,7 +264,7 @@ void ErrorList::incPres()
 {
     if(_pressure_required < 7) _pressure_required++;
     QByteArray dato= QString("P%1\n").arg(((_pressure_required)*255/7/2),3,10,QChar('0')).toLatin1();
-    qDebug()<<dato;
+    //qDebug()<<dato;
     _serial->write(dato);
 
     emit setPres(_pressure_required * 0.7);
@@ -274,7 +274,7 @@ void ErrorList::decPres()
 {
     if(_pressure_required > 0) _pressure_required--;
     QByteArray dato= QString("P%1\n").arg(((_pressure_required)*255/7/2),3,10,QChar('0')).toLatin1();
-    qDebug()<<dato;
+    //qDebug()<<dato;
     _serial->write(dato);
 
     emit setPres(_pressure_required * 0.7);
@@ -289,10 +289,10 @@ void ErrorList::test(float x, int idx)
             int ret = er->status(x);
             if(ret==1) {
                 // attivare la spia
-                emit alarm(er->led());
+                //emit alarm(er->id());
             } else if(ret==-1) {
                 // disattivare la spia
-                emit noalarm(er->led());
+                //emit noalarm(er->led());
             }
         }
     }

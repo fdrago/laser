@@ -32,7 +32,7 @@ public:
     explicit LaserModel(QObject *parent = 0);
     void setViewer(QtQuick1ApplicationViewer * viewer);
 
-    Q_INVOKABLE void setDate(const QDateTime &newdate);
+    Q_INVOKABLE void setDate(const int yy, const int MM, const int day, const int hh, const int mm);
 
     Q_INVOKABLE void guiState(const QString &newState);
 
@@ -60,6 +60,7 @@ public:
     Q_INVOKABLE void decPres();
 
     Q_INVOKABLE void login(QString codice);
+    //Q_INVOKABLE void Firstlogin();
 
 
     Q_INVOKABLE void printCurrentFile();
@@ -85,9 +86,17 @@ public:
 
     Q_INVOKABLE void log(QString s);
 
+    Q_INVOKABLE bool getErrNONC( int id );
+    Q_INVOKABLE int getErrVal( int id );
+    Q_INVOKABLE QString getErrString( int id );
+    Q_INVOKABLE void setErrNONC( int id, bool val);
+    Q_INVOKABLE void setErrVal( int id, int val );
+
+
 signals:
     void stateChanged(const QString &newState);
     void enableButton(const int &eb);
+    void allarme(const int &alarm, const bool stato);
     void mbSignalWriteBit(int reg, int sts);
 
 public slots:
@@ -135,6 +144,7 @@ private:
 
     bool _timerLaserFlag;
     QTimer *timer;
+    Error* _currentError;
 
 };
 

@@ -18,7 +18,7 @@ void UserList::load()
 #ifdef QT_DEBUG
     QFile file("data/users.txt");
 #else
-    QFile file("/root/laser/data/users.txt");
+    QFile file("/root/qtapp/data/users.txt");
 #endif
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
 
@@ -48,7 +48,7 @@ void UserList::save()
 #ifdef QT_DEBUG
     QFile file("data/users.txt");
 #else
-    QFile file("/root/laser/data/users.txt");
+    QFile file("/root/qtapp/data/users.txt");
 #endif
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         for(int i=0; i< dataList.count(); i++) {

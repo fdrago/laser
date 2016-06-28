@@ -34,8 +34,8 @@ public:
     void color(int color) { _color = color; }
     int color() { return _color; }
 
-    void led(QString led) { _led = led; }
-    QString led() { return _led; }
+    /*void led(QString led) { _led = led; }
+    QString led() { return _led; }*/
 
     bool active() { return _active; }
     int status(float sts);

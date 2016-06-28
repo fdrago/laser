@@ -1,5 +1,7 @@
 import QtQuick 1.0
 
+
+
 Rectangle {
     id: main
     width: 800
@@ -8,6 +10,9 @@ Rectangle {
 
     property int enableButton:1;
     property bool enablePassword: true;
+    property string nocode: "0000";
+
+
 
     FontLoader {
         id: myCustomFont;
@@ -29,6 +34,17 @@ Rectangle {
 
         onEnableButton: {
             enableButton = eb;
+        }
+
+        onAllarme: {
+            if ( alarm == 1 || alarm == 0 || alarm == 2)
+                toolbarBottom1.spiaSportelloVis  = stato == false ? false : true
+            else if ( alarm == 99)
+                toolbarBottom1.spiaLaserVis  = stato == false ? false : true
+            else if ( alarm == 5)
+                toolbarBottom1.spiaFuocoVis  = stato == false ? false : true
+            else if ( alarm == 100)
+                toolbarBottom1.spiaSicurezzeVis  = stato == false ? false : true
         }
     }
 
@@ -83,7 +99,7 @@ Rectangle {
             onPressed: {
                 if(main.state!="waitList"){
                     if(enablePassword) {
-                        main.state = "Login"
+                        laserModel.login( "guest" )
                     } else {
                         main.state = "File"
                     }
@@ -126,6 +142,7 @@ Rectangle {
         id: about
         x: -337
         y: 140
+        color: "#f0b3b3b3"
         onClicked: {
             if (main.state == "WaitList"){}
             else main.state = "Login"
@@ -338,6 +355,14 @@ Rectangle {
         }
     }
 
+    ToolbarBottom {
+        id: toolbarBottom1
+        x: 1
+        y: -161
+
+
+    }
+
 
 
 
@@ -408,8 +433,8 @@ Rectangle {
 
             PropertyChanges {
                 target: joystick
-                x: 400
-                y: 80
+                x: 300
+                y: 81
 
             }
 
@@ -485,6 +510,13 @@ Rectangle {
                 font.pixelSize: 30
                 opacity: 1
             }
+
+            PropertyChanges {
+                target: toolbarBottom1
+                x: 0
+                y: 405
+                opacity: 1
+            }
         },
         State {
             name: "Login"
@@ -504,8 +536,10 @@ Rectangle {
 
             PropertyChanges {
                 target: areaToAbout
-                x: 676
-                y: 362
+                x: 422
+                y: 181
+                width: 261
+                height: 137
             }
 
             PropertyChanges {
@@ -580,6 +614,12 @@ Rectangle {
                 target: main
                 color: "#55b5de"
             }
+
+            PropertyChanges {
+                target: toolbarBottom1
+                x: 0
+                y: 405
+            }
         },
         State {
             name: "Utility"
@@ -625,6 +665,12 @@ Rectangle {
             PropertyChanges {
                 target: mouseArea1
                 visible: false
+            }
+
+            PropertyChanges {
+                target: toolbarBottom1
+                x: 0
+                y: 405
             }
         },
         State {
@@ -746,6 +792,12 @@ Rectangle {
                 target: main
                 color: "#59b2da"
             }
+
+            PropertyChanges {
+                target: toolbarBottom1
+                x: 0
+                y: 405
+            }
         },
         State {
             name: "StopResume"
@@ -810,6 +862,12 @@ Rectangle {
                 target: main
                 color: "#55b2de"
             }
+
+            PropertyChanges {
+                target: toolbarBottom1
+                x: 0
+                y: 405
+            }
         },
         State {
             name: "FileUpload"
@@ -867,6 +925,12 @@ Rectangle {
             PropertyChanges {
                 target: main
                 color: "#55b3de"
+            }
+
+            PropertyChanges {
+                target: toolbarBottom1
+                x: 0
+                y: 405
             }
         },
         State {
@@ -1097,83 +1161,6 @@ Rectangle {
             }
         },
         State {
-            name: "Multimode"
-            PropertyChanges {
-                target: config1
-                x: 50
-                y: 80
-                visible: false
-            }
-
-            PropertyChanges {
-                target: toolbar
-                x: 0
-                y: 0
-                visible: false
-            }
-
-            PropertyChanges {
-                target: areaToAbout
-                x: 800
-                y: 486
-            }
-
-            PropertyChanges {
-                target: sfondo
-                source: "../../images/sfondoConfig.png"
-            }
-
-            PropertyChanges {
-                target: mouseArea1
-                visible: false
-            }
-
-            PropertyChanges {
-                target: norme2
-                visible: false
-            }
-
-            PropertyChanges {
-                target: norme1
-                visible: false
-            }
-
-            PropertyChanges {
-                target: button1
-                x: 160
-                y: 200
-            }
-
-            PropertyChanges {
-                target: button2
-                x: 440
-                y: 200
-            }
-
-            PropertyChanges {
-                target: text2
-                x: -2
-                y: 102
-            }
-
-            PropertyChanges {
-                target: text3
-                x: 397
-                y: 102
-            }
-
-            PropertyChanges {
-                target: button3
-                x: 300
-                y: 310
-            }
-
-            PropertyChanges {
-                target: main
-                color: "#55b2de"
-            }
-        },
-        State {
             name: "WaitList"
             PropertyChanges {
                 target: startStopTest
@@ -1274,6 +1261,12 @@ Rectangle {
                 font.pixelSize: 30
                 verticalAlignment: "AlignVCenter"
                 horizontalAlignment: "AlignHCenter"
+            }
+
+            PropertyChanges {
+                target: toolbarBottom1
+                x: 0
+                y: 405
             }
         }
     ]

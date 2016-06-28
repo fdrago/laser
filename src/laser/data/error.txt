@@ -1,4 +1,4 @@
-0,spia_sportello.png,          Sportello alto aperto,           1,  0,-,1,TT
+﻿0,spia_sportello.png,          Sportello alto aperto,           1,  0,+,1,TT
 1,spia_sportello.png,          Sportello dx aperto,             1,  0,+,1,TT
 2,spia_sportello.png,          Sportello sx aperto,             1,  0,+,1,TT
 3,spia_filtro.png,             Filtro sporco,                   0,  0,+,0,TP

@@ -15,6 +15,7 @@
 LaserModel::LaserModel(QObject *parent) :
     QThread(parent)
 {
+    _currentError = NULL;
     _userlist = new UserList;
     _userlist->load();
 
@@ -86,6 +87,8 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
 
     _viewer->rootContext()->setContextProperty("userList", _userlist);
     _viewer->rootContext()->setContextProperty("usersModel", QVariant::fromValue(_userlist->userlist()));
+
+
     log("Startup");
 
     setFan(1);
@@ -105,17 +108,20 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
     _timer->start(1000);
     _timerLaser->start(500);
     //QThread::start();
-    _timerAlarm->start(3000);
+    _timerAlarm->start(500);
 
 }
 
-void LaserModel::setDate(const QDateTime &newdate)
+void LaserModel::setDate(const int yy, const int MM, const int dd, const int hh, const int mm)
 {
      QStringList l;
      l.append("-s");
-     l.append( QString("@%1").arg(newdate.toMSecsSinceEpoch()));
+     l.append(QString("%1").arg(yy+2000, 2, 10, QChar('0'))+"-"+QString("%1").arg(MM, 2, 10, QChar('0'))+"-"+QString("%1").arg(dd, 2, 10, QChar('0'))+"-"+QString("%1").arg(hh, 2, 10, QChar('0'))+":"+QString("%1").arg(mm, 2, 10, QChar('0'))+":"+"00");
      QProcess::execute("date", l);
-     log("Date changed to: "+newdate.toString());
+     QStringList ll;
+     ll.append("-w");
+     QProcess::execute("hwclock", ll);
+     log("Date changed to: " + l[1]);
 }
 
 
@@ -168,7 +174,7 @@ void LaserModel::moveYplus()
 {
     qDebug() << __FUNCTION__;
     emit mbSignalWriteBit( 7, 1);
-//    _led.setLed(SPIA_MOVIMENTO, YELLOW);
+ //    _led.setLed(SPIA_MOVIMENTO, YELLOW);
 }
 
 void LaserModel::moveYminus()
@@ -280,18 +286,21 @@ void LaserModel::decPres()
 
 void LaserModel::login(QString codice)
 {
-    if(codice == "9666") {
-        _currentUser->name("ADMIN");
-        _currentUser->level(10);
-        emit stateChanged("File");
 
-    } else if(_userlist->contains(codice)) {
+    if(codice == "guest"){
+        _viewer->rootContext()->setContextProperty("username", "Guest");
+        _viewer->rootContext()->setContextProperty("userlevel", 1);
+        emit stateChanged("File");
+    }
+
+
+    else if(_userlist->contains(codice)) {
         _currentUser = _userlist->value(codice);
         _viewer->rootContext()->setContextProperty("username", _currentUser->name());
         _viewer->rootContext()->setContextProperty("usertime", _currentUser->time());
-
-//        qDebug() << _currentUser->level();
+        qDebug() << _currentUser->level();
         _viewer->rootContext()->setContextProperty("userlevel", _currentUser->level());
+
         if(_currentUser->level() == 10) {
 //            _led.setLed(SPIA_ROOT, ON);
         } else {
@@ -533,6 +542,37 @@ void LaserModel::log(QString s)
     _viewer->rootContext()->setContextProperty("modelLogs", QVariant::fromValue( logs ) );
 }
 
+bool LaserModel::getErrNONC(int id)
+{
+    if (id == 1)
+        return false;
+    return true;
+}
+
+int LaserModel::getErrVal(int id)
+{
+    if (id == 1)
+        return 2;
+    return 4;
+}
+
+QString LaserModel::getErrString(int id)
+{
+    if (id == 1)
+        return "eeeee";
+    return "rrrrrr";
+}
+
+void LaserModel::setErrNONC(int id, bool val)
+{
+
+}
+
+void LaserModel::setErrVal(int id, int val)
+{
+
+}
+
 void LaserModel::mbSlotWriteBit(int reg, int sts)
 {
     modbus_write_bit(mb, reg, sts);
@@ -639,19 +679,38 @@ void LaserModel::doComplete()
 void LaserModel::showAlarm()
 {
     Error* er = _error->getNextError();
-    if(er->active()) {
+
+
+    if( er->active() ) {
+
+
         if(er->blocco()>0 && !_alarmUnsafe) {
             pause();
         }
-        _viewer->rootContext()->setContextProperty("alImage", "../../images/"+er->img());
-        _viewer->rootContext()->setContextProperty("alMessage", er->msg());
-        _viewer->rootContext()->setContextProperty("closeAlarm", ((er->blocco()<2) || _alarmUnsafe));
-        _viewer->rootContext()->setContextProperty("typeAlarm", er->color());
+
+        //TODO spie
+        emit allarme( er->id(), true) ;
+
+
+        if ( _currentError == NULL )
+        {
+            _viewer->rootContext()->setContextProperty("alImage", "../../images/"+er->img());
+            _viewer->rootContext()->setContextProperty("alMessage", er->msg());
+            _viewer->rootContext()->setContextProperty("closeAlarm", ((er->blocco()<2) || _alarmUnsafe));
+            _viewer->rootContext()->setContextProperty("typeAlarm", er->color());
+            _currentError = er;
+        }
+
+
+
     } else {
 
-        if(!_status.isEmpty()) {
+        if( !_status.isEmpty() ) {
             guiState(_status);
         }
+
+        emit allarme( er->id(), false) ;
+
     }
 }
 
@@ -700,23 +759,30 @@ void LaserModel::alarm(QString led)
 void LaserModel::noalarm(QString led)
 {
     qDebug() << "no" << _status;
-//    _led.setLed(led,OFF);
+    _currentError = NULL;
+    //_led.setLed(led,OFF);
     showAlarm();
 }
 
 void LaserModel::setLed(QString led)
 {
-//    _led.setLed(led,ON);
+    //_led.setLed(led,ON);
 }
 
 void LaserModel::resetLed(QString led)
 {
-//    _led.setLed(led,OFF);
+    //_led.setLed(led,OFF);
 }
 
 void LaserModel::ackAlarm()
 {
     _error->ackError();
+
+    if(_status.isEmpty()) {
+        guiState("Login");
+    }
+
+    _currentError = NULL;
     showAlarm();
 }
 
