@@ -1,0 +1,22 @@
+﻿0,spia_sportello.png,          Sportello alto aperto,           1,  0,+,1,TT
+1,spia_sportello.png,          Sportello dx aperto,             1,  0,+,1,TT
+2,spia_sportello.png,          Sportello sx aperto,             1,  0,+,1,TT
+3,spia_filtro.png,             Filtro sporco,                   0,  0,+,0,TP
+4,spia_valvolaAcqua.png,       Valvola acqua,                   1,  0,+,0,TL
+5,spia_fuoco.png,              Fuoco,                           2,  0,+,1,TU
+6,spia_tempAltaAcqua.png,      Temperatura acqua alta,          1, 30,+,0,TJ
+6,spia_tempBassaAcqua.png,     Temperatura acqua bassa,         1, 10,-,0,TK
+7,spia_tempBassaAmbiente.png,  Temperatura ambiente bassa,      1, 10,-,0,TI
+7,spia_tempAltaAmbiente.png,   Temperatura ambiente alta,       1, 40,+,0,TH
+8,spia_umidita.png,            Umidita' alta,                   1, 60,+,0,TG
+
+100,spia_pulireGuide.png,      Pulire le guide,                 0, 10,+,0,TN
+101,spia_cambiareAcqua.png,    Cambiare acqua,                  0, 10,+,0,TM
+102,spia_sicurezzeOff.png,     Sicurezze disattivate,           0,  1,+,1,TV
+103,spia_ventoleOff.png,       Ventole spente,                  0,  1,+,0,TF
+
+200,spia_manutenzione.png,     Manutenzione obbligatoria,       0,  1,+,0,TO
+
+
+#aggiungere data assoluta di "manutenzione obbligatoria"
+____END_OF_ERRORS____DO_NOT_MODIFY_THIS_LINE
