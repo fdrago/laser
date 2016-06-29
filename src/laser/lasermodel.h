@@ -87,10 +87,10 @@ public:
     Q_INVOKABLE void log(QString s);
 
     Q_INVOKABLE bool getErrNONC( int id );
-    Q_INVOKABLE int getErrVal( int id );
+    Q_INVOKABLE double getErrVal( int id );
     Q_INVOKABLE QString getErrString( int id );
     Q_INVOKABLE void setErrNONC( int id, bool val);
-    Q_INVOKABLE void setErrVal( int id, int val );
+    Q_INVOKABLE void setErrVal(int id, float val );
 
 
 signals:

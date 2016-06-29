@@ -6,45 +6,18 @@
 #include <QElapsedTimer>
 #include <QFile>
 #include <QStringList>
+//0                1                         2                    3   4 5 6 7
+//8,spia_umidita.png,            Umidita' alta,                   1, 60,+,0,TG
+
+#define CHECK_END_FILE "____END_OF_ERRORS____DO_NOT_MODIFY_THIS_LINE\n"
 
 ErrorList::ErrorList(QObject *parent) : QObject(parent)
 {
-#ifdef QT_DEBUG
-    QFile file("data/error.txt");
-#else
-    QFile file("/root/qtapp/data/error.txt");
-#endif
-
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-
-        while (!file.atEnd()) {
-            QString line = file.readLine();
-            QStringList sl = line.split(',');
-            if(sl.count() == 8) {
-                Error *error = new Error();
-
-                error->id(sl[0].toInt());
-                error->img(sl[1].trimmed());
-                error->msg(sl[2].trimmed());
-                error->blocco(sl[3].toInt());
-                error->limit(sl[4].toFloat());
-                error->verso(sl[5].trimmed());
-                error->color(sl[6].toInt());
-                //error->led(sl[7].trimmed());
-
-                _list.append(error);
-
-//                qDebug() << sl;
-            } else {
-//                qDebug() << "errore num elementi" << line;
-            }
-
-        }
-    } else {
-        qDebug() << "Errore file errori";
+    int fileOk = loadFile();
+    if ( fileOk<0 )
+    {
+        loadFile();
     }
-    file.close();
-
 
     _serial = new QextSerialPort("COM1");
     connect(_serial, SIGNAL(readyRead()), this, SLOT(readData()));
@@ -280,6 +253,49 @@ void ErrorList::decPres()
     emit setPres(_pressure_required * 0.7);
 }
 
+void ErrorList::save()
+{
+    QString res;
+
+    for(int i=0; i < _list.count(); i++)
+    {
+        Error *error = (Error*)_list.at(i);
+        QStringList line;
+        line.append( QString::number( error->id()   ).leftJustified(4, ' ')    );
+        line.append( error->img().leftJustified(30, ' ')     );
+        line.append( error->msg().leftJustified(30, ' ')     );
+        line.append( QString::number( error->blocco() ).leftJustified(5, ' ') );
+        line.append( QString::number( (int)error->limit() ).leftJustified(5, ' ')  );
+        line.append(  error->verso().leftJustified(5, ' ') );
+        line.append( QString::number( error->color() ).leftJustified(5, ' ')   );
+        res.append( line.join(",") );
+        res.append( "\n" );
+    }
+
+#ifdef QT_DEBUG
+    QFile file("data/error.txt");
+#else
+    QFile file("/root/qtapp/data/error.txt");
+#endif
+
+    if ( !file.open(QFile::WriteOnly | QFile::Truncate))
+    {
+        qDebug() << "Failed to save error file";
+        return;
+    }
+
+    if ( file.write( res.toLatin1() ) != res.size() )
+    {
+        qDebug() << "Failed to write error file";
+        return;
+    }
+
+    file.write(CHECK_END_FILE);
+
+    file.close();
+
+}
+
 void ErrorList::test(float x, int idx)
 {
     for(int i=0; i < _list.count(); i++) {
@@ -322,6 +338,18 @@ Error *ErrorList::getNextError()
     return new Error();
 }
 
+Error *ErrorList::getErrorById(int id)
+{
+    for(int i=0; i < _list.count(); i++)
+    {
+        Error * er = (Error*)_list.at(i);
+
+        if( er->id() == id)
+            return er;
+    }
+    return NULL;
+}
+
 void ErrorList::ackError()
 {
     Error * er = (Error*)_list.at(_prevAlarm);
@@ -358,6 +386,70 @@ void ErrorList::setAlim(int sts)
     QByteArray dato= QString("O5%1\n").arg(sts).toLatin1();
     //qDebug() << dato;
     _serial->write(dato);
+}
+
+int ErrorList::loadFile()
+{
+#ifdef QT_DEBUG
+    QFile file("data/error.txt");
+#else
+    QFile file("/root/qtapp/data/error.txt");
+#endif
+
+    bool filechecked = false;
+
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+
+        while (!file.atEnd()) {
+            QString line = file.readLine();
+            if ( line == CHECK_END_FILE )
+            {
+                filechecked = true;
+                continue;
+            }
+            QStringList sl = line.split(',');
+//            if(sl.count() == 7) {
+                Error *error = new Error();
+
+                error->id(sl[0].toInt());
+                error->img(sl[1].trimmed());
+                error->msg(sl[2].trimmed());
+                error->blocco(sl[3].toInt());
+                error->limit(sl[4].toFloat());
+                error->verso(sl[5].trimmed());
+                error->color(sl[6].toInt());
+                //error->led(sl[7].trimmed());
+
+                _list.append(error);
+
+//                qDebug() << sl;
+//            } else {
+//                qDebug() << "errore num elementi" << line;
+//            }
+
+        }
+    } else {
+        qDebug() << "Errore file errori";
+        return -1;
+    }
+    file.close();
+
+    if ( !filechecked )
+    {
+        file.remove();
+
+#ifdef QT_DEBUG
+        QFile origfile("data/error_orig.txt");
+        origfile.copy("data/error.txt");
+#else
+        QFile origfile("/root/qtapp/data/error_orig.txt");
+        origfile.copy("/root/qtapp/data/error.txt");
+#endif
+        return -2;
+    }
+    return 0;
+
+
 }
 
 Error::Error()

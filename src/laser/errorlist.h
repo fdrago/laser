@@ -74,9 +74,11 @@ public:
 
     Q_INVOKABLE void incPres();
     Q_INVOKABLE void decPres();
+    void save();
     void test(float x, int idx);
 
     Error * getNextError();
+    Error * getErrorById( int id );
     void ackError();
 
     int testAlarm(bool isUnsafe);
@@ -116,6 +118,8 @@ private:
     double _pressure_real;
 
     bool _req;
+
+    int loadFile();
 
 };
 

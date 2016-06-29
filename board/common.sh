@@ -1,0 +1,19 @@
+#!/bin/bash
+
+SCRIPT_INSTALL_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+BUILD_DIR=$SCRIPT_INSTALL_DIR/build
+SRC_DIR=$SCRIPT_INSTALL_DIR/src
+DOWNLOAD_DIR=$SCRIPT_INSTALL_DIR/downloads
+
+QT5_VERSION=5.7.0
+
+QT48_ARM_DEST_PATH=$BUILD_DIR/Qt-4.8-arm
+QT48_X86_DEST_PATH=$BUILD_DIR/Qt-4.8-x86
+QT57_ARM_DEST_PATH=$BUILD_DIR/Qt-$QT5_VERSION-arm
+QT57_X86_DEST_PATH=$BUILD_DIR/Qt-$QT5_VERSION.7-x86
+
+CPUS=`grep -c ^processor /proc/cpuinfo`
+
+echo "Preparing..."
+mkdir -p $BUILD_DIR
+mkdir -p $DOWNLOAD_DIR

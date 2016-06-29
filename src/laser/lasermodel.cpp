@@ -188,6 +188,7 @@ void LaserModel::moveZplus()
 {
     qDebug() << __FUNCTION__;
     emit mbSignalWriteBit(20, 1);
+    setErrVal(7, 888);
 //    _led.setLed(SPIA_MOVIMENTO, YELLOW);
 }
 
@@ -542,36 +543,6 @@ void LaserModel::log(QString s)
     _viewer->rootContext()->setContextProperty("modelLogs", QVariant::fromValue( logs ) );
 }
 
-bool LaserModel::getErrNONC(int id)
-{
-    if (id == 1)
-        return false;
-    return true;
-}
-
-int LaserModel::getErrVal(int id)
-{
-    if (id == 1)
-        return 2;
-    return 4;
-}
-
-QString LaserModel::getErrString(int id)
-{
-    if (id == 1)
-        return "eeeee";
-    return "rrrrrr";
-}
-
-void LaserModel::setErrNONC(int id, bool val)
-{
-
-}
-
-void LaserModel::setErrVal(int id, int val)
-{
-
-}
 
 void LaserModel::mbSlotWriteBit(int reg, int sts)
 {
@@ -820,3 +791,51 @@ void LaserModel::updateLan()
 
 }
 
+bool LaserModel::getErrNONC(int id)
+{
+    Error* er = _error->getErrorById( id );
+    if (!er)
+        return false;
+
+    if ( er->verso() == "+")
+        return false;
+    return true;
+}
+
+double LaserModel::getErrVal(int id)
+{
+    Error* er = _error->getErrorById( id );
+    if (!er)
+        return 0;
+
+    return er->limit();
+}
+
+QString LaserModel::getErrString(int id)
+{
+    Error* er = _error->getErrorById( id );
+    if (!er)
+        return "";
+
+    return er->msg();
+}
+
+void LaserModel::setErrNONC(int id, bool val)
+{
+    Error* er = _error->getErrorById( id );
+    if (!er)
+        return;
+
+    er->verso( val ? "+" : "-");
+    _error->save();
+}
+
+void LaserModel::setErrVal(int id, float val)
+{
+    Error* er = _error->getErrorById( id );
+    if (!er)
+        return;
+
+    er->limit( val );
+    _error->save();
+}
