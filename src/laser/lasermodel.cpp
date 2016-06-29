@@ -188,7 +188,7 @@ void LaserModel::moveZplus()
 {
     qDebug() << __FUNCTION__;
     emit mbSignalWriteBit(20, 1);
-    setErrVal(7, 888);
+
 //    _led.setLed(SPIA_MOVIMENTO, YELLOW);
 }
 
