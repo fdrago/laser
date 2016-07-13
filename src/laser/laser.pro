@@ -63,7 +63,9 @@ DISTFILES += \
     qml/laser/StopPauseResume.qml \
     qml/laser/Toolbar.qml \
     qml/laser/Utility.qml \
-    qml/laser/YesNo.qml
+    qml/laser/YesNo.qml \
+    qml/laser/MachineSetup.qml
+
 
 #QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/qml $${OUT_PWD})
 #QMAKE_POST_LINK += $$quote(cp -rf $${PWD}/data $${OUT_PWD})
@@ -91,7 +93,9 @@ OTHER_FILES += \
     qml/laser/YesNo.qml \
     qml/laser/Config_old.qml \
     qml/laser/Config.qml \
-    qml/laser/ToolbarBottom.qml
+    qml/laser/ToolbarBottom.qml \
+    qml/laser/Clickabletext.qml \
+    qml/laser/MachineSetup.qml
 
 QT += declarative
 QT += qml quick network

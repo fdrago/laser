@@ -19,6 +19,7 @@ LaserModel::LaserModel(QObject *parent) :
     _userlist = new UserList;
     _userlist->load();
 
+
     _logger = new Logger(this);
     _logger->load();
 
@@ -62,7 +63,7 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
     connect(_timerAlarm, SIGNAL(timeout()), this, SLOT(showAlarm()));
 
 #ifdef QT_DEBUG
-    mb = modbus_new_rtu("/dev/ttyUSB0",9600,'N',8,1);
+    mb = modbus_new_rtu("/dev/ttyUSB1",9600,'N',8,1);
 #else
     mb = modbus_new_rtu("/dev/ttyS2",9600,'N',8,1);
 #endif
@@ -105,7 +106,7 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
     setPres(0.7);
 
     _timerLaserFlag = false;
-    _timer->start(1000);
+    _timer->start(500);
     _timerLaser->start(500);
     //QThread::start();
     _timerAlarm->start(500);
@@ -298,18 +299,18 @@ void LaserModel::login(QString codice)
     else if(_userlist->contains(codice)) {
         _currentUser = _userlist->value(codice);
         _viewer->rootContext()->setContextProperty("username", _currentUser->name());
-        _viewer->rootContext()->setContextProperty("usertime", _currentUser->time());
+        //_viewer->rootContext()->setContextProperty("usertime", _currentUser->time());
         qDebug() << _currentUser->level();
         _viewer->rootContext()->setContextProperty("userlevel", _currentUser->level());
 
-        if(_currentUser->level() == 10) {
+        /*if(_currentUser->level() == 10) {
 //            _led.setLed(SPIA_ROOT, ON);
         } else {
 //            _led.setLed(SPIA_ROOT, OFF);
-        }
+        }*/
 
         emit stateChanged("File");
-        _timerLaserFlag = true;
+        //_timerLaserFlag = true;
 
         log( "Login "+  _currentUser->name());
 
@@ -798,17 +799,19 @@ bool LaserModel::getErrNONC(int id)
         return false;
 
     if ( er->verso() == "+")
-        return false;
     return true;
+    else
+    return false;
+
 }
 
-double LaserModel::getErrVal(int id)
+QString LaserModel::getErrVal(int id)
 {
     Error* er = _error->getErrorById( id );
     if (!er)
         return 0;
 
-    return er->limit();
+    return QString::number(er->limit());
 }
 
 QString LaserModel::getErrString(int id)
@@ -826,8 +829,9 @@ void LaserModel::setErrNONC(int id, bool val)
     if (!er)
         return;
 
-    er->verso( val ? "+" : "-");
-    _error->save();
+    er->verso( val==1 ? "+" : "-");
+    qDebug()<<"id "<< id << "changed to: " << er->verso();
+    _error->save();   
 }
 
 void LaserModel::setErrVal(int id, float val)
@@ -835,7 +839,11 @@ void LaserModel::setErrVal(int id, float val)
     Error* er = _error->getErrorById( id );
     if (!er)
         return;
+    if (val>255) val=255;
+    if (val<-255) val=-255;
 
     er->limit( val );
     _error->save();
+    qDebug()<<"Value set to "<<val;
+
 }

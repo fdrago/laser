@@ -9,7 +9,7 @@
 //0                1                         2                    3   4 5 6 7
 //8,spia_umidita.png,            Umidita' alta,                   1, 60,+,0,TG
 
-#define CHECK_END_FILE "____END_OF_ERRORS____DO_NOT_MODIFY_THIS_LINE\n"
+#define CHECK_END_FILE "____END_OF_ERRORS____DO_NOT_MODIFY_THIS_LINE"
 
 ErrorList::ErrorList(QObject *parent) : QObject(parent)
 {
@@ -149,11 +149,12 @@ void ErrorList::readData()
                             test(QString(sl[0].at(4)).toFloat(), 4);
 
                             // 5
+                            test(QString(sl[0].at(5)).toFloat(), 5);
 
                             // 6
 
                             // 8 - fiamma
-                            test(QString(sl[0].at(8)).toFloat(), 5);
+                            test(QString(sl[0].at(8)).toFloat(), 8);
 
 
 
@@ -189,11 +190,11 @@ void ErrorList::readData()
 
                             double sp = _pressure_required * 0.7;
 
-                            if((sp==0) || (rp < (sp * 0.9) ) || (rp > (sp * 1.1))) {
+                            /*if((sp==0) || (rp < (sp * 0.9) ) || (rp > (sp * 1.1))) {
                                 emit setLed(SPIA_ARIA);
                             } else {
                                 emit resetLed(SPIA_ARIA);
-                            }
+                            }*/
                         }
 
 
@@ -315,6 +316,16 @@ void ErrorList::test(float x, int idx)
 
 }
 
+/*bool ErrorList::testOnOff(int idx)
+{
+        Error * er = (Error*)_list.at(idx);
+        return er->limit();
+}*/
+
+
+
+
+
 Error *ErrorList::getNextError()
 {
 //    qDebug() << _list.count();
@@ -402,11 +413,18 @@ int ErrorList::loadFile()
 
         while (!file.atEnd()) {
             QString line = file.readLine();
-            if ( line == CHECK_END_FILE )
+            if ( line.simplified().trimmed() == CHECK_END_FILE )
             {
                 filechecked = true;
                 continue;
             }
+
+            if ( line.startsWith("#") || line.size()<3)
+            {
+                qDebug() << "line error" << line;
+                continue;
+            }
+
             QStringList sl = line.split(',');
 //            if(sl.count() == 7) {
                 Error *error = new Error();

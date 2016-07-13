@@ -107,8 +107,8 @@ Rectangle {
         y: 8
         width: 100
         height: 59
-        icon: "../../images/luciOff.png"
-        iconOff: "../../images/luciOn.png"
+        icon: "../../images/filtroOff.png"
+        iconOff: "../../images/filtroOn.png"
         imgstatus: uLightSts
     }
 

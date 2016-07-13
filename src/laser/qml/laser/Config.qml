@@ -3,7 +3,11 @@ import QtQuick 1.0
 Rectangle {
 
     property date saveDate
+    property int valueup: 0
 
+    onValueupChanged: {
+        (machinesetup1.valorenuovo==0)? machinesetup1.valorenuovo=1 : machinesetup1.valorenuovo=0;
+    }
 
     onSaveDateChanged: {
         day.text= (saveDate.getDate() <10) ? "0"+saveDate.getDate() : saveDate.getDate();
@@ -410,6 +414,7 @@ Rectangle {
         text: "Edit"
         onClicked: {
             login.idx = alphabet1.idx;
+            login.edx = -1;
             main.state = "Login";
             config.state = "Users"
         }
@@ -728,7 +733,17 @@ Rectangle {
         width: 250
         height: 80
         text: "Parameters"
-        state: (config.state=="Setup") ? "Disable" : ""
+        state: (config.state=="machineSetup") ? "Disable" : ""
+        onClicked: {
+            config.state="machineSetup";
+        }
+
+        MachineSetup {
+            id: machinesetup1
+            x: 259
+            y: -207
+            opacity: 0
+        }
     }
     states: [
         State {
@@ -991,7 +1006,22 @@ Rectangle {
             }
         },
         State {
-            name: "State1"
+            name: "machineSetup"
+
+            PropertyChanges {
+                target: listView2
+                x: 269
+                y: 14
+                width: 518
+                height: 293
+            }
+
+            PropertyChanges {
+                target: machinesetup1
+                x: 260
+                y: -207
+                opacity: 1
+            }
         }
     ]
 }

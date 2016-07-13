@@ -47,6 +47,7 @@ Rectangle  {
     property string backGround: ""
     property string icon:""
     property string iconOff:""
+    property int textsize: 24
 
     property int imgstatus:0
 
@@ -105,7 +106,7 @@ Rectangle  {
         clip: true
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        font.pointSize: 24
+        font.pointSize: textsize
         font.family: myCustomFont.name
     }
     // color the button with a gradient

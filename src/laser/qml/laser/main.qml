@@ -1,7 +1,6 @@
 import QtQuick 1.0
 
 
-
 Rectangle {
     id: main
     width: 800
@@ -12,12 +11,11 @@ Rectangle {
     property bool enablePassword: true;
     property string nocode: "0000";
 
-
-
     FontLoader {
         id: myCustomFont;
         source: "../fonts/Ubuntu-R.ttf"
     }
+
 
     Connections {
         target: laserModel;
@@ -30,6 +28,7 @@ Rectangle {
             else if (ts != "Alarm")
                 laserModel.setStatus("");
             console.log("new qml state", newState);
+
         }
 
         onEnableButton: {
@@ -39,12 +38,20 @@ Rectangle {
         onAllarme: {
             if ( alarm == 1 || alarm == 0 || alarm == 2)
                 toolbarBottom1.spiaSportelloVis  = stato == false ? false : true
-            else if ( alarm == 99)
+            else
+                toolbarBottom1.spiaSportelloVis = false
+            if ( alarm == 99)
                 toolbarBottom1.spiaLaserVis  = stato == false ? false : true
-            else if ( alarm == 5)
+            else
+                toolbarBottom1.spiaLaserVis = false
+            if ( alarm == 5)
                 toolbarBottom1.spiaFuocoVis  = stato == false ? false : true
-            else if ( alarm == 100)
+            else
+                toolbarBottom1.spiaFuocoVis = false
+            if ( alarm == 100)
                 toolbarBottom1.spiaSicurezzeVis  = stato == false ? false : true
+            else
+                toolbarBottom1.spiaSicurezzeVis = false
         }
     }
 
@@ -62,6 +69,7 @@ Rectangle {
                }
            }
        }*/
+
 
     Image {
         id: sfondo

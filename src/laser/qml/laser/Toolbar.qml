@@ -18,6 +18,7 @@ Rectangle {
         state: ((main.state=="Login") || (main.state=="StopResume") || (!main.enablePassword)) ? "Disable" : "";
         onClicked: {
             login.idx = -1;
+            login.edx =-1;
             laserModel.stopTimerLaser();
             main.state = "Login"
         }

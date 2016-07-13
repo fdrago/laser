@@ -7,7 +7,7 @@ Rectangle {
 
     onSaveDateChanged: {
         day.text= (saveDate.getDate() <10) ? "0"+saveDate.getDate() : saveDate.getDate();
-        month.text=(saveDate.getMonth() <10) ? "0"+(saveDate.getMonth()+1) : saveDate.getMonth()+1;
+        month.text=(saveDate.getMonth() <9) ? "0"+(saveDate.getMonth()+1) : saveDate.getMonth()+1;
         year.text=((saveDate.getFullYear()-2000) <10) ? "0"+(saveDate.getFullYear()-2000) : (saveDate.getFullYear()-2000);
         hours.text=(saveDate.getHours()<10) ? "0"+saveDate.getHours() : saveDate.getHours();
         minutes.text=(saveDate.getMinutes()<10) ? "0"+saveDate.getMinutes() : saveDate.getMinutes();
@@ -118,8 +118,8 @@ Rectangle {
 
     Buttonsmall {
         id: suday
-        x: 51
-        y: 432
+        x: 46
+        y: 595
         icon: "../../images/su.png"
         onClicked: {
             saveDate = new Date( new Date(saveDate).setDate(saveDate.getDate()+1));
@@ -128,8 +128,8 @@ Rectangle {
 
     Buttonsmall {
         id: giuday
-        x: 51
-        y: 554
+        x: 46
+        y: 717
         icon: "../../images/giu.png"
         onClicked: {
             saveDate = new Date( new Date(saveDate).setDate(saveDate.getDate()-1));
@@ -139,8 +139,8 @@ Rectangle {
 
     Buttonsmall {
         id: sumonth
-        x: 143
-        y: 432
+        x: 138
+        y: 595
         icon: "../../images/su.png"
         onClicked: {
             saveDate = new Date( new Date(saveDate).setMonth(saveDate.getMonth()+1));
@@ -149,8 +149,8 @@ Rectangle {
 
     Buttonsmall {
         id: giumonth
-        x: 143
-        y: 554
+        x: 138
+        y: 717
         icon: "../../images/giu.png"
         onClicked: {
             saveDate = new Date( new Date(saveDate).setMonth(saveDate.getMonth()-1));
@@ -159,8 +159,8 @@ Rectangle {
 
     Buttonsmall {
         id: suyear
-        x: 232
-        y: 432
+        x: 227
+        y: 595
         icon: "../../images/su.png"
         onClicked: {
             saveDate = new Date( new Date(saveDate).setYear(saveDate.getFullYear()+1));
@@ -169,8 +169,8 @@ Rectangle {
 
     Buttonsmall {
         id: giuyear
-        x: 232
-        y: 554
+        x: 227
+        y: 717
         icon: "../../images/giu.png"
         onClicked: {
             saveDate = new Date( new Date(saveDate).setYear(saveDate.getFullYear()-1));
@@ -179,8 +179,8 @@ Rectangle {
 
     Buttonsmall {
         id: suhours
-        x: 97
-        y: 631
+        x: 92
+        y: 794
         icon: "../../images/su.png"
         onClicked: {
             saveDate = new Date(saveDate.getTime() + 60*60000);
@@ -189,8 +189,8 @@ Rectangle {
 
     Buttonsmall {
         id: giuhours
-        x: 97
-        y: 753
+        x: 92
+        y: 916
         icon: "../../images/giu.png"
         onClicked: {
             saveDate = new Date(saveDate.getTime() - 60*60000);
@@ -199,8 +199,8 @@ Rectangle {
 
     Buttonsmall {
         id: suminutes
-        x: 186
-        y: 631
+        x: 181
+        y: 794
         icon: "../../images/su.png"
         onClicked: {
             saveDate = new Date(saveDate.getTime() + 60000);
@@ -209,8 +209,8 @@ Rectangle {
 
     Buttonsmall {
         id: giuminutes
-        x: 186
-        y: 753
+        x: 181
+        y: 916
         icon: "../../images/giu.png"
         onClicked: {
             saveDate = new Date(saveDate.getTime() - 60000);
@@ -238,8 +238,8 @@ Rectangle {
 
     Button {
         id: buttonsetdatetime
-        x: 295
-        y: 733
+        x: 290
+        y: 896
         text: "Set"
         onClicked: {
             utility1.state = ""
@@ -249,8 +249,8 @@ Rectangle {
 
     Text {
         id: text1
-        x: 295
-        y: 498
+        x: 290
+        y: 661
         width: 178
         height: 50
         text: qsTr("dd/mm/yy")
@@ -261,8 +261,8 @@ Rectangle {
 
     Text {
         id: text2
-        x: 295
-        y: 697
+        x: 290
+        y: 860
         width: 178
         height: 50
         text: qsTr("hh/mm")
@@ -273,8 +273,8 @@ Rectangle {
 
     Text {
         id: day
-        x: 56
-        y: 498
+        x: 51
+        y: 661
         width: 50
         height: 50
         text: qsTr("99")
@@ -285,8 +285,8 @@ Rectangle {
 
     Text {
         id: month
-        x: 146
-        y: 498
+        x: 141
+        y: 661
         width: 50
         height: 50
         text: qsTr("99")
@@ -297,8 +297,8 @@ Rectangle {
 
     Text {
         id: year
-        x: 237
-        y: 498
+        x: 232
+        y: 661
         width: 50
         height: 50
         text: qsTr("99")
@@ -309,8 +309,8 @@ Rectangle {
 
     Text {
         id: text12
-        x: 119
-        y: 498
+        x: 114
+        y: 661
         width: 15
         height: 50
         text: qsTr("/")
@@ -321,8 +321,8 @@ Rectangle {
 
     Text {
         id: text13
-        x: 208
-        y: 498
+        x: 203
+        y: 661
         width: 15
         height: 50
         text: qsTr("/")
@@ -333,8 +333,8 @@ Rectangle {
 
     Text {
         id: hours
-        x: 102
-        y: 697
+        x: 97
+        y: 860
         width: 50
         height: 50
         text: qsTr("99")
@@ -345,8 +345,8 @@ Rectangle {
 
     Text {
         id: minutes
-        x: 192
-        y: 697
+        x: 187
+        y: 860
         width: 50
         height: 50
         text: qsTr("99")
@@ -357,14 +357,26 @@ Rectangle {
 
     Text {
         id: text16
-        x: 165
-        y: 697
+        x: 160
+        y: 860
         width: 15
         height: 50
         text: qsTr(":")
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         font.pixelSize: 35
+    }
+
+    Button {
+        id: buttonsetdatetime1
+        x: 466
+        y: 709
+        width: 100
+        height: 60
+        text: "Set"
+        onClicked: {
+            utility1.state="Base"
+        }
     }
 
 
@@ -374,32 +386,32 @@ Rectangle {
 
             PropertyChanges {
                 target: btnShoot
-                x: 56
-                y: 366
+                x: 48
+                y: 621
             }
 
             PropertyChanges {
                 target: btnWater
-                x: 436
-                y: 366
+                x: 428
+                y: 621
             }
 
             PropertyChanges {
                 target: btnGuide
-                x: 436
-                y: 466
+                x: 428
+                y: 721
             }
 
             PropertyChanges {
                 target: btnFilter
-                x: 436
-                y: 566
+                x: 428
+                y: 821
             }
 
             PropertyChanges {
                 target: btnCut
-                x: 56
-                y: 466
+                x: 48
+                y: 721
             }
 
             PropertyChanges {
@@ -410,8 +422,134 @@ Rectangle {
 
             PropertyChanges {
                 target: clockButton
-                x: 56
-                y: 566
+                x: 48
+                y: 821
+            }
+
+            PropertyChanges {
+                target: suday
+                x: 43
+                y: 687
+            }
+
+            PropertyChanges {
+                target: giuday
+                x: 43
+                y: 809
+            }
+
+            PropertyChanges {
+                target: sumonth
+                x: 135
+                y: 687
+            }
+
+            PropertyChanges {
+                target: giumonth
+                x: 135
+                y: 809
+            }
+
+            PropertyChanges {
+                target: suyear
+                x: 224
+                y: 687
+            }
+
+            PropertyChanges {
+                target: giuyear
+                x: 224
+                y: 809
+            }
+
+            PropertyChanges {
+                target: suhours
+                x: 89
+                y: 886
+            }
+
+            PropertyChanges {
+                target: giuhours
+                x: 89
+                y: 1008
+            }
+
+            PropertyChanges {
+                target: suminutes
+                x: 178
+                y: 886
+            }
+
+            PropertyChanges {
+                target: giuminutes
+                x: 178
+                y: 1008
+            }
+
+            PropertyChanges {
+                target: buttonsetdatetime
+                x: 287
+                y: 988
+            }
+
+            PropertyChanges {
+                target: text1
+                x: 287
+                y: 753
+            }
+
+            PropertyChanges {
+                target: text2
+                x: 287
+                y: 952
+            }
+
+            PropertyChanges {
+                target: day
+                x: 48
+                y: 753
+            }
+
+            PropertyChanges {
+                target: month
+                x: 138
+                y: 753
+            }
+
+            PropertyChanges {
+                target: year
+                x: 229
+                y: 753
+            }
+
+            PropertyChanges {
+                target: text12
+                x: 111
+                y: 753
+            }
+
+            PropertyChanges {
+                target: text13
+                x: 200
+                y: 753
+            }
+
+            PropertyChanges {
+                target: hours
+                x: 94
+                y: 952
+            }
+
+            PropertyChanges {
+                target: minutes
+                x: 184
+                y: 952
+            }
+
+            PropertyChanges {
+                target: text16
+                x: 157
+                y: 952
             }
         },
         State {
@@ -419,38 +557,38 @@ Rectangle {
 
             PropertyChanges {
                 target: btnShoot
-                x: 520
-                y: 383
+                x: 468
+                y: 689
             }
 
             PropertyChanges {
                 target: btnWater
-                x: 900
-                y: 383
+                x: 848
+                y: 689
             }
 
             PropertyChanges {
                 target: btnGuide
-                x: 900
-                y: 483
+                x: 848
+                y: 789
             }
 
             PropertyChanges {
                 target: btnFilter
-                x: 900
-                y: 583
+                x: 848
+                y: 889
             }
 
             PropertyChanges {
                 target: btnCut
-                x: 520
-                y: 483
+                x: 468
+                y: 789
             }
 
             PropertyChanges {
                 target: clockButton
-                x: 520
-                y: 583
+                x: 468
+                y: 889
             }
 
             PropertyChanges {
@@ -579,6 +717,15 @@ Rectangle {
                 target: text16
                 x: 447
                 y: 150
+            }
+
+            PropertyChanges {
+                target: buttonsetdatetime1
+                x: 660
+                y: 80
+                width: 100
+                height: 60
+                text: "Back"
             }
         }
     ]

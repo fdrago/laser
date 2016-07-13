@@ -11,6 +11,8 @@ Rectangle {
 
     property int idx: -1;
     property string codice: ""
+    property int edx: -1;
+
 
 
     TextEdit {
@@ -185,14 +187,21 @@ Rectangle {
         }
         z: 1
         onClicked:{
-            if(idx==-1)
+            if(idx==-1 && edx==-1)
             {
                 laserModel.login( codice );
             }
-            else
+            else if (edx==-1 && idx!=-1)
             {
                 laserModel.setPwd( idx,codice );
                 main.state = "Config";
+            }
+            else if (idx==-1 && edx!=-1)
+            {
+                laserModel.setErrVal( edx,codice );
+                main.state = "Config";
+                (config1.valueup==0)? config1.valueup=1 : config1.valueup=0;
+
             }
         }
     }
@@ -228,8 +237,28 @@ Rectangle {
         }
         z: 1
         onClicked:{
+            if(idx==-1 && edx==-1){
                main.state = "File"
+            }
+            else if(idx!=-1 && edx==-1){
+               main.state = "Config"
+            }
+            else if(idx==-1 && edx!=-1){
+                main.state = "Config"
+            }
         }
+    }
+
+    Button {
+        id: buttonMinus
+        x: 676
+        y: 143
+        width: 80
+        height: 80
+        text: (codice.substring(0,1)=="-")? "+" : "-"
+        z: 1
+        onClicked: (text=="+")? codice=codice.replace("-","+") : ((codice.substring(0,1)=="+")? codice=codice.replace("+","-") : codice="-"+codice)
+        visible: (edx!=-1 && idx==-1)? true : false
     }
 
 

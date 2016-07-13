@@ -13,6 +13,9 @@ public:
     explicit Error();
     ~Error();
 
+    /*bool testOnOff(int idx) {_idx = idx;}
+    bool testOnOff() {return _idx}*/
+
     void id(int id) { _id = id; }
     int id() { return _id; }
 
