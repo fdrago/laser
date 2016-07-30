@@ -2,6 +2,8 @@ import QtQuick 1.0
 
 Rectangle {
 
+    property double disabledpress: -1
+
     property int valorenuovo: 0
 
     onValorenuovoChanged: {
@@ -14,15 +16,25 @@ Rectangle {
         clickabletext6.value=laserModel.getErrVal(6);
         clickabletext7.value=laserModel.getErrVal(7);
         clickabletext8.value=laserModel.getErrVal(8);
-
+        clickabletext9.value=laserModel.getErrVal(9);
+        clickabletext10.value=laserModel.getErrVal(10);
+        paramValue0.value=laserModel.getParamVal(0);
+        paramValue1.value=laserModel.getParamVal(1);
+        paramValue2.value=laserModel.getParamVal(2);
+        paramValue3.value=laserModel.getParamVal(3);
+        paramValue4.value=laserModel.getParamVal(4);
+        paramValue5.value=laserModel.getParamVal(5);
+        paramValue7.value=laserModel.getParamVal(7);
+        presValue.text = laserModel.getParamVal(6)
     }
 
+    id: machinesetup
     width: 520
     height: 296
     color: "#00000000"
 
     Text {
-        id: text1
+        id: text0
         x: 0
         y: 0
         width: 260
@@ -32,9 +44,9 @@ Rectangle {
     }
 
     Text {
-        id: text2
+        id: text1
         x: 0
-        y: 59
+        y: 64
         width: 260
         height: 22
         text: laserModel.getErrString(1)
@@ -42,9 +54,9 @@ Rectangle {
     }
 
     Text {
-        id: text3
+        id: text2
         x: 0
-        y: 118
+        y: 128
         width: 260
         height: 22
         text: laserModel.getErrString(2)
@@ -52,9 +64,9 @@ Rectangle {
     }
 
     Text {
-        id: text4
-        x: 0
-        y: 177
+        id: text3
+        x: -967
+        y: -334
         width: 260
         height: 22
         text: laserModel.getErrString(3)
@@ -62,7 +74,7 @@ Rectangle {
     }
 
     Text {
-        id: text5
+        id: text4
         x: 260
         y: 0
         width: 260
@@ -72,9 +84,9 @@ Rectangle {
     }
 
     Text {
-        id: text6
+        id: text5
         x: 260
-        y: 59
+        y: 64
         width: 260
         height: 22
         text: laserModel.getErrString(5)
@@ -82,9 +94,9 @@ Rectangle {
     }
 
     Text {
-        id: text7
+        id: text6
         x: 260
-        y: 118
+        y: 128
         width: 260
         height: 22
         text: laserModel.getErrString(6)
@@ -92,9 +104,9 @@ Rectangle {
     }
 
     Text {
-        id: text8
-        x: 260
-        y: 177
+        id: text7
+        x: -707
+        y: -334
         width: 260
         height: 22
         text: laserModel.getErrString(7)
@@ -102,21 +114,41 @@ Rectangle {
     }
 
     Text {
-        id: text9
-        x: 260
-        y: 236
+        id: text8
+        x: -967
+        y: -270
         width: 260
         height: 22
         text: laserModel.getErrString(8)
         font.pixelSize: 18
     }
 
+    Text {
+        id: text9
+        x: -707
+        y: -270
+        width: 260
+        height: 22
+        text: laserModel.getErrString(9)
+        font.pixelSize: 18
+    }
+
+    Text {
+     id: text10
+     x: -967
+     y: -206
+     width: 260
+     height: 22
+     text: laserModel.getErrString(10)
+     font.pixelSize: 18
+ }
+
     Button {
         id: onoff0
         x: 8
         y: 28
         width: 70
-        height: 25
+        height: 30
         text: (laserModel.getErrVal(0)==-255 && laserModel.getErrNONC(0)==0)? "OFF" : "ON"
         textsize: 12
         onClicked: {
@@ -139,7 +171,7 @@ Rectangle {
         x: 84
         y: 28
         width: 70
-        height: 25
+        height: 30
         textsize: 12
         text: (laserModel.getErrNONC(0)==true)? "NO" : "NC"
         onClicked: {
@@ -151,9 +183,9 @@ Rectangle {
     Button {
         id: onoff1
         x: 8
-        y: 87
+        y: 92
         width: 70
-        height: 25
+        height: 30
         text: (laserModel.getErrVal(1)==-255 && laserModel.getErrNONC(1)==0)? "OFF" : "ON"
         textsize: 12
         onClicked: {
@@ -169,14 +201,15 @@ Rectangle {
             clickabletext1.value=laserModel.getErrVal(1);
             nonc1.text=(laserModel.getErrNONC(1)==true)? "NO" : "NC";
         }
+
     }
 
     Button {
         id: nonc1
         x: 84
-        y: 87
+        y: 92
         width: 70
-        height: 25
+        height: 30
         textsize: 12
         text: (laserModel.getErrNONC(1)==true)? "NO" : "NC"
         onClicked: {
@@ -188,9 +221,9 @@ Rectangle {
     Button {
         id: onoff2
         x: 8
-        y: 146
+        y: 156
         width: 70
-        height: 25
+        height: 30
         text: (laserModel.getErrVal(2)==-255 && laserModel.getErrNONC(2)==0)? "OFF" : "ON"
         textsize: 12
         onClicked: {
@@ -211,9 +244,9 @@ Rectangle {
     Button {
         id: nonc2
         x: 84
-        y: 146
+        y: 156
         width: 70
-        height: 25
+        height: 30
         textsize: 12
         text: (laserModel.getErrNONC(2)==true)? "NO" : "NC"
         onClicked: {
@@ -224,10 +257,10 @@ Rectangle {
 
     Button {
         id: onoff3
-        x: 8
-        y: 205
+        x: -959
+        y: -306
         width: 70
-        height: 25
+        height: 30
         text: (laserModel.getErrVal(3)==-255 && laserModel.getErrNONC(3)==0)? "OFF" : "ON"
         textsize: 12
         onClicked: {
@@ -247,10 +280,10 @@ Rectangle {
 
     Button {
         id: nonc3
-        x: 84
-        y: 205
+        x: -883
+        y: -306
         width: 70
-        height: 25
+        height: 30
         textsize: 12
         text: (laserModel.getErrNONC(3)==true)? "NO" : "NC"
         onClicked: {
@@ -261,10 +294,10 @@ Rectangle {
 
     Button {
         id: onoff4
-        x: 260
+        x: 268
         y: 28
         width: 70
-        height: 25
+        height: 30
         text: (laserModel.getErrVal(4)==-255 && laserModel.getErrNONC(4)==0)? "OFF" : "ON"
         textsize: 12
         onClicked: {
@@ -284,10 +317,10 @@ Rectangle {
 
     Button {
         id: nonc4
-        x: 336
+        x: 344
         y: 28
         width: 70
-        height: 25
+        height: 30
         textsize: 12
         text: (laserModel.getErrNONC(4)==true)? "NO" : "NC"
         onClicked: {
@@ -298,10 +331,10 @@ Rectangle {
 
     Button {
         id: onoff5
-        x: 260
-        y: 87
+        x: 268
+        y: 92
         width: 70
-        height: 25
+        height: 30
         text: (laserModel.getErrVal(5)==-255 && laserModel.getErrNONC(5)==0)? "OFF" : "ON"
         textsize: 12
         onClicked: {
@@ -321,10 +354,10 @@ Rectangle {
 
     Button {
         id: nonc5
-        x: 336
-        y: 87
+        x: 344
+        y: 92
         width: 70
-        height: 25
+        height: 30
         textsize: 12
         text: (laserModel.getErrNONC(5)==true)? "NO" : "NC"
         onClicked: {
@@ -335,10 +368,10 @@ Rectangle {
 
     Button {
         id: onoff6
-        x: 260
-        y: 146
+        x: 268
+        y: 156
         width: 70
-        height: 25
+        height: 30
         text: (laserModel.getErrVal(6)==-255 && laserModel.getErrNONC(6)==0)? "OFF" : "ON"
         textsize: 12
         onClicked: {
@@ -358,10 +391,10 @@ Rectangle {
 
     Button {
         id: nonc6
-        x: 336
-        y: 146
+        x: 344
+        y: 156
         width: 70
-        height: 25
+        height: 30
         textsize: 12
         text: (laserModel.getErrNONC(6)==true)? "NO" : "NC"
         onClicked: {
@@ -372,10 +405,10 @@ Rectangle {
 
     Button {
         id: onoff7
-        x: 260
-        y: 205
+        x: -699
+        y: -306
         width: 70
-        height: 25
+        height: 30
         text: (laserModel.getErrVal(7)==-255 && laserModel.getErrNONC(7)==0)? "OFF" : "ON"
         textsize: 12
         onClicked: {
@@ -395,10 +428,10 @@ Rectangle {
 
     Button {
         id: nonc7
-        x: 336
-        y: 205
+        x: -623
+        y: -306
         width: 70
-        height: 25
+        height: 30
         textsize: 12
         text: (laserModel.getErrNONC(7)==true)? "NO" : "NC"
         onClicked: {
@@ -409,10 +442,10 @@ Rectangle {
 
     Button {
         id: onoff8
-        x: 260
-        y: 264
+        x: -959
+        y: -242
         width: 70
-        height: 25
+        height: 30
         text: (laserModel.getErrVal(8)==-255 && laserModel.getErrNONC(8)==0)? "OFF" : "ON"
         textsize: 12
         onClicked: {
@@ -432,10 +465,10 @@ Rectangle {
 
     Button {
         id: nonc8
-        x: 336
-        y: 264
+        x: -883
+        y: -242
         width: 70
-        height: 25
+        height: 30
         textsize: 12
         text: (laserModel.getErrNONC(8)==true)? "NO" : "NC"
         onClicked: {
@@ -444,12 +477,88 @@ Rectangle {
         }
     }
 
+    Button {
+        id: onoff9
+        x: -699
+        y: -242
+        width: 70
+        height: 30
+        text: (laserModel.getErrVal(9)==-255 && laserModel.getErrNONC(9)==0)? "OFF" : "ON"
+        textsize: 12
+        onClicked: {
+
+            (onoff9.text=="ON")? clickabletext9.disabledvalue=clickabletext9.value : null;
+            (onoff9.text=="ON")? clickabletext9.disablednonc=laserModel.getErrNONC(9) : null;
+            (onoff9.text=="ON")? laserModel.setErrVal(9, -255) : laserModel.setErrVal(9,clickabletext9.disabledvalue);
+            (onoff9.text=="ON")? laserModel.setErrNONC(9,0) : laserModel.setErrNONC(9,clickabletext9.disablednonc);
+            (onoff9.text=="ON")? nonc9.visible=false : nonc9.visible=true;
+            (onoff9.text=="ON")? clickabletext9.visible=false : clickabletext9.visible=true;
+            (onoff9.text=="ON")? onoff9.text="OFF" : onoff9.text="ON";
+
+            clickabletext9.value=laserModel.getErrVal(9);
+            nonc9.text=(laserModel.getErrNONC(9)==true)? "NO" : "NC";
+        }
+
+    }
+
+    Button {
+        id: nonc9
+        x: -623
+        y: -242
+        width: 70
+        height: 30
+        text: (laserModel.getErrNONC(9)==true)? "NO" : "NC"
+        textsize: 12
+        onClicked: {
+            (laserModel.getErrNONC(9)==true) ? laserModel.setErrNONC(9,false) : laserModel.setErrNONC(9,true);
+        (laserModel.getErrNONC(9)==false) ? nonc9.text="NC" : nonc9.text="NO";
+        }
+    }
+
+    Button {
+        id: onoff10
+        x: -959
+        y: -178
+        width: 70
+        height: 30
+        text: (laserModel.getErrVal(10)==-255 && laserModel.getErrNONC(10)==0)? "OFF" : "ON"
+        textsize: 12
+
+        onClicked: {
+
+            (onoff10.text=="ON")? clickabletext10.disabledvalue=clickabletext10.value : null;
+            (onoff10.text=="ON")? clickabletext10.disablednonc=laserModel.getErrNONC(10) : null;
+            (onoff10.text=="ON")? laserModel.setErrVal(10, -255) : laserModel.setErrVal(10,clickabletext10.disabledvalue);
+            (onoff10.text=="ON")? laserModel.setErrNONC(10,0) : laserModel.setErrNONC(10,clickabletext10.disablednonc);
+            (onoff10.text=="ON")? nonc10.visible=false : nonc10.visible=true;
+            (onoff10.text=="ON")? clickabletext10.visible=false : clickabletext10.visible=true;
+            (onoff10.text=="ON")? onoff10.text="OFF" : onoff10.text="ON";
+
+            clickabletext10.value=laserModel.getErrVal(10);
+            nonc10.text=(laserModel.getErrNONC(10)==true)? "NO" : "NC";
+        }
+    }
+
+    Button {
+        id: nonc10
+        x: -883
+        y: -178
+        width: 70
+        height: 30
+        text: (laserModel.getErrNONC(10)==true)? "NO" : "NC"
+        textsize: 12
+        onClicked: {
+            (laserModel.getErrNONC(10)==true) ? laserModel.setErrNONC(10,false) : laserModel.setErrNONC(10,true);
+            (laserModel.getErrNONC(10)==false) ? nonc10.text="NC" : nonc10.text="NO";
+        }
+    }
+
     Clickabletext {
         id: clickabletext0
         x: 160
         y: 28
         width: 70
-        height: 25
+        height: 30
         value: laserModel.getErrVal(0)
         valueid: 0
     }
@@ -457,9 +566,9 @@ Rectangle {
     Clickabletext {
         id: clickabletext1
         x: 160
-        y: 87
+        y: 92
         width: 70
-        height: 25
+        height: 30
         value: laserModel.getErrVal(1)
         valueid: 1
     }
@@ -467,70 +576,949 @@ Rectangle {
     Clickabletext {
         id: clickabletext2
         x: 160
-        y: 146
+        y: 156
         width: 70
-        height: 25
+        height: 30
         value: laserModel.getErrVal(2)
         valueid: 2
     }
 
     Clickabletext {
         id: clickabletext3
-        x: 160
-        y: 205
+        x: -807
+        y: -306
         width: 70
-        height: 25
+        height: 30
         value: laserModel.getErrVal(3)
         valueid: 3
     }
 
     Clickabletext {
         id: clickabletext4
-        x: 412
+        x: 420
         y: 28
         width: 70
-        height: 25
+        height: 30
         value: laserModel.getErrVal(4)
         valueid: 4
     }
 
     Clickabletext {
         id: clickabletext5
-        x: 412
-        y: 87
+        x: 420
+        y: 92
         width: 70
-        height: 25
+        height: 30
         value: laserModel.getErrVal(5)
         valueid: 5
     }
 
     Clickabletext {
         id: clickabletext6
-        x: 412
-        y: 146
+        x: 420
+        y: 156
         width: 70
-        height: 25
+        height: 30
         value: laserModel.getErrVal(6)
         valueid: 6
     }
 
     Clickabletext {
         id: clickabletext7
-        x: 412
-        y: 205
+        x: -547
+        y: -306
         width: 70
-        height: 25
+        height: 30
         value: laserModel.getErrVal(7)
         valueid: 7
     }
 
     Clickabletext {
         id: clickabletext8
-        x: 412
-        y: 264
+        x: -807
+        y: -242
         width: 70
-        height: 25
+        height: 30
         value: laserModel.getErrVal(8)
         valueid: 8
     }
+
+    Clickabletext {
+            id: clickabletext9
+            x: -547
+            y: -242
+            width: 70
+            height: 30
+            valueid: 9
+            value: laserModel.getErrVal(9)
+        }
+
+    Clickabletext {
+        id: clickabletext10
+        x: -807
+        y: -178
+        width: 70
+        height: 30
+        valueid: 10
+        value: laserModel.getErrVal(10)
+    }
+
+    Button {
+        id: pagepiu
+        x: 432
+        y: 244
+        width: 80
+        height: 45
+        text: ">"
+        onClicked: {
+            (machinesetup.state=="")? machinesetup.state="Page2" : machinesetup.state="Page3";
+        }
+    }
+
+    Button {
+        id: pagemeno
+        x: 260
+        y: 244
+        width: 80
+        height: 45
+        text: "<"
+        onClicked: {
+            (machinesetup.state=="Page3")? machinesetup.state="Page2" : machinesetup.state="";
+        }
+
+    }
+
+    Text {
+        id: pagenumber
+        x: 340
+        y: 244
+        width: 91
+        height: 45
+        text: qsTr("1/3")
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        font.pixelSize: 24
+    }
+
+    Text {
+        id: paramText0
+        x: -67
+        y: -383
+        width: 260
+        height: 22
+        text: laserModel.getParamName(0)
+        font.pixelSize: 18
+    }
+
+    Clickabletext {
+        id: paramValue0
+        x: -58
+        y: -355
+        width: 70
+        height: 30
+        valueid: 1000
+        value: laserModel.getParamVal(0)
+    }
+
+    Text {
+        id: paramText1
+        x: -67
+        y: -324
+        width: 260
+        height: 22
+        text: laserModel.getParamName(1)
+        font.pixelSize: 18
+    }
+
+    Clickabletext {
+        id: paramValue1
+        x: -58
+        y: -296
+        width: 70
+        height: 30
+        valueid: -1
+        value: laserModel.getParamVal(1)
+    }
+
+    Text {
+        id: paramText2
+        x: -67
+        y: -265
+        width: 260
+        height: 22
+        text: laserModel.getParamName(2)
+        font.pixelSize: 18
+    }
+
+    Clickabletext {
+        id: paramValue2
+        x: -58
+        y: -237
+        width: 70
+        height: 30
+        valueid: 1002
+        value: laserModel.getParamVal(2)
+    }
+
+    Text {
+        id: paramText3
+        x: -67
+        y: -206
+        width: 260
+        height: 22
+        text: laserModel.getParamName(3)
+        font.pixelSize: 18
+    }
+
+    Clickabletext {
+        id: paramValue3
+        x: -58
+        y: -178
+        width: 70
+        height: 30
+        valueid: -1
+        value: laserModel.getParamVal(3)
+    }
+
+    Text {
+        id: paramText4
+        x: 193
+        y: -383
+        width: 260
+        height: 22
+        text: laserModel.getParamName(4)
+        font.pixelSize: 18
+    }
+
+    Clickabletext {
+        id: paramValue4
+        x: 202
+        y: -355
+        width: 70
+        height: 30
+        valueid: 1004
+        value: laserModel.getParamVal(4)
+    }
+
+    Text {
+        id: paramText5
+        x: 193
+        y: -324
+        width: 260
+        height: 22
+        text: laserModel.getParamName(5)
+        font.pixelSize: 18
+    }
+
+    Clickabletext {
+        id: paramValue5
+        x: 202
+        y: -296
+        width: 70
+        height: 30
+        valueid: -1
+        value: laserModel.getParamVal(5)
+    }
+
+    Text {
+        id: paramText6
+        x: 193
+        y: -265
+        width: 260
+        height: 22
+        text: laserModel.getParamName(6)
+        font.pixelSize: 18
+    }
+
+    Text {
+        id: paramText7
+        x: 193
+        y: -206
+        width: 260
+        height: 22
+        text: laserModel.getParamName(7)
+        font.pixelSize: 18
+    }
+
+    Clickabletext {
+        id: paramValue7
+        x: 202
+        y: -178
+        width: 70
+        height: 30
+        valueid: -1
+        value: laserModel.getParamVal(7)
+    }
+
+    Button {
+        id: onoffPres
+        x: -959
+        y: -128
+        width: 70
+        height: 30
+        text: (laserModel.getParamVal(6)=="-1")? "OFF" : "ON"
+        textsize: 12
+        onClicked: {
+            (onoffPres.text=="OFF")? laserModel.setParamVal(6,setPointPset) : laserModel.setParamVal(6,-1)
+            onoffPres.text = (laserModel.getParamVal(6)=="-1")? "OFF" : "ON"
+            presValue.text = laserModel.getParamVal(6)
+        }
+
+        Rectangle {
+            id: presRect
+            x: 152
+            y: 0
+            width: 70
+            height: 30
+            color: "#ffffff"
+            visible: (onoffPres.text=="ON")? true : false
+        }
+
+        Text {
+            id: presValue
+            x: 152
+            y: 0
+            width: 70
+            height: 30
+            text: "NA"
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: 18
+            visible: (onoffPres.text=="ON")? true : false
+        }
+    }
+
+
+
+    states: [
+        State {
+            name: "Page2"
+
+            PropertyChanges {
+                target: text0
+                x: -864
+                y: -278
+            }
+
+            PropertyChanges {
+                target: text1
+                x: -864
+                y: -215
+            }
+
+            PropertyChanges {
+                target: text2
+                x: -864
+                y: -151
+            }
+
+            PropertyChanges {
+                target: text4
+                x: -604
+                y: -278
+            }
+
+            PropertyChanges {
+                target: text5
+                x: -604
+                y: -215
+            }
+
+            PropertyChanges {
+                target: text6
+                x: -604
+                y: -151
+            }
+
+            PropertyChanges {
+                target: onoff0
+                x: -856
+                y: -250
+            }
+
+            PropertyChanges {
+                target: nonc0
+                x: -780
+                y: -250
+            }
+
+            PropertyChanges {
+                target: onoff1
+                x: -856
+                y: -187
+            }
+
+            PropertyChanges {
+                target: nonc1
+                x: -780
+                y: -187
+            }
+
+            PropertyChanges {
+                target: onoff2
+                x: -856
+                y: -123
+            }
+
+            PropertyChanges {
+                target: nonc2
+                x: -780
+                y: -123
+            }
+
+            PropertyChanges {
+                target: onoff4
+                x: -604
+                y: -250
+            }
+
+            PropertyChanges {
+                target: nonc4
+                x: -528
+                y: -250
+            }
+
+            PropertyChanges {
+                target: onoff5
+                x: -604
+                y: -187
+            }
+
+            PropertyChanges {
+                target: nonc5
+                x: -528
+                y: -187
+            }
+
+            PropertyChanges {
+                target: onoff6
+                x: -604
+                y: -123
+            }
+
+            PropertyChanges {
+                target: nonc6
+                x: -528
+                y: -123
+            }
+
+            PropertyChanges {
+                target: clickabletext0
+                x: -704
+                y: -250
+            }
+
+            PropertyChanges {
+                target: clickabletext1
+                x: -704
+                y: -187
+            }
+
+            PropertyChanges {
+                target: clickabletext2
+                x: -704
+                y: -123
+            }
+
+            PropertyChanges {
+                target: clickabletext4
+                x: -452
+                y: -250
+            }
+
+            PropertyChanges {
+                target: clickabletext5
+                x: -452
+                y: -187
+            }
+
+            PropertyChanges {
+                target: clickabletext6
+                x: -452
+                y: -123
+            }
+
+            PropertyChanges {
+                target: text3
+                x: 0
+                y: 0
+            }
+
+            PropertyChanges {
+                target: text7
+                x: 260
+                y: 0
+            }
+
+            PropertyChanges {
+                target: text8
+                x: 0
+                y: 64
+            }
+
+            PropertyChanges {
+                target: text9
+                x: 260
+                y: 64
+            }
+
+            PropertyChanges {
+                target: text10
+                x: 0
+                y: 128
+            }
+
+            PropertyChanges {
+                target: onoff3
+                x: 8
+                y: 28
+            }
+
+            PropertyChanges {
+                target: nonc3
+                x: 84
+                y: 28
+            }
+
+            PropertyChanges {
+                target: onoff7
+                x: 268
+                y: 28
+            }
+
+            PropertyChanges {
+                target: nonc7
+                x: 344
+                y: 28
+            }
+
+            PropertyChanges {
+                target: onoff8
+                x: 8
+                y: 92
+            }
+
+            PropertyChanges {
+                target: nonc8
+                x: 84
+                y: 92
+            }
+
+            PropertyChanges {
+                target: onoff9
+                x: 268
+                y: 92
+            }
+
+            PropertyChanges {
+                target: nonc9
+                x: 344
+                y: 92
+            }
+
+            PropertyChanges {
+                target: onoff10
+                x: 8
+                y: 156
+            }
+
+            PropertyChanges {
+                target: nonc10
+                x: 84
+                y: 156
+            }
+
+            PropertyChanges {
+                target: clickabletext3
+                x: 160
+                y: 28
+            }
+
+            PropertyChanges {
+                target: clickabletext7
+                x: 420
+                y: 28
+            }
+
+            PropertyChanges {
+                target: clickabletext8
+                x: 160
+                y: 92
+            }
+
+            PropertyChanges {
+                target: clickabletext9
+                x: 420
+                y: 92
+            }
+
+            PropertyChanges {
+                target: clickabletext10
+                x: 160
+                y: 156
+            }
+
+            PropertyChanges {
+                target: pagenumber
+                text: qsTr("2/3")
+            }
+
+            PropertyChanges {
+                target: paramText6
+                x: 260
+                y: 128
+            }
+
+            PropertyChanges {
+                target: paramValue6
+                x: 269
+                y: 156
+            }
+
+            PropertyChanges {
+                target: onoff11
+                x: 268
+                y: 156
+            }
+
+            PropertyChanges {
+                target: onoffPres
+                x: 268
+                y: 156
+            }
+        },
+        State {
+            name: "Page3"
+
+            PropertyChanges {
+                target: text0
+                x: -864
+                y: -278
+            }
+
+            PropertyChanges {
+                target: text1
+                x: -864
+                y: -215
+            }
+
+            PropertyChanges {
+                target: text2
+                x: -864
+                y: -151
+            }
+
+            PropertyChanges {
+                target: text4
+                x: -604
+                y: -278
+            }
+
+            PropertyChanges {
+                target: text5
+                x: -604
+                y: -215
+            }
+
+            PropertyChanges {
+                target: text6
+                x: -604
+                y: -151
+            }
+
+            PropertyChanges {
+                target: onoff0
+                x: -856
+                y: -250
+            }
+
+            PropertyChanges {
+                target: nonc0
+                x: -780
+                y: -250
+            }
+
+            PropertyChanges {
+                target: onoff1
+                x: -856
+                y: -187
+            }
+
+            PropertyChanges {
+                target: nonc1
+                x: -780
+                y: -187
+            }
+
+            PropertyChanges {
+                target: onoff2
+                x: -856
+                y: -123
+            }
+
+            PropertyChanges {
+                target: nonc2
+                x: -780
+                y: -123
+            }
+
+            PropertyChanges {
+                target: onoff4
+                x: -596
+                y: -250
+            }
+
+            PropertyChanges {
+                target: nonc4
+                x: -520
+                y: -250
+            }
+
+            PropertyChanges {
+                target: onoff5
+                x: -596
+                y: -187
+            }
+
+            PropertyChanges {
+                target: nonc5
+                x: -520
+                y: -187
+            }
+
+            PropertyChanges {
+                target: onoff6
+                x: -596
+                y: -123
+            }
+
+            PropertyChanges {
+                target: nonc6
+                x: -520
+                y: -123
+            }
+
+            PropertyChanges {
+                target: clickabletext0
+                x: -704
+                y: -250
+            }
+
+            PropertyChanges {
+                target: clickabletext1
+                x: -704
+                y: -187
+            }
+
+            PropertyChanges {
+                target: clickabletext2
+                x: -704
+                y: -123
+            }
+
+            PropertyChanges {
+                target: clickabletext4
+                x: -444
+                y: -248
+            }
+
+            PropertyChanges {
+                target: clickabletext5
+                x: -444
+                y: -187
+            }
+
+            PropertyChanges {
+                target: clickabletext6
+                x: -444
+                y: -123
+            }
+
+            PropertyChanges {
+                target: text11
+                x: 1
+                y: 0
+            }
+
+            PropertyChanges {
+                target: clickabletext11
+                x: 10
+                y: 28
+            }
+
+            PropertyChanges {
+                target: clickabletext12
+                x: 10
+                y: 87
+            }
+
+            PropertyChanges {
+                target: clickabletext13
+                x: 10
+                y: 146
+            }
+
+            PropertyChanges {
+                target: text14
+                x: 1
+                y: 177
+            }
+
+            PropertyChanges {
+                target: clickabletext14
+                x: 10
+                y: 205
+            }
+
+            PropertyChanges {
+                target: text15
+                x: 261
+                y: 0
+            }
+
+            PropertyChanges {
+                target: clickabletext15
+                x: 270
+                y: 28
+            }
+
+            PropertyChanges {
+                target: clickabletext16
+                x: 270
+                y: 87
+            }
+
+            PropertyChanges {
+                target: text17
+                x: 261
+                y: 118
+            }
+
+            PropertyChanges {
+                target: clickabletext17
+                x: 270
+                y: 146
+            }
+
+            PropertyChanges {
+                target: text18
+                x: 261
+                y: 177
+            }
+
+            PropertyChanges {
+                target: clickabletext18
+                x: 270
+                y: 205
+            }
+
+            PropertyChanges {
+                target: pagemeno
+                height: 45
+            }
+
+            PropertyChanges {
+                target: pagenumber
+                text: qsTr("3/3")
+            }
+
+            PropertyChanges {
+                target: paramText0
+                x: 1
+                y: 0
+            }
+
+            PropertyChanges {
+                target: paramValue0
+                x: 10
+                y: 28
+            }
+
+            PropertyChanges {
+                target: paramText1
+                x: 1
+                y: 59
+            }
+
+            PropertyChanges {
+                target: paramValue1
+                x: 10
+                y: 87
+            }
+
+            PropertyChanges {
+                target: paramText2
+                x: 1
+                y: 118
+            }
+
+            PropertyChanges {
+                target: paramValue2
+                x: 10
+                y: 146
+            }
+
+            PropertyChanges {
+                target: paramText3
+                x: 1
+                y: 177
+            }
+
+            PropertyChanges {
+                target: paramValue3
+                x: 10
+                y: 205
+            }
+
+            PropertyChanges {
+                target: paramText4
+                x: 261
+                y: 0
+            }
+
+            PropertyChanges {
+                target: paramValue4
+                x: 270
+                y: 28
+            }
+
+            PropertyChanges {
+                target: paramText5
+                x: 261
+                y: 59
+            }
+
+            PropertyChanges {
+                target: paramValue5
+                x: 270
+                y: 87
+            }
+
+            PropertyChanges {
+                target: paramText6
+                x: 62
+                y: -357
+            }
+
+            PropertyChanges {
+                target: paramValue6
+                x: 71
+                y: -329
+            }
+
+            PropertyChanges {
+                target: paramText7
+                x: 261
+                y: 118
+            }
+
+            PropertyChanges {
+                target: paramValue7
+                x: 270
+                y: 146
+            }
+
+        }
+    ]
+
 }

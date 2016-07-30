@@ -5,7 +5,6 @@ Rectangle {
     width: 800
     height: 480
     color: "#00ffffff"
-    //radius: 2
 
     signal clicked
 
@@ -27,8 +26,8 @@ Rectangle {
         z: 2
         selectionColor: "#040000"
         horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: 63
-        font.family: myCustomFont.name
+        font.pixelSize: 60
+        //font.family: myCustomFont.name
     }
 
     Button {
@@ -198,8 +197,16 @@ Rectangle {
             }
             else if (idx==-1 && edx!=-1)
             {
-                laserModel.setErrVal( edx,codice );
+                if (edx<1000){
+                    laserModel.setErrVal( edx,codice );
+                }
+                else{
+                   laserModel.setParamVal(edx-1000,codice);
+
+                }
+
                 main.state = "Config";
+                config1.state = "machineSetup";
                 (config1.valueup==0)? config1.valueup=1 : config1.valueup=0;
 
             }
@@ -213,7 +220,6 @@ Rectangle {
         width: 297
         height: 80
         color: "#cc000000"
-        //radius: 8
         z: 1
     }
 

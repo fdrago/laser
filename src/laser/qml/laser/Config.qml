@@ -21,28 +21,9 @@ Rectangle {
     width: 800
     height: 320
 
-    //radius:10
 
     color: "#00b3b3b3"
 
-    /*Component {
-        id: logDelegate
-        Rectangle {
-            id: fileDelegateRectangle
-            height: fileDelegateText.height * 1.5
-            width: parent.width
-
-            color: "#80b2b2b2"
-
-            Text {
-                id: fileDelegateText
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 40
-                font.family: myCustomFont.name
-                text: modelData
-            }
-        }
-    }*/
     Component {
         id: userDelegate
         Item {
@@ -55,7 +36,6 @@ Rectangle {
                 height: parent.height
                 width: parent.width
                 color: "ivory"
-                //radius: 5
 
 
             }
@@ -75,59 +55,7 @@ Rectangle {
                     }
                 }
             }
-            /*Text {
-                id: userDelegateTime
-                x: 208
-                y: 11
-                width: 85
-                height: 24
-                text: time
-                horizontalAlignment: Text.AlignRight
-                font.pixelSize: 20
-                font.family: myCustomFont.name
-                MouseArea {
-                    anchors.fill: parent;
-                    onClicked: {
-                        time = "00:00"
-                    }
-                }
-            }
-            Text {
-                id: userDelegateLevel
-                x: 16
-                y: 66
-                text: name
-                visible: false
-                font.pixelSize: 20
-                font.bold: true
-                font.family: myCustomFont.name
-                MouseArea {
-                    anchors.fill: parent;
-                    onClicked: {
-                        console.log("delLevel");
-                        editname = (editname==10) ? 1 : 10;
-                    }
-                }
-            }
 
-            Text {
-                id: userDelegatePassword
-                x: 156
-                y: 66
-                width: 93
-                height: 24
-                text: password
-                visible: false
-                font.pixelSize: 20
-                font.family: myCustomFont.name
-                MouseArea {
-                    anchors.fill: parent;
-                    onClicked: {
-                        login.idx = index;
-                        main.state = "Login";
-                    }
-                }
-            }*/
             Image {
                 id: imageAdd
                 x: 308
@@ -143,21 +71,6 @@ Rectangle {
                     }
                 }
             }
-            /*Image {
-                id: imageDelete
-                x: 362
-                y: 66
-                width: 50
-                height: 50
-                source: "../../images/list-delete.png"
-                MouseArea {
-                    anchors.fill: parent;
-                    onClicked: {
-                        console.log("delete");
-                        userList.remove(index);
-                    }
-                }
-            }*/
 
             MouseArea {
                 id: mouseArea2
@@ -220,23 +133,22 @@ Rectangle {
         }
     }
 
+    
     Rectangle {
         id: rectangle2
         x: 264
-        y: 10
+        y: 8
         width: 528
-        height: 302
+        height: 304
         color: "#80eeeeee"
-        //radius: 2
     }
 
     Button {
         id: btnUsers
         x: 8
-        y: 20
+        y: 60
         width: 250
         height: 80
-        //radius: 4
         text: "Users"
         icon: "../../images/users.png"
         state: (config.state=="Users") ? "Disable" : "";
@@ -249,10 +161,9 @@ Rectangle {
     Button {
         id: btnLogs
         x: 8
-        y: 120
+        y: 146
         width: 250
         height: 80
-        //radius: 4
         text: "Logs"
         icon: "../../images/list.png"
         state: (config.state=="Logs") ? "Disable" : "";
@@ -729,10 +640,11 @@ Rectangle {
     Button {
         id: btnLogs1
         x: 8
-        y: 220
+        y: 232
         width: 250
         height: 80
-        text: "Parameters"
+        text: "Setup"
+        icon: "../../images/maintenance.png"
         state: (config.state=="machineSetup") ? "Disable" : ""
         onClicked: {
             config.state="machineSetup";
@@ -744,6 +656,17 @@ Rectangle {
             y: -207
             opacity: 0
         }
+    }
+
+    Text {
+        id: text3
+        x: 8
+        y: 8
+        width: 250
+        height: 40
+        text: qsTr("Settings")
+        font.pixelSize: 40
+        font.family: myCustomFont.name
     }
     states: [
         State {
@@ -772,8 +695,8 @@ Rectangle {
 
             PropertyChanges {
                 target: btnLogs
-                x: -453
-                y: 369
+                x: -443
+                y: 71
             }
 
 
@@ -786,14 +709,20 @@ Rectangle {
 
             PropertyChanges {
                 target: btnLogs1
-                x: -165
-                y: 498
+                x: -443
+                y: 138
             }
 
             PropertyChanges {
                 target: rectangle2
                 x: 232
                 y: 382
+            }
+
+            PropertyChanges {
+                target: btnLogs2
+                x: -443
+                y: 203
             }
         },
         State {
@@ -815,14 +744,6 @@ Rectangle {
             name: "Logs"
 
             PropertyChanges {
-                target: listView2
-                x: 350
-                y: 21
-                width: 336
-                height: 341
-            }
-
-            PropertyChanges {
                 target: listLogs
                 x: 264
                 y: 10
@@ -838,12 +759,10 @@ Rectangle {
 
             PropertyChanges {
                 target: buttonsetdatetime
-                //radius: 8
             }
 
             PropertyChanges {
                 target: btnUsers
-                //radius: 4
             }
 
 
@@ -1009,18 +928,16 @@ Rectangle {
             name: "machineSetup"
 
             PropertyChanges {
-                target: listView2
-                x: 269
-                y: 14
-                width: 518
-                height: 293
+                target: machinesetup1
+                x: 260
+                y: -220
+                opacity: 1
             }
 
             PropertyChanges {
-                target: machinesetup1
-                x: 260
-                y: -207
-                opacity: 1
+                target: btnLogs1
+                x: 8
+                y: 232
             }
         }
     ]

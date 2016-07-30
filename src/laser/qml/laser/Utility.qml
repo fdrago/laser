@@ -17,8 +17,6 @@ Rectangle {
     width: 800
     height: 320
 
-    //radius:10
-
     color: "#00b3b3b3"
 
     Button {

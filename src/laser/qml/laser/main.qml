@@ -5,28 +5,59 @@ Rectangle {
     id: main
     width: 800
     height: 480
-    color: "#4caee6"
+    color: "#4cafe6"
 
     property int enableButton:1;
-    property bool enablePassword: true;
-    property string nocode: "0000";
+    property int valoreNuovo: 0;
+
+    Connections{
+        target: laserModel
+        property int txtCount: 0
+        property string txtTime: "0:00:00"
+
+        onTxtTimeChanged: {
+            stopPauseResume1.txtTimeDisplay = txtTime
+            console.log()<<"txtTime: "<<txtTime
+        }
+    }
+
+
+
+
 
     FontLoader {
         id: myCustomFont;
         source: "../fonts/Ubuntu-R.ttf"
     }
 
+    onValoreNuovoChanged: {
+        config1.valueup = (config1.valueup==0)? 1 : 0;
+    }
+
+    onStateChanged: {
+        gauges1.aggiorna = (gauges1.aggiorna==true)? false : true
+        console.log(gauges1.aggiorna)
+    }
 
     Connections {
         target: laserModel;
 
         onStateChanged: {
             var ts = main.state;
-            main.state= newState;
+
+            if(main.state=="StopResume" && newState=="Alarm"){
+                stopPauseResume1.state="Alarm";
+            }
+            else{
+                main.state= newState;
+                stopPauseResume1.state="";
+            }
+
             if((ts != "Alarm") && (newState == "Alarm"))
                 laserModel.setStatus(ts);
             else if (ts != "Alarm")
                 laserModel.setStatus("");
+
             console.log("new qml state", newState);
 
         }
@@ -36,6 +67,7 @@ Rectangle {
         }
 
         onAllarme: {
+
             if ( alarm == 1 || alarm == 0 || alarm == 2)
                 toolbarBottom1.spiaSportelloVis  = stato == false ? false : true
             else
@@ -54,22 +86,6 @@ Rectangle {
                 toolbarBottom1.spiaSicurezzeVis = false
         }
     }
-
-
-
-    /*Timer {
-           interval: 2000;
-           running: true;
-           repeat: false;
-           onTriggered: {
-               if(enablePassword) {
-                  main.state = "Login"
-               } else {
-                  main.state = "File"
-               }
-           }
-       }*/
-
 
     Image {
         id: sfondo
@@ -106,13 +122,8 @@ Rectangle {
             anchors.fill: parent
             onPressed: {
                 if(main.state!="waitList"){
-                    if(enablePassword) {
-                        laserModel.login( "guest" )
-                    } else {
-                        main.state = "File"
-                    }
+                    laserModel.login( "guest" )
                 }
-
             }
         }
 
@@ -491,7 +502,7 @@ Rectangle {
 
             PropertyChanges {
                 target: item1
-                opacity: 1
+             //   opacity: 1
             }
 
             PropertyChanges {
@@ -620,13 +631,18 @@ Rectangle {
 
             PropertyChanges {
                 target: main
-                color: "#55b5de"
+                color: "#4eb5e4"
             }
 
             PropertyChanges {
                 target: toolbarBottom1
                 x: 0
                 y: 405
+            }
+
+            PropertyChanges {
+                target: stopPauseResume1
+                color: "#4cb5e6"
             }
         },
         State {
@@ -713,6 +729,12 @@ Rectangle {
             PropertyChanges {
                 target: mouseArea1
                 visible: false
+            }
+
+            PropertyChanges {
+                target: stopPauseResume1
+                x: 1
+                y: 480
             }
         },
         State {
@@ -868,7 +890,7 @@ Rectangle {
 
             PropertyChanges {
                 target: main
-                color: "#55b2de"
+                color: "#55b5de"
             }
 
             PropertyChanges {

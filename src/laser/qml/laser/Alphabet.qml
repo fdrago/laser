@@ -5,7 +5,6 @@ Rectangle {
     width: 800
     height: 480
     color: "#00ffffff"
-    //radius: 2
 
     signal clicked
 
@@ -35,7 +34,6 @@ Rectangle {
         y: 127
         width: 65
         height: 65
-        //radius: 3
         text: "Q"
         z: 1
         onClicked: name += text
@@ -97,7 +95,6 @@ Rectangle {
         width: 561
         height: 80
         color: "#cc000000"
-        //radius: 8
         z: 1
     }
 
@@ -107,7 +104,6 @@ Rectangle {
         y: 127
         width: 65
         height: 65
-        //radius: 3
         text: "W"
         z: 1
         onClicked: name += text
@@ -119,7 +115,6 @@ Rectangle {
         y: 127
         width: 65
         height: 65
-        //radius: 3
         text: "E"
         z: 1
         onClicked: name += text
@@ -131,7 +126,6 @@ Rectangle {
         y: 127
         width: 65
         height: 65
-        //radius: 3
         text: "R"
         z: 1
         onClicked: name += text
@@ -143,7 +137,6 @@ Rectangle {
         y: 127
         width: 65
         height: 65
-        //radius: 3
         text: "T"
         z: 1
         onClicked: name += text
@@ -155,7 +148,6 @@ Rectangle {
         y: 127
         width: 65
         height: 65
-        //radius: 3
         text: "Y"
         z: 1
         onClicked: name += text
@@ -167,7 +159,6 @@ Rectangle {
         y: 127
         width: 65
         height: 65
-        //radius: 3
         text: "U"
         z: 1
         onClicked: name += text
@@ -179,7 +170,6 @@ Rectangle {
         y: 127
         width: 65
         height: 65
-        //radius: 3
         text: "I"
         z: 1
         onClicked: name += text
@@ -191,7 +181,6 @@ Rectangle {
         y: 127
         width: 65
         height: 65
-        //radius: 3
         text: "O"
         z: 1
         onClicked: name += text
@@ -203,7 +192,6 @@ Rectangle {
         y: 127
         width: 65
         height: 65
-        //radius: 3
         text: "P"
         z: 1
         onClicked: name += text
@@ -215,7 +203,6 @@ Rectangle {
         y: 208
         width: 65
         height: 65
-        //radius: 3
         text: "A"
         z: 1
         onClicked: name += text
@@ -227,7 +214,6 @@ Rectangle {
         y: 208
         width: 65
         height: 65
-        //radius: 3
         text: "S"
         z: 1
         onClicked: name += text
@@ -239,7 +225,6 @@ Rectangle {
         y: 208
         width: 65
         height: 65
-        //radius: 3
         text: "D"
         z: 1
         onClicked: name += text
@@ -251,7 +236,6 @@ Rectangle {
         y: 208
         width: 65
         height: 65
-        //radius: 3
         text: "F"
         z: 1
         onClicked: name += text
@@ -263,7 +247,6 @@ Rectangle {
         y: 208
         width: 65
         height: 65
-        //radius: 3
         text: "G"
         z: 1
         onClicked: name += text
@@ -275,7 +258,6 @@ Rectangle {
         y: 208
         width: 65
         height: 65
-        //radius: 3
         text: "H"
         z: 1
         onClicked: name += text
@@ -287,7 +269,6 @@ Rectangle {
         y: 208
         width: 65
         height: 65
-        //radius: 3
         text: "J"
         z: 1
         onClicked: name += text
@@ -299,7 +280,6 @@ Rectangle {
         y: 208
         width: 65
         height: 65
-        //radius: 3
         text: "K"
         z: 1
         onClicked: name += text
@@ -311,7 +291,6 @@ Rectangle {
         y: 208
         width: 65
         height: 65
-        //radius: 3
         text: "L"
         z: 1
         onClicked: name += text
@@ -323,7 +302,6 @@ Rectangle {
         y: 286
         width: 65
         height: 65
-        //radius: 3
         text: "Z"
         z: 1
         onClicked: name += text
@@ -335,7 +313,6 @@ Rectangle {
         y: 286
         width: 65
         height: 65
-        //radius: 3
         text: "X"
         z: 1
         onClicked: name += text
@@ -347,7 +324,6 @@ Rectangle {
         y: 286
         width: 65
         height: 65
-        //radius: 3
         text: "C"
         z: 1
         onClicked: name += text
@@ -359,7 +335,6 @@ Rectangle {
         y: 286
         width: 65
         height: 65
-        //radius: 3
         text: "V"
         z: 1
         onClicked: name += text
@@ -371,7 +346,6 @@ Rectangle {
         y: 286
         width: 65
         height: 65
-        //radius: 3
         text: "B"
         z: 1
         onClicked: name += text
@@ -383,7 +357,6 @@ Rectangle {
         y: 286
         width: 65
         height: 65
-        //radius: 3
         text: "N"
         z: 1
         onClicked: name += text
@@ -395,7 +368,6 @@ Rectangle {
         y: 286
         width: 65
         height: 65
-        //radius: 3
         text: "M"
         z: 1
         onClicked: name += text
@@ -407,7 +379,6 @@ Rectangle {
         y: 385
         width: 228
         height: 65
-        //radius: 3
         text: " "
         z: 1
         onClicked: name += text

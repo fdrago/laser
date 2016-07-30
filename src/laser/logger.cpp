@@ -73,7 +73,7 @@ QStringList Logger::logs()
 #endif*/
 
         QString s = QString("%1 : %3").arg( ts ).arg( it.value() );
-        qDebug() << s;
+        //qDebug() << s;
         res.append(s);
     }
     return res;

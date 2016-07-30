@@ -4,7 +4,15 @@ Rectangle {
     width: 500
     height: 320
     color: "#00757575"
-    //radius: 10
+
+    Connections{
+        target: startStopTest;
+        onFilenameChanged{
+
+        }
+
+
+    }
 
     Button {
         id: btnZsu
@@ -98,23 +106,12 @@ Rectangle {
     }
 
     Text {
-        id: text2
-        x: 8
-        y: 8
-        width: 84
-        height: 40
-        text: qsTr("File:")
-        font.family: myCustomFont.name
-        font.pixelSize: 40
-    }
-
-    Text {
         id: text3
-        x: 98
+        x: 0
         y: 3
-        width: 394
+        width: 492
         height: 45
-        text: fileName
+        text: StartStopTest.fileName
         font.family: myCustomFont.name
         font.pixelSize: 40
     }

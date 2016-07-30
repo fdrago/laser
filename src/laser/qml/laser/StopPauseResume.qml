@@ -4,10 +4,16 @@ Rectangle {
     width: 800
     height: 320
     color: "#00757575"
-    //radius: 10
 
+    property double setPointP: 0;
+    property int setPointPset: 0;
 
-    property int txtCount:0;
+    property int txtCount: 0
+    property string txtTimeDisplay: "0:00:00"
+
+    onTxtTimeDisplayChanged: {
+        text1.text= txtTimeDisplay;
+    }
 
     Rectangle {
         id: rectangle1
@@ -16,21 +22,20 @@ Rectangle {
         width: 784
         height: 158
         color: "#80eeeeee"
-        //radius: 8
     }
 
     Button {
         id: btnStop
-        x: 38
+        x: 28
         y: 164
         width: 200
         height: 148
-        //radius: 5
         icon: "../../images/stop.png"
         text: "Stop"
         imgstatus: 0
         gradient: Gradient {
             GradientStop {
+                id: gradientStop1
                 position: 0
                 color: "#aaff0000"
             }
@@ -53,11 +58,10 @@ Rectangle {
 
     Button {
         id: btnPause
-        x: 300
+        x: 290
         y: 164
         width: 200
         height: 148
-        //radius: 5
         icon: "../../images/pause.png"
         text: "Pause"
         imgstatus: 0
@@ -89,6 +93,7 @@ Rectangle {
     }
 
     Text {
+        id: text1
         x: 144
         y: 91
         width: 256
@@ -101,6 +106,7 @@ Rectangle {
     }
 
     Text {
+        id: text5
         x: 531
         y: 91
         width: 251
@@ -113,6 +119,7 @@ Rectangle {
     }
 
     Text {
+        id: text6
         x: 406
         y: 91
         text: qsTr("Count:")
@@ -121,6 +128,7 @@ Rectangle {
     }
 
     Text {
+        id: text7
         x: 38
         y: 91
         text: qsTr("Time:")
@@ -130,33 +138,41 @@ Rectangle {
 
     Text {
         id: text4
-        x: 554
+        x: 544
         y: 164
         width: 145
         height: 70
         color: "#000000"
-        text: setPointP.toFixed(1)
+        text: SetPointPset
         verticalAlignment: Text.AlignVCenter
         font.family: myCustomFont.name
         font.pixelSize: 40
     }
 
     Button {
-        id: button1
-        x: 554
+        id: decreaseBut
+        x: 544
         y: 237
         width: 100
         height: 75
         text: "-"
+        onClicked: {
+            laserModel.decPres();
+            text: setPointPset
+        }
     }
 
     Button {
-        id: button2
-        x: 654
+        id: increaseBut
+        x: 672
         y: 237
         width: 100
         height: 75
         text: "+"
+        onClicked: {
+            laserModel.incPres();
+            text: setPointPset
+        }
     }
 
     Text {
@@ -166,7 +182,7 @@ Rectangle {
         width: 84
         height: 40
         text: qsTr("File:")
-        font.family: myCustomFont.name
+        //font.family: myCustomFont.name
         font.pixelSize: 40
     }
 
@@ -176,22 +192,160 @@ Rectangle {
         y: 17
         width: 638
         height: 45
-        text: fileName
+        text: startStopTest.fileName
         font.bold: false
-        font.family: myCustomFont.name
+        //font.family: myCustomFont.name
         font.pixelSize: 40
     }
 
     Text {
-        x: 705
+        id: text8
+        x: 695
         y: 164
-        width: 49
+        width: 77
         height: 70
-        text: qsTr("b")
+        text: qsTr("bar")
         verticalAlignment: Text.AlignVCenter
-        font.family: myCustomFont.name
+        //font.family: myCustomFont.name
         font.pixelSize: 40
     }
+
+
+
+
+
+        Rectangle {
+            id: rectangle2
+            x: 8
+            y: -652
+            width: 784
+            height: 150
+            color: "#ff0000"
+            z: -2
+
+            Text {
+                id: message
+                x: 0
+                y: 0
+                width: 784
+                height: 150
+                text: alMessage
+                z: 1
+                font.family: myCustomFont.name
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: 31
+            }
+        }
+
+
+    states: [
+        State {
+            name: "Alarm"
+
+            PropertyChanges {
+                target: rectangle1
+                x: -2
+                y: -588
+            }
+
+            PropertyChanges {
+                target: text1
+                x: 84
+                y: 194
+                width: 144
+                height: 24
+                font.pixelSize: 20
+            }
+
+            PropertyChanges {
+                target: text5
+                x: 356
+                y: 194
+                width: 134
+                height: 24
+                font.pixelSize: 20
+            }
+
+            PropertyChanges {
+                target: text6
+                x: 290
+                y: 194
+                width: 60
+                height: 24
+                font.pixelSize: 20
+            }
+
+            PropertyChanges {
+                target: text7
+                x: 28
+                y: 194
+                font.pixelSize: 20
+            }
+
+            PropertyChanges {
+                target: text2
+                x: 28
+                y: 164
+                width: 40
+                height: 24
+                font.pixelSize: 20
+            }
+
+            PropertyChanges {
+                target: text3
+                x: 84
+                y: 164
+                width: 406
+                height: 24
+                font.pixelSize: 20
+            }
+
+            PropertyChanges {
+                target: rectangle2
+                x: 8
+                y: 8
+            }
+
+            PropertyChanges {
+                target: gradientStop1
+                color: "#aaff0000"
+            }
+
+            PropertyChanges {
+                target: btnStop
+                x: 28
+                y: 237
+                height: 75
+            }
+
+            PropertyChanges {
+                target: btnPause
+                x: 290
+                y: 237
+                height: 75
+                text : "Resume"
+                icon : "../../images/resume.png"
+                Toolbar.state : "Pause"
+            }
+
+            PropertyChanges {
+                target: text4
+                x: 544
+                y: 194
+                height: 24
+                font.pixelSize: 20
+            }
+
+            PropertyChanges {
+                target: text8
+                x: 695
+                y: 194
+                height: 24
+                font.pixelSize: 20
+            }
+        }
+    ]
 
 }
 

@@ -4,7 +4,6 @@ Rectangle {
     width: 800
     height: 320
     color: "transparent"
-    //radius: 10
 
     Text {
         id: text1
@@ -55,7 +54,6 @@ Rectangle {
             x: 3
             width: 350
             color:"#ffffff"
-            //radius: 5
             opacity: 0.8
         }
         delegate: usbFileItem
@@ -82,7 +80,6 @@ Rectangle {
         width: 300
         height: 130
         color: "#80b3b3b3"
-        //radius: 10
         visible: true
 
         Text {

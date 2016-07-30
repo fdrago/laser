@@ -4,7 +4,6 @@ Rectangle {
     width: 800
     height: 480
     color: "transparent"
-    //radius: 10
 
 //    property double setPointP: 0
 //    property int setPointPset: 0
@@ -12,7 +11,18 @@ Rectangle {
 //    property double setPointTAmb: 0
 //    property double setPointTAcqua: 0
 
+    property bool aggiorna: false
+
+    onAggiornaChanged: {
+        image0.visible = (laserModel.getParamVal(6)!=-1)? true : false
+        button1.visible = (laserModel.getParamVal(6)!=-1)? true : false
+        button2.visible = (laserModel.getParamVal(6)!=-1)? true : false
+        //image1.x = (laserModel.getParamVal(6)!=-1)? 479 : 250
+   //     lancettaPres.rotation = -112.5+setPointPset*225/5
+    }
+
     Image {
+        id:image0
         x: 20
         y: -29
         width: 300
@@ -21,7 +31,9 @@ Rectangle {
         sourceSize.height: 548
         source: "../../images/gauge_pressione3.png"
         fillMode: Image.PreserveAspectFit
+
         Image {
+            id: lancettaPres
             x: 124
             y: 40
             width: 53
@@ -63,7 +75,8 @@ Rectangle {
 
 
     Image {
-        x: 479
+        id: image1
+        x: (laserModel.getParamVal(6)!=-1)? 479 : 250
         y: -29
         width: 300
         height: 300
@@ -190,7 +203,10 @@ Rectangle {
         width: 100
         height: 75
         text: "-"
-        onClicked: laserModel.decPres();
+        onClicked: {
+            laserModel.decPres()
+            main.valoreNuovo = (main.valoreNuovo==0)? 1 : 0
+        }
     }
 
     Button {
@@ -200,14 +216,16 @@ Rectangle {
         width: 100
         height: 75
         text: "+"
-        onClicked: laserModel.incPres();
+        onClicked: {
+            laserModel.incPres();
+            main.valoreNuovo = (main.valoreNuovo==0)? 1 : 0
+        }
     }
     Button {
         x: 355
         y: 406
         width: 91
         height: 66
-        //radius: 3
         text: ""
         icon: "../../images/clear.png"
         onClicked: main.state="File"

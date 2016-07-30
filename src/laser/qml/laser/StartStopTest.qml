@@ -4,20 +4,23 @@ Rectangle {
     width: 300
     height: 320
     color: "#00757575"
-    //radius: 10
 
     property string btnListText:""
     property string fileName:""
+
+    onFileNameChanged: {
+        text3.text= fileName
+    }
+
     x: 0
     y: 0
 
     Button {
         id: btnStart
         x: 8
-        y: 20
+        y: 60
         width: 250
         height: 80
-        //radius: 4
         icon: "../../images/start.png"
         state: (enableButton && fileName != "") ? "" : "Disable";
         text: "Start"
@@ -48,7 +51,7 @@ Rectangle {
     Button {
         id: btnTest
         x: 8
-        y: 120
+        y: 146
         width: 250
         height: 80
         text: "Test"
@@ -67,7 +70,7 @@ Rectangle {
     Button {
         id: btnList
         x: 8
-        y: 220
+        y: 232
         width: 250
         height: 80
         icon: (main.state=="File" || main.state=="WaitList") ? "../../images/list.png" : "../../images/joy.png";
@@ -87,6 +90,29 @@ Rectangle {
             }
 
         }
+    }
+
+    Text {
+        id: text2
+        x: 8
+        y: 8
+        width: 84
+        height: 40
+        text: qsTr("File:")
+        font.family: myCustomFont.name
+        font.pixelSize: 40
+    }
+
+    Text {
+        id: text3
+        x: 98
+        y: 3
+        width: 202
+        height: 45
+        text: ""
+        //font.family: myCustomFont.name
+        font.pixelSize: 40
+        visible: (main.state=="Choose" || main.state=="File")? true : false
     }
 
 }

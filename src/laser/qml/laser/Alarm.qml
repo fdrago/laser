@@ -4,7 +4,19 @@ Rectangle {
     width: 800
     height: 400
     color: "transparent"
-    //radius: 10
+
+    property string alMessage: ""
+    property string alImage: ""
+
+    Connections {
+        target: laserModel
+
+        onAllarme: {
+            message.text = alMessage
+            image.source = alImage
+        }
+    }
+
     Image {
         id: image
         x: 48
@@ -44,11 +56,12 @@ Rectangle {
             y: 8
             width: 91
             height: 66
-            //radius: 3
             text: ""
             icon: "../../images/clear.png"
             visible: closeAlarm;
-            onClicked: laserModel.ackAlarm();
+            onClicked: {
+                laserModel.ackAlarm();
+            }
         }
     }
 }

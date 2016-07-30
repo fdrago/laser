@@ -1,5 +1,6 @@
 #include "lasermodel.h"
 #include "errorlist.h"
+#include "paramlist.h"
 #include <QDeclarativeContext>
 #include <QDebug>
 #include <QThread>
@@ -10,30 +11,31 @@
 #include <QFile>
 #include <QProcess>
 
-
-
 LaserModel::LaserModel(QObject *parent) :
     QThread(parent)
 {
-    _currentError = NULL;
+
     _userlist = new UserList;
     _userlist->load();
 
+    _paramlist = new ParamList;
+    _paramlist->load();
 
     _logger = new Logger(this);
     _logger->load();
 
     _error = new ErrorList;
+    _error->pressureRequired(getParamVal(6));
+    qDebug()<<"Pressure required: "<<getParamVal(6);
 
     _menu_usb = false;
     _countUsb = 0;
 
-    timer = new QTimer(this);
+    /*timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateLan()));
-    timer->start(10000);
+    timer->start(10000);*/
 
     connect(this, SIGNAL(mbSignalWriteBit(int,int)), this, SLOT(mbSlotWriteBit(int,int)));
-
     connect(_userlist, SIGNAL(listChanged()), this, SLOT(doRefreshUser()));
     connect(_error, SIGNAL(setAcq(double)), this, SLOT(setAcq(double)));
     connect(_error, SIGNAL(setAmb(double)), this, SLOT(setAmb(double)));
@@ -42,23 +44,16 @@ LaserModel::LaserModel(QObject *parent) :
     connect(_error, SIGNAL(setRealPres(double)), this, SLOT(setRealPres(double)));
     connect(_error, SIGNAL(alarm(QString)), this, SLOT(alarm(QString)));
     connect(_error, SIGNAL(noalarm(QString)), this, SLOT(noalarm(QString)));
-//    connect(_error, SIGNAL(setLed(QString)), this, SLOT(setLed(QString)));
-//    connect(_error, SIGNAL(resetLed(QString)), this, SLOT(resetLed(QString)));
-
-
 }
 
 void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
 {
-    qDebug() << "ver 1.3";
-
+    qDebug() << "ver 1.6";
     _viewer = viewer;
     _timer = new QTimer(this);
     connect(_timer, SIGNAL(timeout()), _error, SLOT(request()));
-
     _timerLaser = new QTimer(this);
     connect(_timerLaser, SIGNAL(timeout()), this, SLOT(doComplete()));
-
     _timerAlarm = new QTimer(this);
     connect(_timerAlarm, SIGNAL(timeout()), this, SLOT(showAlarm()));
 
@@ -77,38 +72,31 @@ void LaserModel::setViewer(QtQuick1ApplicationViewer *viewer)
     modbus_connect(mb);
     modbus_set_slave(mb, 1);
 
-/*    _led.setLed("TZ", OFF);
-
-    _led.setLed(SPIA_ON, ON);
-    _led.setLed(SPIA_ON, ON);*/
-
     QStringList fileList;
     _viewer->rootContext()->setContextProperty("usbFileModel", QVariant::fromValue(fileList));
-
-
     _viewer->rootContext()->setContextProperty("userList", _userlist);
     _viewer->rootContext()->setContextProperty("usersModel", QVariant::fromValue(_userlist->userlist()));
-
 
     log("Startup");
 
     setFan(1);
     setLight(1);
     setLaser(1);
-
     getFilesList();
-
     printCurrentFile();
-
     setAcq(0.0);
     setAmb(0.0);
     setHum(0);
-    setPres(0.7);
+    if(getParamVal(6)==-1){
+        setPres(7);
+    }
+    else{
+        setPres(getParamVal(6)*0.7);
+    }
 
-    _timerLaserFlag = false;
+//    _timerLaserFlag = false;
     _timer->start(500);
     _timerLaser->start(500);
-    //QThread::start();
     _timerAlarm->start(500);
 
 }
@@ -125,24 +113,9 @@ void LaserModel::setDate(const int yy, const int MM, const int dd, const int hh,
      log("Date changed to: " + l[1]);
 }
 
-
-/*void LaserModel::run()
-{
-    while(1)
-    {
-        doComplete();
-        usleep(500);
-        qDebug() << "sonoqua";
-    }
-
-}*/
-
-
 void LaserModel::guiState(const QString &newState)
 {
-
     qDebug() << "Cambio stato" << newState;
-
     emit stateChanged(newState);
 }
 
@@ -161,49 +134,43 @@ void LaserModel::moveXplus()
 {
     qDebug() << __FUNCTION__;
     emit mbSignalWriteBit( 4, 1);
-//    _led.setLed(SPIA_MOVIMENTO, YELLOW);
 }
 
 void LaserModel::moveXminus()
 {
     qDebug() << __FUNCTION__;
     emit mbSignalWriteBit( 5, 1);
-//    _led.setLed(SPIA_MOVIMENTO, YELLOW);
 }
 
 void LaserModel::moveYplus()
 {
     qDebug() << __FUNCTION__;
     emit mbSignalWriteBit( 7, 1);
- //    _led.setLed(SPIA_MOVIMENTO, YELLOW);
 }
 
 void LaserModel::moveYminus()
 {
     qDebug() << __FUNCTION__;
     emit mbSignalWriteBit( 6, 1);
-//    _led.setLed(SPIA_MOVIMENTO, YELLOW);
 }
 
 void LaserModel::moveZplus()
 {
     qDebug() << __FUNCTION__;
     emit mbSignalWriteBit(20, 1);
-
-//    _led.setLed(SPIA_MOVIMENTO, YELLOW);
 }
 
 void LaserModel::moveZminus()
 {
     qDebug() << __FUNCTION__;
     emit mbSignalWriteBit(21, 1);
-//    _led.setLed(SPIA_MOVIMENTO, YELLOW);
 }
 
 void LaserModel::start()
 {
     qDebug() << __FUNCTION__;
     emit mbSignalWriteBit( 0, 1);
+//    _timerLaserFlag = true;
 }
 
 void LaserModel::stop()
@@ -227,13 +194,9 @@ void LaserModel::resume()
 void LaserModel::shoot()
 {
     qDebug() << __FUNCTION__;
-//    _led.setLed(SPIA_MOVIMENTO, OFF);
-//    _led.setLed(SPIA_LASER, ON);
     emit mbSignalWriteBit(19, 1);
     QThread::msleep(500);
     emit mbSignalWriteBit(19, 0);
-//    _led.setLed(SPIA_MOVIMENTO, OFF);
-//    _led.setLed(SPIA_LASER, OFF);
 }
 
 void LaserModel::test()
@@ -254,10 +217,6 @@ void LaserModel::setFan(int sts)
     _viewer->rootContext()->setContextProperty("uFanSts", sts);
     sts = (sts) ? 0: 1;
     _error->setFan(sts);
-//    if(sts==1)
-//        _led.setLed(SPIA_VENTOLE, ON);
-//    else
-//        _led.setLed(SPIA_VENTOLE, OFF);
 }
 
 void LaserModel::setLight(int sts)
@@ -278,12 +237,12 @@ void LaserModel::setLaser(int sts)
 
 void LaserModel::incPres()
 {
-    _error->incPres();
+    setParamVal(6,_error->incPres());
 }
 
 void LaserModel::decPres()
 {
-    _error->decPres();
+    setParamVal(6,_error->decPres());
 }
 
 void LaserModel::login(QString codice)
@@ -294,29 +253,14 @@ void LaserModel::login(QString codice)
         _viewer->rootContext()->setContextProperty("userlevel", 1);
         emit stateChanged("File");
     }
-
-
     else if(_userlist->contains(codice)) {
         _currentUser = _userlist->value(codice);
         _viewer->rootContext()->setContextProperty("username", _currentUser->name());
-        //_viewer->rootContext()->setContextProperty("usertime", _currentUser->time());
         qDebug() << _currentUser->level();
         _viewer->rootContext()->setContextProperty("userlevel", _currentUser->level());
-
-        /*if(_currentUser->level() == 10) {
-//            _led.setLed(SPIA_ROOT, ON);
-        } else {
-//            _led.setLed(SPIA_ROOT, OFF);
-        }*/
-
         emit stateChanged("File");
-        //_timerLaserFlag = true;
-
         log( "Login "+  _currentUser->name());
-
-
     } else {
-        emit stateChanged("");
         emit stateChanged("Login");
     }
 }
@@ -324,7 +268,6 @@ void LaserModel::login(QString codice)
 void LaserModel::printCurrentFile()
 {
     uint16_t tab_reg[64];
-
     modbus_read_registers(mb,16, 4, tab_reg);
     QString tmp="";
     for(int r=0; r<4; r++) {
@@ -334,7 +277,6 @@ void LaserModel::printCurrentFile()
         tmp += h;
     }
     _viewer->rootContext()->setContextProperty("fileName", tmp);
-
 }
 
 void LaserModel::callGetFilesList()
@@ -343,7 +285,6 @@ void LaserModel::callGetFilesList()
      _viewer->rootContext()->setContextProperty("cutModel", QVariant::fromValue(fileList));
     QTimer::singleShot(10, this, SLOT(getFilesList()));
 }
-
 
 void LaserModel::getFilesList()
 {
@@ -376,10 +317,8 @@ void LaserModel::getFilesList()
        QThread::msleep(10);
        modbus_write_bit(mb,31, 0);
        QThread::msleep(10);
-
        corrente--;
        qDebug() << "rewind" << corrente;
-
    }
 
    QThread::msleep(500);
@@ -448,20 +387,15 @@ void LaserModel::deleteFile()
     QThread::msleep(1);
     emit mbSignalWriteBit(29, 0);
     QThread::msleep(1);
-
     printCurrentFile();
     getFilesList();
 }
 
 void LaserModel::setFile(int num)
 {
-    qDebug() << "set file ------------------------------" << num;
-
     uint16_t tab_reg[64];
-
     modbus_read_registers(mb,14,2, tab_reg);
     int corrente = tab_reg[1];
-
     while(corrente != num) {
         if(corrente > num) {
             modbus_write_bit(mb,31, 1);
@@ -497,32 +431,27 @@ void LaserModel::setLevel(int idx, int level)
 
 void LaserModel::setClearWater()
 {
-//    _led.setLed(SPIA_ACQUA, OFF);
+    log("Water Cleared");
 }
 
 void LaserModel::setClearGuide()
 {
-//    _led.setLed(SPIA_PULIRE_GUIDE, OFF);
+    log("Guides Cleared");
 }
 
 void LaserModel::setClearFilter()
 {
-//    _led.setLed(SPIA_FILTRO, OFF);
+    log("Filter Cleared");
 }
 
 void LaserModel::setAlarmOff(int sts)
 {
-//    if(sts)
-//        _led.setLed(SPIA_SICUREZZE_OFF, ON);
-//    else
-//        _led.setLed(SPIA_SICUREZZE_OFF, OFF);
     _alarmUnsafe = sts;
 }
 
 void LaserModel::setStatus(QString sts)
 {
     qDebug() << "setStatus()" << sts;
-
     _status = sts;
 }
 
@@ -532,10 +461,10 @@ void LaserModel::uploadFile(int idFile)
     modbus_write_register(mb, 0x22, idFile);
 }
 
-void LaserModel::stopTimerLaser()
+/*void LaserModel::stopTimerLaser()
 {
     _timerLaserFlag = false;
-}
+}*/
 
 void LaserModel::log(QString s)
 {
@@ -544,7 +473,6 @@ void LaserModel::log(QString s)
     _viewer->rootContext()->setContextProperty("modelLogs", QVariant::fromValue( logs ) );
 }
 
-
 void LaserModel::mbSlotWriteBit(int reg, int sts)
 {
     modbus_write_bit(mb, reg, sts);
@@ -552,50 +480,38 @@ void LaserModel::mbSlotWriteBit(int reg, int sts)
 
 void LaserModel::doRefreshUser()
 {
-//    qDebug() << "Refresh";
     _viewer->rootContext()->setContextProperty("usersModel", QVariant::fromValue(_userlist->userlist()));
-
 }
 
 void LaserModel::doComplete()
 {
-    //qDebug()<<"doComplete"<<isStarted;
-   /* if ( !isStarted )
-    {
-        return;
-    }*/
-
-
-    //qDebug()<<"doComplete";
+    qDebug()<<"---doComplete---------------------";
     if(_error->testAlarm(_alarmUnsafe) > 0){
-         emit enableButton(0);
-
+        emit enableButton(0);
     } else {
         emit enableButton(1);
-
     }
-
-    if(_timerLaserFlag) {
+    //if(_timerLaserFlag) {
+    if(1){
         uint16_t tab_reg[25];
-
-
 
         modbus_read_registers(mb,28,3, tab_reg);
 
+        long tempoLong = tab_reg[0]*3600+tab_reg[1]*60+tab_reg[2];
 
+        if (tempoLong >0 && tempoLong!=_tempoSecondi){
+            _tempoSecondi = tempoLong;
+            qDebug()<<"Timer: "<<_tempoSecondi;
+        }
+
+        QString ciao = "ciao";
 
         QString tempo = QString("%1:%2:%3").arg(tab_reg[0]).arg(tab_reg[1], 2, 10, QChar('0')).arg(tab_reg[2], 2, 10, QChar('0'));
          _viewer->rootContext()->setContextProperty("txtTime", tempo);
 
         modbus_read_registers(mb, 31, 2, tab_reg);
 
-
-
-       // qDebug() << "-------------------------------------doComplete" << tab_reg[0] << tab_reg[1];
-
-
         if((tab_reg[0] & 0x40) == 0x40) {
-            // usb in
             #ifdef QT_DEBUG
             #else
             if(_countUsb > 2) {
@@ -614,7 +530,6 @@ void LaserModel::doComplete()
 
                 if(!_menu_usb) {
                     _menu_usb = true;
-                    // gui in file upload
                     guiState("FileUpload");
                 }
             } else {
@@ -622,10 +537,8 @@ void LaserModel::doComplete()
             }
             #endif
         } else if((tab_reg[0] & 0x40) == 0x00) {
-            // usb non presente
             if(_menu_usb) {
                 _menu_usb = false;
-                // gui in file
                 guiState("File");
             }
              _lamp_usb = false;
@@ -640,6 +553,9 @@ void LaserModel::doComplete()
             if(isStarted) {
                 isStarted=false;
                 guiState("File");
+                setParamVal(1, getParamVal(1)+_tempoSecondi);
+                _tempoSecondi=0;
+                //_timerLaserFlag = false;
             }
 
         }
@@ -652,33 +568,42 @@ void LaserModel::showAlarm()
 {
     Error* er = _error->getNextError();
 
-
     if( er->active() ) {
+
+        qDebug()<<er->msg();
 
 
         if(er->blocco()>0 && !_alarmUnsafe) {
             pause();
         }
 
-        //TODO spie
-        emit allarme( er->id(), true) ;
+        qDebug()<<"current: "<<_currentError;
 
-
-        if ( _currentError == NULL )
-        {
             _viewer->rootContext()->setContextProperty("alImage", "../../images/"+er->img());
             _viewer->rootContext()->setContextProperty("alMessage", er->msg());
             _viewer->rootContext()->setContextProperty("closeAlarm", ((er->blocco()<2) || _alarmUnsafe));
             _viewer->rootContext()->setContextProperty("typeAlarm", er->color());
             _currentError = er;
+
+        emit allarme( er->id(), true) ;
+
+
+        if( er->ackStatus() == false){
+            guiState("Alarm");
         }
+
+
+
 
 
 
     } else {
 
-        if( !_status.isEmpty() ) {
+        if( !_status.isEmpty() && _status!="Alarm") {
             guiState(_status);
+        }
+        else if(_status=="Alarm"){
+            guiState("main");
         }
 
         emit allarme( er->id(), false) ;
@@ -706,8 +631,6 @@ void LaserModel::setHum(double t)
 
 void LaserModel::setPres(double p)
 {
-    //qDebug() << "---------------Pres" << p;
-
     log( QString("Pressure set: %1").arg(p));
     _viewer->rootContext()->setContextProperty("setPointPset", p);
 }
@@ -718,40 +641,15 @@ void LaserModel::setRealPres(double p)
     _viewer->rootContext()->setContextProperty("setPointP", p);
 }
 
-void LaserModel::alarm(QString led)
-{
-    qDebug() << "Alarm";
-//    _led.setLed(led,ON);
-
-    showAlarm();
-
-    guiState("Alarm");
-}
-
-void LaserModel::noalarm(QString led)
-{
-    qDebug() << "no" << _status;
-    _currentError = NULL;
-    //_led.setLed(led,OFF);
-    showAlarm();
-}
-
-void LaserModel::setLed(QString led)
-{
-    //_led.setLed(led,ON);
-}
-
-void LaserModel::resetLed(QString led)
-{
-    //_led.setLed(led,OFF);
-}
-
 void LaserModel::ackAlarm()
 {
     _error->ackError();
 
-    if(_status.isEmpty()) {
-        guiState("Login");
+    if(_viewer->rootContext()->contextProperty("username")=="ADMIN"){
+        login("guest");
+    }
+    else{
+        guiState("File");
     }
 
     _currentError = NULL;
@@ -777,16 +675,6 @@ void LaserModel::updateLan()
         }
 
     }
-
-//    if(!ipEthAddr.isEmpty())
-//        _led.setLed(SPIA_ETHERNET, ON);
-//    else
-//        _led.setLed(SPIA_ETHERNET, OFF);
-
-//    if(!ipWlanAddr.isEmpty())
-//        _led.setLed(SPIA_WIFI, ON);
-//    else
-//        _led.setLed(SPIA_WIFI, OFF);
 
     _viewer->rootContext()->setContextProperty("ipAddress", "Eth:" + ipEthAddr + "\n Wlan:" + ipWlanAddr);
 
@@ -847,3 +735,22 @@ void LaserModel::setErrVal(int id, float val)
     qDebug()<<"Value set to "<<val;
 
 }
+
+int LaserModel::getParamVal(int id){
+    return _paramlist->ParamValFromId(id);
+}
+
+QString LaserModel::getParamName(int id){
+    return _paramlist->ParamNameFromId(id);
+}
+
+void LaserModel::setParamVal(int id, float val){
+    int maxval=1024;
+    int minval=-1;
+    Parameter* par= _paramlist->ParamFromId(id);
+    if (val<minval) val=minval;
+    if (val>maxval) val=maxval;
+    par->value(val);
+    _paramlist->save();
+}
+

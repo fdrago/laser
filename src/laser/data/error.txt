@@ -1,14 +1,14 @@
 0   ,spia_sportello.png            ,Sportello alto aperto         ,1    ,0    ,+    ,1    
 1   ,spia_sportello.png            ,Sportello dx aperto           ,1    ,0    ,+    ,1    
 2   ,spia_sportello.png            ,Sportello sx aperto           ,1    ,0    ,+    ,1    
-3   ,spia_filtro.png               ,Filtro sporco                 ,0    ,0    ,+    ,0    
+3   ,spia_filtro.png               ,Filtro sporco                 ,1    ,0    ,+    ,0    
 4   ,spia_valvolaAcqua.png         ,Valvola acqua                 ,1    ,0    ,+    ,0    
-5   ,spia_fuoco.png                ,Fuoco                         ,2    ,1    ,-    ,1    
+5   ,spia_fuoco.png                ,Fuoco                         ,1    ,1    ,-    ,1    
 6   ,spia_tempAltaAcqua.png        ,Temperatura acqua alta        ,1    ,60   ,+    ,0    
-6   ,spia_tempBassaAcqua.png       ,Temperatura acqua bassa       ,1    ,10   ,-    ,0    
-7   ,spia_tempBassaAmbiente.png    ,Temperatura ambiente bassa    ,1    ,5    ,-    ,0    
-7   ,spia_tempAltaAmbiente.png     ,Temperatura ambiente alta     ,1    ,40   ,+    ,0    
-8   ,spia_umidita.png              ,Umidita' alta                 ,1    ,60   ,+    ,0    
+7   ,spia_tempBassaAcqua.png       ,Temperatura acqua bassa       ,1    ,10   ,+    ,0    
+8   ,spia_tempBassaAmbiente.png    ,Temperatura ambiente bassa    ,1    ,5    ,+    ,0    
+9   ,spia_tempAltaAmbiente.png     ,Temperatura ambiente alta     ,1    ,45   ,+    ,0    
+10  ,spia_umidita.png              ,Umidita' alta                 ,1    ,65   ,+    ,0    
 100 ,spia_pulireGuide.png          ,Pulire le guide               ,0    ,10   ,+    ,0    
 101 ,spia_cambiareAcqua.png        ,Cambiare acqua                ,0    ,10   ,+    ,0    
 102 ,spia_sicurezzeOff.png         ,Sicurezze disattivate         ,0    ,1    ,+    ,1    

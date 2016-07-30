@@ -9,7 +9,7 @@ Rectangle {
     property bool disablednonc
 
     width: 70
-    height: 25
+    height: 30
     color: "#ffffff"
 
     Text {
@@ -17,7 +17,7 @@ Rectangle {
         x: 0
         y: 0
         width: 70
-        height: 25
+        height: 30
         text: value
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
@@ -29,11 +29,11 @@ Rectangle {
         x: 0
         y: 0
         width: 70
-        height: 25
+        height: 30
         onClicked: {
             login.edx = valueid;
-            login.idx =-1;
-            main.state = "Login";
+            login.idx = -1;
+            main.state = (login.edx!=-1)? "Login" : main.state;
         }
     }
 }

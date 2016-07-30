@@ -8,7 +8,6 @@ Rectangle {
     signal clicked
 
     color: "#F0b2b2b2"
-    //radius:10
 
     Rectangle {
         width: parent.width
@@ -42,12 +41,16 @@ Rectangle {
         id: txtVer
         x: 39
         y: 136
-        text: "Ver 1.4"
+        text: "Ver 1.6"
         font.pixelSize: 16
     }
 
     MouseArea {
         id: mouseArea1
+        anchors.rightMargin: 0
+        anchors.bottomMargin: 0
+        anchors.leftMargin: 0
+        anchors.topMargin: 0
         anchors.fill: parent
         onPressed: parent.clicked();
 

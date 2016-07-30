@@ -15,11 +15,11 @@ Rectangle {
         width: 100
         height: 59
         text: "Login";
-        state: ((main.state=="Login") || (main.state=="StopResume") || (!main.enablePassword)) ? "Disable" : "";
+        state: ((main.state=="Login") || (main.state=="StopResume")) ? "Disable" : "";
         onClicked: {
             login.idx = -1;
             login.edx =-1;
-            laserModel.stopTimerLaser();
+            //laserModel.stopTimerLaser();
             main.state = "Login"
         }
         visible: (userlevel < 9) ? true : false;
@@ -33,10 +33,10 @@ Rectangle {
         width: 100
         height: 59
         text: "Logout"
-        state: ((main.state=="Login") || (main.state=="StopResume") || (!main.enablePassword)) ? "Disable" : "";
+        state: ((main.state=="Login") || (main.state=="StopResume")) ? "Disable" : "";
         onClicked: {
-            laserModel.stopTimerLaser();
-            laserModel.login("0000")
+            //laserModel.stopTimerLaser();
+            laserModel.login("guest")
             main.state = "File"
         }
         visible: (userlevel > 9) ? true : false;
@@ -48,7 +48,6 @@ Rectangle {
         y: 8
         width: 100
         height: 59
-        //radius: 8
         text: "File"
         state: ((main.state=="File") || (main.state=="WaitList") || (main.state=="Choose") || (main.state=="StopResume")) ? "Disable" : "";
         onClicked: {

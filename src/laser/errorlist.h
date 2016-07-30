@@ -37,14 +37,12 @@ public:
     void color(int color) { _color = color; }
     int color() { return _color; }
 
-    /*void led(QString led) { _led = led; }
-    QString led() { return _led; }*/
 
     bool active() { return _active; }
     int status(float sts);
 
     void ack(bool ack) { _ack = ack; }
-    bool ack() { return _ack; }
+    bool ackStatus() { return _ack; }
 
 signals:
 
@@ -58,9 +56,8 @@ private:
     float _limit;
     QString _verso;
     int _color;
-    QString _led;
     bool _active = false;
-    bool _ack=false;
+    bool _ack = false;
 
 };
 
@@ -75,18 +72,20 @@ public:
     Q_INVOKABLE void setLaser(int sts);
     Q_INVOKABLE void setLight(int sts);
 
-    Q_INVOKABLE void incPres();
-    Q_INVOKABLE void decPres();
+    Q_INVOKABLE int incPres();
+    Q_INVOKABLE int decPres();
     void save();
     void test(float x, int idx);
 
-    Error * getNextError();
-    Error * getErrorById( int id );
+    Error* getNextError();
+    Error* getErrorById( int id );
     void ackError();
 
     int testAlarm(bool isUnsafe);
 
     int pressure() { return _pressure_required; }
+    void pressureRequired(int pres);
+
 
 signals:
     void setAmb(double t);
@@ -95,16 +94,9 @@ signals:
     void setPres(double p);
     void setRealPres(double p);
 
-    void alarm(QString led);
-    void noalarm(QString led);
-
-    void setLed(QString led);
-    void resetLed(QString led);
-
 public slots:
     void readData();
     void request();
-    void setSemaphore(int sts);
     void setAlim(int sts);
 
 
@@ -117,7 +109,7 @@ private:
 
     int _prevAlarm=-1;
 
-    int _pressure_required;
+    int _pressure_required = 0;
     double _pressure_real;
 
     bool _req;

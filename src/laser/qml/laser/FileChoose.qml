@@ -5,7 +5,6 @@ Rectangle {
     width: 400
     height: 320
     color: "#00757575"
-    //radius: 10
 
     Component {
         id: fileDelegate
@@ -28,6 +27,7 @@ Rectangle {
                 onClicked: {
                     listFile.currentIndex = index;
                     startStopTest.fileName = modelData;
+
                     laserModel.setFile(index+1);
                     stopPauseResume1.txtCount = 0;
                 }
@@ -49,7 +49,6 @@ Rectangle {
             x: 3
             width: 350
             color:"#ffffff"
-            //radius: 5
             opacity: 0.8
         }
     }

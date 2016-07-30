@@ -10,14 +10,15 @@ QML_IMPORT_PATH=/usr/lib/x86_64-linux-gnu/qt5/qml
 SOURCES += main.cpp \
     errorlist.cpp \
     lasermodel.cpp \
-    led.cpp \
     user.cpp \
     userlist.cpp \
     libmodbus/src/modbus.c \
     libmodbus/src/modbus-data.c \
     libmodbus/src/modbus-rtu.c \
     libmodbus/src/modbus-tcp.c \
-    logger.cpp
+    logger.cpp \
+    paramlist.cpp \
+    parameter.cpp
 
 INCLUDEPATH += libmodbus/src
 
@@ -28,8 +29,6 @@ include(qextserialport/qextserialport.pri)
 HEADERS += \
     errorlist.h \
     lasermodel.h \
-    led.h \
-    ledtype.h \
     pugixml.hpp \
     user.h \
     userlist.h \
@@ -41,7 +40,9 @@ HEADERS += \
     libmodbus/src/modbus-tcp.h \
     libmodbus/src/modbus-tcp-private.h \
     libmodbus/src/modbus-version.h \
-    logger.h
+    logger.h \
+    paramlist.h \
+    parameter.h
 
 DISTFILES += \
     qml/laser/About.qml \
