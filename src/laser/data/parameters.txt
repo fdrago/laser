@@ -1,0 +1,8 @@
+0:SlideMaxTime:22
+1:SlideActualTime:25
+2:WaterMaxTime:78
+3:WaterActualTime:9
+4:MaintenanceMaxTime:11
+5:MaintenanceActualTime:6
+6:PressureControl:0
+7:LifeTime:8
